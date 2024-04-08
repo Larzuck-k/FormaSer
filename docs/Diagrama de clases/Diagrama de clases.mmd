@@ -1,0 +1,30 @@
+classDiagram
+    Aspirante --|> Persona: Extends
+    Aspirante "1" *-- "1" Curso: Aplica a
+    Aspirante "1" *-- "1" Restriccion: Tiene
+    Aspirante "1" *-- "1" Estado: Tiene
+    Curso "1" *-- "1" Ficha: Contiene
+    Ficha "1" *-- "*" Aspirante: Tiene
+    class Persona {
+        +String nombre
+        +String identificacion
+    }
+    class Aspirante {
+        +Boolean estaMatriculado
+        +Boolean haRealizadoCurso
+    }
+    class Curso {
+        +String nombre
+        +String descripcion
+    }
+    class Restriccion {
+        +Boolean puedeObviar
+        +String razon
+    }
+    class Estado {
+        +String estado
+    }
+    class Ficha {
+        +String id
+        +String descripcion
+    }

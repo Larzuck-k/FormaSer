@@ -1,0 +1,16 @@
+sequenceDiagram
+    participant Usuario
+    participant Sistema
+    participant BaseDeDatos
+
+    Usuario ->> Sistema: Cargar archivo XLS
+    Sistema ->> Sistema: Verificar restricciones
+    Sistema ->> Usuario: Mostrar aptitud de aspirantes
+    Usuario ->> Sistema: Confirmar inscripción excepcional
+    Sistema ->> Usuario: Preguntar si desea guardar archivo
+    Usuario ->> Sistema: Confirmar guardar archivo
+    Sistema ->> BaseDeDatos: Insertar aspirantes
+    Sistema ->> Sistema: Cargar archivo de inscritos
+    Sistema ->> BaseDeDatos: Cambiar estado a "inscritos"
+    Sistema ->> Sistema: Cargar archivo de matriculados
+    Sistema ->> BaseDeDatos: Cambiar estado a "matriculados" o "anulado"
