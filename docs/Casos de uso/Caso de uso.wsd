@@ -1,0 +1,27 @@
+@startuml
+left to right direction
+actor "Aspirante" as aspirante
+actor "Sistema" as sistema
+rectangle "FormaSER" {
+  usecase "Cargar archivo XLS" as cargar_archivo
+  usecase "Verificar restricciones" as verificar_restricciones
+  usecase "Mostrar no aptos" as mostrar_no_aptos
+  usecase "Guardar archivo" as guardar_archivo
+  usecase "Insertar en base de datos" as insertar_bd
+  usecase "Comparar con inscritos" as comparar_inscritos
+  usecase "Cambiar estado a inscritos" as cambiar_inscritos
+  usecase "Comparar con matriculados" as comparar_matriculados
+  usecase "Cambiar estado a matriculados" as cambiar_matriculados
+
+  aspirante --> cargar_archivo
+  cargar_archivo --> verificar_restricciones
+  verificar_restricciones --> mostrar_no_aptos
+  mostrar_no_aptos --> sistema
+  sistema --> guardar_archivo
+  sistema --> insertar_bd
+  insertar_bd --> comparar_inscritos
+  comparar_inscritos --> cambiar_inscritos
+  cambiar_inscritos --> comparar_matriculados
+  comparar_matriculados --> cambiar_matriculados
+}
+@enduml
