@@ -18,12 +18,12 @@ if (
     //llamado del modelo de conexón de consultas
 
 
-  
+
 
 
     //Capturar variables
 
-  
+
     $doc = $_POST['doc'];
     $pass = hash('SHA256', $_POST['pass']);
     $rol = "";
@@ -51,10 +51,9 @@ if (
         $usuario->setUser($fila['documento_funcionario']);
         $usuario->setId($fila['id']);
         $usuario->setRol($fila['rol_funcionario']);
-   
+
 
         $rol  = $fila['rol_funcionario'];
-        
     } else {
 
         header("Location: ../login.php?Error=true&Mensaje=Verifique sus datos");
@@ -73,8 +72,8 @@ if (
     //validar si se encuentran resultados
 
 
-    if ($rol == "Funcionario"||$rol == "2" || $rol == "3") {
-$_SESSION["funcionario"]= $usuario;
+    if ($rol == "Funcionario" || $rol == "2" || $rol == "3") {
+        $_SESSION["funcionario"] = $usuario;
         header("Location: ../index.php");
     }
 } else {
