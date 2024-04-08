@@ -1,6 +1,6 @@
 @startuml
 left to right direction
-actor "Aspirante" as aspirante
+actor "Funcionario" as funcionario
 actor "Sistema" as sistema
 rectangle "FormaSER" {
   usecase "Cargar archivo XLS" as cargar_archivo
@@ -13,7 +13,7 @@ rectangle "FormaSER" {
   usecase "Comparar con matriculados" as comparar_matriculados
   usecase "Cambiar estado a matriculados" as cambiar_matriculados
 
-  aspirante --> cargar_archivo
+  funcionario --> cargar_archivo
   cargar_archivo --> verificar_restricciones
   verificar_restricciones --> mostrar_no_aptos
   mostrar_no_aptos --> sistema
