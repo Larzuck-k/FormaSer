@@ -1,0 +1,4 @@
+@startuml
+actor Sistema
+Sistema -- (Preguntar si desea guardar el archivo)
+@enduml

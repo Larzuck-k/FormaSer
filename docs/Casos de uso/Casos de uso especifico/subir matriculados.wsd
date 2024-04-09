@@ -1,0 +1,4 @@
+@startuml
+actor Funcionario
+Funcionario -- (Subir archivo de matriculados)
+@enduml

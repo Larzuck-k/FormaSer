@@ -1,0 +1,4 @@
+@startuml
+actor Sistema
+Sistema -- (Insertar aspirantes en la base de datos)
+@enduml

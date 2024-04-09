@@ -1,0 +1,4 @@
+@startuml
+actor Sistema
+Sistema -- (Cambiar estado a inscritos)
+@enduml

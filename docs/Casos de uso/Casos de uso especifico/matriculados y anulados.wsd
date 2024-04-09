@@ -1,0 +1,5 @@
+@startuml
+actor Sistema
+Sistema -- (Cambiar estado a matriculados)
+Sistema -- (Cambiar estado a anulado)
+@enduml

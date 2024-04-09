@@ -1,0 +1,4 @@
+@startuml
+actor Sistema
+Sistema -- (Verificar restricciones)
+@enduml

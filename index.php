@@ -19,7 +19,6 @@ if (isset($_SESSION['funcionario'])) {
 
 
 
-
 if ($usuario->getLogin() == true) {
 
 
@@ -39,3 +38,10 @@ echo $rol;
 
 
 <form action="./controlador/cerrarsesion.php" method="post"><button type="submit">Cerrar sesión</button></form>
+
+
+<form action="./controlador/leerexcel.php" method="post" enctype='multipart/form-data'>
+
+<input accept="document/xlsx" type="file" name="excelfile" id="">
+<button type="submit">subir archivo</button>
+</form>

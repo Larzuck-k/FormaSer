@@ -1,0 +1,5 @@
+
+@startuml
+actor Sistema
+Sistema -- (Mostrar mensaje de inadmisibilidad)
+@enduml

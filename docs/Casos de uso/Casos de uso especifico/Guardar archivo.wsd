@@ -1,0 +1,4 @@
+@startuml
+actor Funcionario
+Funcionario -- (Guardar archivo)
+@enduml
