@@ -30,10 +30,11 @@ if (
 
 
     //Instanciar la clase
-    $mysql = new MySQL();
+  
     $usuario = new funcionarios;
 
     //Usar método del modelo
+    $mysql = new MySQL();
     $mysql->conectar();
 
 
