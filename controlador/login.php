@@ -30,11 +30,10 @@ if (
 
 
     //Instanciar la clase
-  
+    $mysql = new MySQL();
     $usuario = new funcionarios;
 
     //Usar método del modelo
-    $mysql = new MySQL();
     $mysql->conectar();
 
 
@@ -49,7 +48,7 @@ if (
 
 
         $usuario->setLogin(true);
-        $usuario->setUser($fila['documento_funcionario']);
+        $usuario->setUser($fila['nombre_funcionario'] . " " . $fila['apellido_funcionario']);
         $usuario->setId($fila['id']);
         $usuario->setRol($fila['rol_funcionario']);
 
