@@ -2,7 +2,7 @@
 
 class MYSQL
 {
-    private $ipServidor = "localhost:4400";
+    private $ipServidor = "localhost:3306";
     private $usuarioBase = 'root';
     private $contrasena = '';
     private $nombreBaseDatos = 'bd_formaser';

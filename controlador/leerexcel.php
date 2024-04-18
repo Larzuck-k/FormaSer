@@ -65,6 +65,7 @@ function ArregloDatos($Datos)
         <th scope="col">Número de documento</th>
         <th scope="col">Nombre completo</th>
         <th scope="col">ficha</th>
+        <th scope="col">Tipo de documento</th>
         <th scope="col">estado</th>
 
     </tr>
@@ -83,6 +84,7 @@ function ArregloDatos($Datos)
             <th scope="row"><a href="#">' . $Datos[2 + $index][2] . '</a></th>
             <td>En espera...</td>
             <td><a href="#" class="text-primary">' . $Datos[2 + $index][3] . '</a></td>
+            <td><a href="#" class="text-primary">' . $Datos[2 + $index][1] . '</a></td>
             <td>';
 
 
@@ -93,7 +95,7 @@ function ArregloDatos($Datos)
 
             $row_count = $result->num_rows;
 
-            if ($row_count == 1) {
+            if ($row_count >= 1) {
                 $tabla .= "<span class=^badge bg-warning^>Ya se ha inscrito antes</span>";
                 $tabla .=  "<br>";
                 $result = $mysql->efectuarConsulta("SELECT * FROM cursos_aprendiz where documento = " . $Datos[2 + $index][2]);
@@ -105,47 +107,58 @@ function ArregloDatos($Datos)
                 if ($row_count2 == 0) {
 
                     $tabla .= "<span class=^badge bg-success^>No está en otros cursos</span>";
-                } elseif ($row_count2 == 1) {
-                    $tabla .= "<span class=^badge bg-warning^>Estan en otro curso</span>";
+                } elseif ($row_count2 >= 1) {
+                    $tabla .= "<span class=^badge bg-warning^>Estan en otros cursos</span>";
 
 
-                    $result = $mysql->efectuarConsulta("SELECT * FROM cursos_aprendiz where documento = " . $Datos[2 + $index][2] . " and inscripcion between '" . date("Y") . "-01-01' and '" . date("Y") . "-12-31'");
+             
+                    $result = $mysql->efectuarConsulta("SELECT * FROM cursos_aprendiz where documento = " . $Datos[2 + $index][2] .  " and ficha = " . $Datos[2 + $index][3]);
 
-                    $row_count3 = $result->num_rows;
-                    if ($row_count3 == 1) {
+                    $row_count4 = $result->num_rows;
+
+                    if ($row_count4 >= 1) {
+
                         $tabla .= "<br>";
-                        $tabla .=  "<span class=^badge bg-warning^>Se encuentra registrado en un curso en el año actual (Conflicto)</span>";
+                        $tabla .= "<span class=^badge bg-danger^>Ya ha hecho este curso (No es posible repetirlo)</span>";
+                    } else{
+                        $result = $mysql->efectuarConsulta("SELECT * FROM cursos_aprendiz where documento = " . $Datos[2 + $index][2] . " and inscripcion between '" . date("Y") . "-01-01' and '" . date("Y") . "-12-31'");
 
-                        $result = $mysql->efectuarConsulta("SELECT * FROM cursos_aprendiz where documento = " . $Datos[2 + $index][2] .  " and ficha = " . $Datos[2 + $index][3]);
+                        $row_count3 = $result->num_rows;
+    
+                        
+                    if ($row_count3 >= 1) {
+                        $tabla .= "<br>";
+                        $tabla .=  '  <span id="'.str_replace("CC - ","",$Datos[2 + $index][2] ).'"><button class=^badge btn btn-info^ onclick="leer('.str_replace("CC - ","",$Datos[2 + $index][2] ) .')" data-bs-toggle="modal" data-bs-target="#staticBackdrop"  >Conflicto: Se encuentra matriculado en el año vigente (Presione aqui)</button></span> ';
 
+                     
 
-                        $row_count4 = $result->num_rows;
-
-                        if ($row_count4 == 1) {
-
-                            $tabla .= "<br>";
-                            $tabla .= "<span class=^badge bg-danger^>Ya ha hecho este curso</span>";
-                        }
+                      
                     }
                     if ($row_count3 == 0) {
                         $tabla .=  "<br>";
                         $tabla .= "<span class=^badge bg-warning^>Se encuentra registrado en un curso pero ya pasó un año</span>";
 
+                      
+                        
                         $result = $mysql->efectuarConsulta("SELECT * FROM cursos_aprendiz where documento = " . $Datos[2 + $index][2] .  " and ficha = " . $Datos[2 + $index][3]);
 
                         $row_count4 = $result->num_rows;
 
-                        if ($row_count4 == 1) {
+                        if ($row_count4 >= 1) {
 
                             $tabla .= "<br>";
                             $tabla .= "<span class=^badge bg-warning^>Es en un curso diferente</span>";
                         }
                     }
+                    }
+
+
+                 
                 }
             }
 
             if ($row_count == 0) {
-                $tabla .= "<span class=^badge bg-success^>Primera inscripción</span>";
+                $tabla .= "<span class=^badge bg-success^>Preinscrito</span>";
             }
 
             $tabla .= '</td>

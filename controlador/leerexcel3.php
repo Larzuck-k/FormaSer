@@ -35,7 +35,7 @@ $extension = end($arregloformato);
 if ($extension == "xls") {
     if ($xlsx = SimpleXLS::parse($guardar_excel)) {
 
-        ArregloDatos($xlsx->rows(),$_POST['datostabla2']);
+        ArregloDatos($xlsx->rows(), $_POST['datostabla']);
     } else {
         echo SimpleXLS::parseError();
     }
@@ -45,7 +45,7 @@ if ($extension == "xls") {
     if ($xlsx = SimpleXLSX::parse($guardar_excel)) {
 
 
-        ArregloDatos($xlsx->rows(),$_POST['datostabla2']);
+        ArregloDatos($xlsx->rows(), $_POST['datostabla']);
     } else {
         echo SimpleXLSX::parseError();
     }
@@ -53,13 +53,13 @@ if ($extension == "xls") {
 
 
 
-function ArregloDatos($Datos,$Dtabla)
+function ArregloDatos($Datos, $Dtabla)
 {
     $tabla = '';
     $mysql = new MySQL();
     $mysql->conectar();
 
-    $tabla .= '<table id="tabla3" class="table table-striped datatable">
+    $tabla .= '<table id="tabla2"  class="table table-striped ">
 <thead>
     <tr>
         <th scope="col">Número de documento</th>
@@ -70,32 +70,51 @@ function ArregloDatos($Datos,$Dtabla)
     </tr>
 </thead>
 <tbody>';
-$JSON = json_decode($Dtabla, true);
+    $JSON = json_decode($Dtabla, true);
+
 
 
     foreach ($Datos as $index => $v) {
 
 
         if (!empty($Datos[6 + $index][0]) && !empty($Datos[2][1])) {
-       
 
-            foreach ($JSON as $index2 => $j) {
-            
-if( str_replace("CC - ","",$Datos[6 + $index][0] )  ==str_replace("CC - ","", $JSON [$index2]["Número de documento"])){
 
-      
-    if(     str_contains($JSON [$index2]["estado"], "Preinscrito") || str_contains($JSON [$index2]["estado"], "Conflicto") ){
+
+            $result = $mysql->efectuarConsulta("SELECT * FROM ingresados");
+            $array = mysqli_fetch_all($result, 1);
+
+            $row_count = $result->num_rows;
+
+            foreach ($array as $key => $value) {
+                # code...
     
-    $tabla .= ' 
+
+                if (preg_replace("/[^0-9\.]/", "", $Datos[6 + $index][0]) == $array[$key]["documento"] && $Datos[2][1]  == $array[$key]["ficha"]) {
+
+                    $tabla .= ' 
             <th scope="row"><a href="#">' . $Datos[6 + $index][0] . '</a></th>
-            <td>'. $Datos[6 + $index][1].'</td>
+            <td>' . $Datos[6 + $index][1] . '</td>
             <td><a href="#" class="text-primary">' . $Datos[2][1] . '</a></td>
             <td><span class=^badge bg-success^>Inscrito</span>';
+            $result = $mysql->efectuarConsulta('UPDATE  ingresados set estado = "Matriculado",nombre_completo = "'. $Datos[6 + $index][1].'"  where documento = ' . preg_replace("/[^0-9\.]/", "", $Datos[6 + $index][0]));
+           
+
+            $result = $mysql->efectuarConsulta('SELECT * FROM cursos_aprendiz where documento = '.preg_replace("/[^0-9\.]/", "", $Datos[6 + $index][0]). ' and ficha ='. $Datos[2][1] );
+ 
+            $row_count = $result->num_rows;
+if(  $row_count == 0){
+echo 'INSERT INTO `cursos_aprendiz`  VALUES (NULL, '.preg_replace("/[^0-9\.]/", "", $Datos[6 + $index][0]).', "'.str_replace("/","-",date("Y/m/d")).'", '. $Datos[2][1].') ';
+          $result = $mysql->efectuarConsulta('INSERT INTO `cursos_aprendiz`  VALUES (NULL, '.preg_replace("/[^0-9\.]/", "", $Datos[6 + $index][0]).', "'.str_replace("/","-",date("Y/m/d")).'", '. $Datos[2][1].') ');
         }
+                }
 
 
-}
             }
+
+
+
+
 
 
             $tabla .= '</td>
@@ -106,9 +125,9 @@ if( str_replace("CC - ","",$Datos[6 + $index][0] )  ==str_replace("CC - ","", $J
 
     $tabla .= ' </tbody>
     </table>';
- 
-    Enviar($tabla);
-    echo   $tabla;
+
+   Enviar($tabla);
+
 
     $mysql->desconectar();
 }
@@ -120,7 +139,6 @@ function Enviar($Dato)
 
     echo '<form id="form" method="post" action="../index.php"><input type="hidden" name="tabla3" value="' . str_replace('"', '^', $Dato) . '"></form>
     <script>document.getElementById("form").submit();</script>
+   
     ';
 }
-//  
-   

@@ -73,35 +73,33 @@ function ArregloDatos($Datos,$Dtabla)
 $JSON = json_decode($Dtabla, true);
 
 
+
     foreach ($Datos as $index => $v) {
 
 
         if (!empty($Datos[6 + $index][0]) && !empty($Datos[2][1])) {
-       
 
-            foreach ($JSON as $index2 => $j) {
-if( str_replace("CC - ","",$Datos[6 + $index][0] )  == $JSON [$index2]["Número de documento"]){
 
-      
-    if(     !str_contains($JSON [$index2]["estado"], "(Conflicto)")  ){
-    
+            
+$result = $mysql->efectuarConsulta("SELECT * FROM ingresados where documento = " . preg_replace("/[^0-9\.]/" ,"",$Datos[6 + $index][0].' and ficha ='.$Datos[2][1] ));
+
+$row_count = $result->num_rows;
+
+if ($row_count == 1) {
+        
     $tabla .= ' 
             <th scope="row"><a href="#">' . $Datos[6 + $index][0] . '</a></th>
             <td>'. $Datos[6 + $index][1].'</td>
             <td><a href="#" class="text-primary">' . $Datos[2][1] . '</a></td>
             <td><span class=^badge bg-success^>Preinscrito</span>';
-        }else{
-            $tabla .= ' 
-            <th scope="row"><a href="#">' . $Datos[6 + $index][0] . '</a></th>
-            <td>'. $Datos[6 + $index][1].'</td>
-            <td><a href="#" class="text-primary">' . $Datos[2][1] . '</a></td>
-            <td id="'.str_replace("CC - ","",$Datos[6 + $index][0] ).'"><button class=^badge btn btn-warning^ onclick="leer('.str_replace("CC - ","",$Datos[6 + $index][0] ) .')" data-bs-toggle="modal" data-bs-target="#staticBackdrop"  >Conflicto: Ha estado matriculado en este año (Presione aqui)</button>';
-
-        }
-
+       
+            $result = $mysql->efectuarConsulta('UPDATE  ingresados set nombre_completo = "'. $Datos[6 + $index][1].'" , estado = "Preinscrito" where documento = ' . preg_replace("/[^0-9\.]/" ,"",$Datos[6 + $index][0]));
 
 }
-            }
+       
+
+
+          
 
 
             $tabla .= '</td>

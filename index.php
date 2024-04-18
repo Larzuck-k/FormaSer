@@ -59,7 +59,9 @@ if ($usuario->getLogin() == true) {
 
     <!-- Google Fonts -->
     <link href="https://fonts.gstatic.com" rel="preconnect">
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+        rel="stylesheet">
 
     <!-- Vendor CSS Files -->
     <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -90,7 +92,8 @@ if ($usuario->getLogin() == true) {
         <div class="d-flex align-items-center justify-content-between">
             <a href="index.html" class="logo d-flex align-items-center">
                 <img src="assets/img/logo-sena-verde-complementario-png-2022.png" alt="">
-                <span class="d-none d-lg-block">Forma</span><span class="text-color-green" style="color: rgb(113, 200, 114);">Ser</span>
+                <span class="d-none d-lg-block">Forma</span><span class="text-color-green"
+                    style="color: rgb(113, 200, 114);">Ser</span>
             </a>
 
         </div><!-- End Logo -->
@@ -134,7 +137,8 @@ if ($usuario->getLogin() == true) {
                         <li>
                             <form action="./controlador/cerrarsesion.php" method="post">
                                 <a class="d-flex justify-content-center pt-3 pb-3">
-                                    <button class="btn btn-success" type="submit"><i class="bi bi-box-arrow-right"></i> Cerrar sesión</button>
+                                    <button class="btn btn-success" type="submit"><i class="bi bi-box-arrow-right"></i>
+                                        Cerrar sesión</button>
                                 </a>
                             </form>
                         </li>
@@ -153,7 +157,8 @@ if ($usuario->getLogin() == true) {
 
 
 
-        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+            aria-labelledby="staticBackdropLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -161,10 +166,13 @@ if ($usuario->getLogin() == true) {
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        Este aprendíz ya se ha matriculado antes en un curso en el año vigente, si desea matricularlo de nuevo en este curso, no es necesario tomar acciones, de lo contrario presione el bóton para cancelar la matrícula.
+                        Este aprendíz ya se ha matriculado antes en un curso en el año vigente, si desea matricularlo de
+                        nuevo en este curso, no es necesario tomar acciones, de lo contrario presione el bóton para
+                        cancelar la matrícula.
                     </div>
                     <div class="modal-footer">
-                        <button type="button" id="btncancelar" class="btn btn-danger" data-bs-dismiss="modal">Cancelar matrícula</button>
+                        <button type="button" id="btncancelar" class="btn btn-danger" data-bs-dismiss="modal">Cancelar
+                            matrícula</button>
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
                         <input type="hidden" name="" id="cancelar">
                     </div>
@@ -196,16 +204,22 @@ if ($usuario->getLogin() == true) {
 
                                 <div class="card-body">
                                     <h5 class="card-title">Primer formato</h5>
-                                    <form action="./controlador/leerexcel.php" method="post" enctype='multipart/form-data'>
+                                    <form action="./controlador/leerexcel.php" method="post"
+                                        enctype='multipart/form-data'>
 
-                                        <div class="container ">
-                                            <input class="btn btn-success col-12 " accept="document/xlsx" type="file" name="excelfile" id="">
+                                        <div class="container text-center ">
+                                            <input class="btn btn-success  col-5 p-3" accept="document/xlsx" type="file"
+                                                name="excelfile" id="">
                                             <p></p>
-                                            <input class="btn btn-primary col-12" value="Subir archivo seleccionado" type="submit">
+                                            <input class="btn btn-primary  col-5 p-3" value="Subir archivo seleccionado"
+                                                type="submit">
 
                                         </div>
                                     </form>
+
+
                                 </div>
+
 
                             </div>
                         </div><!-- End Reports -->
@@ -229,31 +243,15 @@ if ($usuario->getLogin() == true) {
 
 
                                 </div>
-
-                            </div>
-
-                        </div>
-
-
-                        <div class="col-12">
-                            <div class="card">
-
-
-
-                                <div class="card-body">
-                                    <h5 class="card-title">Segundo formato</h5>
-                                    <form action="./controlador/leerexcel2.php" method="post" enctype='multipart/form-data'>
-
-                                        <div class="container ">
-                                            <input class="btn btn-success col-12 " accept="document/xlsx" type="file" name="excelfile" id="">
-                                            <p></p>
-                                            <input class="btn btn-primary col-12" value="Subir archivo seleccionado" type="submit">
-                                            <input name="datostabla" id="datostabla" type="hidden" value=" ">
-                                        </div>
+                                <div class="card-body text-end pt-3">
+                                    <form action="./controlador/subirAprendices.php" method="post">
+                                        <input type="submit" class="btn btn-primary col-2" value="Enviar aprendices">
+                                        <input name="datostabla" id="datostabla" type="hidden" value=" ">
                                     </form>
                                 </div>
 
                             </div>
+
                         </div>
 
                         <script>
@@ -291,6 +289,33 @@ if ($usuario->getLogin() == true) {
                             }
                         </script>
 
+
+
+                        <div class="col-12">
+                            <div class="card">
+
+
+
+                                <div class="card-body">
+                                    <h5 class="card-title">Segundo formato</h5>
+                                    <form action="./controlador/leerexcel2.php" method="post"
+                                        enctype='multipart/form-data'>
+
+                                        <div class="container text-center ">
+                                            <input class="btn btn-success  col-5 p-3" accept="document/xlsx" type="file"
+                                                name="excelfile" id="">
+                                            <p></p>
+                                            <input class="btn btn-primary  col-5 p-3" value="Subir archivo seleccionado"
+                                                type="submit">
+                                        
+                                        </div>
+                                    </form>
+                                </div>
+
+                            </div>
+                        </div>
+
+                      
                         <div class="col-12">
                             <div class="card recent-sales overflow-auto">
 
@@ -323,12 +348,15 @@ if ($usuario->getLogin() == true) {
 
                                 <div class="card-body">
                                     <h5 class="card-title">Tercer formato</h5>
-                                    <form action="./controlador/leerexcel3.php" method="post" enctype='multipart/form-data'>
+                                    <form action="./controlador/leerexcel3.php" method="post"
+                                        enctype='multipart/form-data'>
 
-                                        <div class="container ">
-                                            <input class="btn btn-success col-12 " accept="document/xlsx" type="file" name="excelfile" id="">
+                                        <div class="container text-center ">
+                                            <input class="btn btn-success  col-5 p-3" accept="document/xlsx" type="file"
+                                                name="excelfile" id="">
                                             <p></p>
-                                            <input id="subir" class="btn btn-primary col-12" value="Subir archivo seleccionado" type="submit">
+                                            <input id="subir" class="btn btn-primary col-5 p-3"
+                                                value="Subir archivo seleccionado" type="submit">
                                             <input name="datostabla2" id="datostabla2" type="hidden" value=" ">
                                         </div>
                                     </form>
@@ -354,7 +382,8 @@ if ($usuario->getLogin() == true) {
                                     </div>
 
                                     <div class="text-end">
-                                        <input class="btn align-item-end btn-primary col-2" value="Confirmar cambios">
+                                        <input class="btn align-item-end btn-primary col-2 mt-2"
+                                            value="Confirmar cambios">
                                     </div>
                                 </div>
 
@@ -409,7 +438,8 @@ if ($usuario->getLogin() == true) {
 
     <footer id="" class="footer" style=" background-color: rgb(113, 200, 114);">
         <div class="copyright">
-            &copy; Copyright <strong><span>Centro de Tecnologias Agroindustriales SENA </span></strong>- Todos los derechos reservados, 2024.
+            &copy; Copyright <strong><span>Centro de Tecnologias Agroindustriales SENA </span></strong>- Todos los
+            derechos reservados, 2024.
         </div>
         <div class="credits">
             <!-- All the links in the footer should remain intact. -->
@@ -420,7 +450,8 @@ if ($usuario->getLogin() == true) {
         </div>
     </footer><!-- End Footer -->
 
-    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
+            class="bi bi-arrow-up-short"></i></a>
 
     <!-- Vendor JS Files -->
     <script src="assets/vendor/apexcharts/apexcharts.min.js"></script>
