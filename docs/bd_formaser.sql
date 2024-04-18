@@ -2,10 +2,10 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Servidor: 127.0.0.1:4400
--- Tiempo de generación: 08-04-2024 a las 19:06:05
--- Versión del servidor: 10.4.28-MariaDB
--- Versión de PHP: 8.0.28
+-- Servidor: 127.0.0.1
+-- Tiempo de generación: 18-04-2024 a las 18:42:24
+-- Versión del servidor: 10.4.32-MariaDB
+-- Versión de PHP: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -20,6 +20,67 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `bd_formaser`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `cursos_aprendiz`
+--
+
+CREATE TABLE `cursos_aprendiz` (
+  `Id` int(11) NOT NULL,
+  `documento` int(11) NOT NULL,
+  `inscripcion` date NOT NULL,
+  `ficha` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `cursos_aprendiz`
+--
+
+INSERT INTO `cursos_aprendiz` (`Id`, `documento`, `inscripcion`, `ficha`) VALUES
+(1, 1234567878, '2024-04-18', 2941210),
+(2, 12345, '2024-04-18', 444431),
+(3, 1234567878, '2024-04-18', 444431),
+(4, 1234567878, '2024-04-18', 2941210),
+(5, 12345, '2024-04-18', 2941210),
+(6, 1, '2024-04-18', 2941210),
+(7, 1145, '2024-04-18', 2941210),
+(8, 5523, '2024-04-18', 2941210),
+(9, 1234567878, '2024-04-18', 2941210),
+(10, 12345, '2024-04-18', 2941210),
+(11, 1, '2024-04-18', 2941210),
+(12, 1145, '2024-04-18', 2941210),
+(13, 5523, '2024-04-18', 2941210),
+(14, 10101, '2024-04-18', 2941210),
+(15, 80, '2024-04-18', 2941210),
+(16, 1, '2024-04-18', 444431),
+(17, 1145, '2024-04-18', 444431),
+(18, 5523, '2024-04-18', 444431),
+(19, 10101, '2024-04-18', 444431),
+(20, 80, '2024-04-18', 444431),
+(27, 100, '2024-04-18', 2941210),
+(28, 100, '2024-04-18', 444431);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `fichas`
+--
+
+CREATE TABLE `fichas` (
+  `ficha` int(11) NOT NULL,
+  `nombre_curso` varchar(1000) NOT NULL,
+  `fecha_inicio` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `fichas`
+--
+
+INSERT INTO `fichas` (`ficha`, `nombre_curso`, `fecha_inicio`) VALUES
+(444431, 'Hola', '2024-04-18'),
+(2941210, 'COMPORTAMIENTO EMPRENDEDO', '2024-04-11');
 
 -- --------------------------------------------------------
 
@@ -44,9 +105,57 @@ CREATE TABLE `funcionarios` (
 INSERT INTO `funcionarios` (`id`, `nombre_funcionario`, `apellido_funcionario`, `pass_funcionario`, `rol_funcionario`, `estado_funcionario`, `documento_funcionario`) VALUES
 (1, 'Javier', 'Serna', 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3', 'Funcionario', 1, 12345);
 
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `ingresados`
+--
+
+CREATE TABLE `ingresados` (
+  `id_ingresado` int(11) NOT NULL,
+  `nombre_completo` varchar(250) NOT NULL,
+  `fecha_ingreso` date NOT NULL,
+  `ficha` int(11) NOT NULL,
+  `estado` varchar(200) NOT NULL,
+  `documento` int(11) NOT NULL,
+  `tipo_documento` varchar(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `ingresados`
+--
+
+INSERT INTO `ingresados` (`id_ingresado`, `nombre_completo`, `fecha_ingreso`, `ficha`, `estado`, `documento`, `tipo_documento`) VALUES
+(1, 'JUAN CAMILO VANEGAS GONZALEZ', '2024-04-11', 2941210, 'Matriculado', 1234567878, 'CC'),
+(5, 'Holas', '2024-04-18', 2941210, 'Matriculado', 12345, 'CC'),
+(7, 'dfgdf', '2024-04-18', 2941210, 'Matriculado', 1, 'CC'),
+(8, 'wa', '2024-04-18', 2941210, 'Preinscrito', 24, 'CC'),
+(9, 'sadafasf', '2024-04-18', 2941210, 'Preinscrito', 3422, 'CC'),
+(10, 'fghrt', '2024-04-18', 2941210, 'Matriculado', 1145, 'CC'),
+(11, 'tumgh', '2024-04-18', 2941210, 'Matriculado', 5523, 'CC'),
+(12, 'En espera...', '2024-04-18', 2941210, 'Primera inscripción', 123, 'CC'),
+(13, 'Hola mundo', '2024-04-18', 2941210, 'Matriculado', 10101, 'CC'),
+(14, 'Alejito', '2024-04-18', 2941210, 'Matriculado', 80, 'CC'),
+(17, 'asfasf', '2024-04-18', 2941210, 'Primera inscripción', 34, 'CC'),
+(18, 'Alejito', '2024-04-18', 444431, 'Matriculado', 80, 'CC'),
+(19, 'fdggerge', '2024-04-18', 2941210, 'Matriculado', 100, 'CC'),
+(20, 'fdggerge', '2024-04-18', 444431, 'Matriculado', 100, 'CC');
+
 --
 -- Índices para tablas volcadas
 --
+
+--
+-- Indices de la tabla `cursos_aprendiz`
+--
+ALTER TABLE `cursos_aprendiz`
+  ADD PRIMARY KEY (`Id`);
+
+--
+-- Indices de la tabla `fichas`
+--
+ALTER TABLE `fichas`
+  ADD PRIMARY KEY (`ficha`);
 
 --
 -- Indices de la tabla `funcionarios`
@@ -55,14 +164,42 @@ ALTER TABLE `funcionarios`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indices de la tabla `ingresados`
+--
+ALTER TABLE `ingresados`
+  ADD PRIMARY KEY (`id_ingresado`);
+
+--
 -- AUTO_INCREMENT de las tablas volcadas
 --
+
+--
+-- AUTO_INCREMENT de la tabla `cursos_aprendiz`
+--
+ALTER TABLE `cursos_aprendiz`
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT de la tabla `funcionarios`
 --
 ALTER TABLE `funcionarios`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT de la tabla `ingresados`
+--
+ALTER TABLE `ingresados`
+  MODIFY `id_ingresado` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+
+--
+-- Restricciones para tablas volcadas
+--
+
+--
+-- Filtros para la tabla `cursos_aprendiz`
+--
+ALTER TABLE `cursos_aprendiz`
+  ADD CONSTRAINT `cursos_aprendiz_ibfk_1` FOREIGN KEY (`ficha`) REFERENCES `fichas` (`ficha`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
