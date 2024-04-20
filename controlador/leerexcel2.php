@@ -81,7 +81,7 @@ $JSON = json_decode($Dtabla, true);
 
 
             
-$result = $mysql->efectuarConsulta("SELECT * FROM ingresados where documento = " . preg_replace("/[^0-9\.]/" ,"",$Datos[6 + $index][0].' and ficha ='.$Datos[2][1] ));
+$result = $mysql->efectuarConsulta("SELECT * FROM ingresados where documento = " . preg_replace("/[^0-9\.]/" ,"",$Datos[6 + $index][0]).' and ficha ='.$Datos[2][1]);
 
 $row_count = $result->num_rows;
 
@@ -111,7 +111,7 @@ if ($row_count == 1) {
     $tabla .= ' </tbody>
     </table>';
  
-    Enviar($tabla);
+Enviar($tabla);
 
 
     $mysql->desconectar();

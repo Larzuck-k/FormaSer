@@ -307,7 +307,7 @@ if ($usuario->getLogin() == true) {
                                             <p></p>
                                             <input class="btn btn-primary  col-5 p-3" value="Subir archivo seleccionado"
                                                 type="submit">
-                                        
+
                                         </div>
                                     </form>
                                 </div>
@@ -315,7 +315,7 @@ if ($usuario->getLogin() == true) {
                             </div>
                         </div>
 
-                      
+
                         <div class="col-12">
                             <div class="card recent-sales overflow-auto">
 
