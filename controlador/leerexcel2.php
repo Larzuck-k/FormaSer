@@ -123,7 +123,7 @@ if ($row_count == 1) {
     $tabla .= ' </tbody>
     </table>';
  
-//Enviar($tabla);
+Enviar($tabla);
 
 
     $mysql->desconectar();
