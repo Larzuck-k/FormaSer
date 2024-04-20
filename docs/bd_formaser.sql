@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 18-04-2024 a las 18:42:24
+-- Tiempo de generación: 20-04-2024 a las 18:40:36
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -79,6 +79,9 @@ CREATE TABLE `fichas` (
 --
 
 INSERT INTO `fichas` (`ficha`, `nombre_curso`, `fecha_inicio`) VALUES
+(123, 'Hace algo', '2024-04-20'),
+(5532, 'wa', '2024-04-20'),
+(43335, 'COMPORTAMIENTO EMPRENDEDOR', '2024-04-20'),
 (444431, 'Hola', '2024-04-18'),
 (2941210, 'COMPORTAMIENTO EMPRENDEDO', '2024-04-11');
 
@@ -135,11 +138,14 @@ INSERT INTO `ingresados` (`id_ingresado`, `nombre_completo`, `fecha_ingreso`, `f
 (11, 'tumgh', '2024-04-18', 2941210, 'Matriculado', 5523, 'CC'),
 (12, 'En espera...', '2024-04-18', 2941210, 'Primera inscripción', 123, 'CC'),
 (13, 'Hola mundo', '2024-04-18', 2941210, 'Matriculado', 10101, 'CC'),
-(14, 'Alejito', '2024-04-18', 2941210, 'Matriculado', 80, 'CC'),
+(14, 'JUAN CAMILO VANEGAS GONZÁLEZ', '2024-04-18', 2941210, 'Preinscrito', 80, 'CC'),
 (17, 'asfasf', '2024-04-18', 2941210, 'Primera inscripción', 34, 'CC'),
-(18, 'Alejito', '2024-04-18', 444431, 'Matriculado', 80, 'CC'),
+(18, 'JUAN CAMILO VANEGAS GONZÁLEZ', '2024-04-18', 444431, 'Preinscrito', 80, 'CC'),
 (19, 'fdggerge', '2024-04-18', 2941210, 'Matriculado', 100, 'CC'),
-(20, 'fdggerge', '2024-04-18', 444431, 'Matriculado', 100, 'CC');
+(20, 'fdggerge', '2024-04-18', 444431, 'Matriculado', 100, 'CC'),
+(21, 'En espera...', '2024-04-20', 123, 'Preinscrito', 123987, 'CC'),
+(22, 'En espera...', '2024-04-20', 444431, 'Preinscrito', 987, 'CC'),
+(23, 'Hector', '2024-04-20', 2941210, 'Preinscrito', 987654, 'CC');
 
 --
 -- Índices para tablas volcadas
@@ -189,7 +195,7 @@ ALTER TABLE `funcionarios`
 -- AUTO_INCREMENT de la tabla `ingresados`
 --
 ALTER TABLE `ingresados`
-  MODIFY `id_ingresado` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id_ingresado` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- Restricciones para tablas volcadas

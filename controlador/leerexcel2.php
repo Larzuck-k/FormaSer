@@ -73,6 +73,18 @@ function ArregloDatos($Datos,$Dtabla)
 $JSON = json_decode($Dtabla, true);
 
 
+$result = $mysql->efectuarConsulta("SELECT * FROM Fichas where ficha = ".$Datos[2][1]);
+
+$row_count = $result->num_rows;
+echo $row_count;
+
+if( $row_count <= 0){
+
+    
+$result = $mysql->efectuarConsulta('Insert Into Fichas values('. $Datos[2][1].',"'. $Datos[3][1].'","'. date("Y-m-d").'")');
+
+}
+
 
     foreach ($Datos as $index => $v) {
 
@@ -80,7 +92,7 @@ $JSON = json_decode($Dtabla, true);
         if (!empty($Datos[6 + $index][0]) && !empty($Datos[2][1])) {
 
 
-            
+        
 $result = $mysql->efectuarConsulta("SELECT * FROM ingresados where documento = " . preg_replace("/[^0-9\.]/" ,"",$Datos[6 + $index][0]).' and ficha ='.$Datos[2][1]);
 
 $row_count = $result->num_rows;
@@ -111,7 +123,7 @@ if ($row_count == 1) {
     $tabla .= ' </tbody>
     </table>';
  
-Enviar($tabla);
+//Enviar($tabla);
 
 
     $mysql->desconectar();
