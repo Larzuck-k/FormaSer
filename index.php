@@ -71,6 +71,7 @@ if ($usuario->getLogin() == true) {
     <link href="assets/vendor/quill/quill.bubble.css" rel="stylesheet">
     <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
     <link href="assets/vendor/simple-datatables/style.css" rel="stylesheet">
+    <link rel="assets/css/tabcontrol.css" href="style.css">
 
     <!-- Template Main CSS File -->
     <link href="assets/css/style.css" rel="stylesheet">
@@ -181,251 +182,275 @@ if ($usuario->getLogin() == true) {
         </div>
 
 
+        <ul class="nav nav-tabs pt-5">
+  <li class="nav-item">
+    <a class="tablinks nav-link" onclick="openTab(event, 'pestaña1')">Formato 1</a>
+  </li>
+  <li class="nav-item">
+    <a class="tablinks nav-link" onclick="openTab(event, 'pestaña2')">Formato 2</a>
+  </li>
+  <li class="nav-item">
+    <a class="tablinks nav-link" onclick="openTab(event, 'pestaña3')">Formato 3</a>
+  </li>
+
+</ul>
+
+
+
         <div class="pagetitle pt-5">
+
+
             <h1>Estado de registro en proyectos formativos</h1>
 
         </div><!-- End Page Title -->
 
         <section class="section dashboard">
+
+
             <div class="row">
+
+
 
                 <!-- Left side columns -->
                 <div class="col-lg-12">
-                    <div class="row">
-
-                        <!-- Sales Card -->
-
-
-                        <!-- Reports -->
-                        <div class="col-12">
-                            <div class="card">
 
 
 
-                                <div class="card-body">
-                                    <h5 class="card-title">Primer formato</h5>
-                                    <form action="./controlador/leerexcel.php" method="post"
-                                        enctype='multipart/form-data'>
-
-                                        <div class="container text-center ">
-                                            <input class="btn btn-success  col-5 p-3" accept="document/xlsx" type="file"
-                                                name="excelfile" id="">
-                                            <p></p>
-                                            <input class="btn btn-primary  col-5 p-3" value="Subir archivo seleccionado"
-                                                type="submit">
-
-                                        </div>
-                                    </form>
+                     <div id="pestaña1" class="tabcontent">
 
 
-                                </div>
-
-
-                            </div>
-                        </div><!-- End Reports -->
-
-                        <!-- Recent Sales -->
-                        <div class="col-12">
-                            <div class="card recent-sales overflow-auto">
+                    <!-- Reports -->
+                    <div class="col-12">
+                        <div class="card">
 
 
 
-                                <div class="card-body">
-                                    <h5 class="card-title">Aspirantes</span></h5>
+                            <div class="card-body">
+                                <h5 class="card-title">Primer formato</h5>
+                                <form action="./controlador/leerexcel.php" method="post" enctype='multipart/form-data'>
 
-                                    <div id="contenedor">
+                                    <div class="container text-center ">
+                                        <input class="btn btn-success  col-5 p-3" accept="document/xlsx" type="file"
+                                            name="excelfile" id="">
+                                        <p></p>
+                                        <input class="btn btn-primary  col-5 p-3" value="Subir archivo seleccionado"
+                                            type="submit">
 
-                                        <?php if (isset($_POST["tabla"])) {
-                                            echo str_replace('^', '"', $_POST["tabla"]);
-                                        } ?>
                                     </div>
+                                </form>
+
+
+                            </div>
+
+
+                        </div>
+                    </div><!-- End Reports -->
+
+                    <!-- Recent Sales -->
+                    <div class="col-12">
+                        <div class="card recent-sales overflow-auto">
 
 
 
+                            <div class="card-body">
+                                <h5 class="card-title">Aspirantes</span></h5>
+
+                                <div id="contenedor">
+
+                                    <?php if (isset($_POST["tabla"])) {
+                                        echo str_replace('^', '"', $_POST["tabla"]);
+                                    } ?>
                                 </div>
-                                <div class="card-body text-end pt-3">
-                                    <form action="./controlador/subirAprendices.php" method="post">
-                                        <input type="submit" class="btn btn-primary col-2" value="Enviar aprendices">
-                                        <input name="datostabla" id="datostabla" type="hidden" value=" ">
-                                    </form>
-                                </div>
 
+
+
+                            </div>
+                            <div class="card-body text-end pt-3">
+                                <form action="./controlador/subirAprendices.php" method="post">
+                                    <input type="submit" class="btn btn-primary col-2" value="Enviar aprendices">
+                                    <input name="datostabla" id="datostabla" type="hidden" value=" ">
+                                </form>
                             </div>
 
                         </div>
 
-                        <script>
-                            tableToJson(document.getElementById("tabla"))
-
-                            function tableToJson(table) {
-
-                                var data = [];
-
-                                // first row needs to be headers
-                                var headers = [];
-                                for (var i = 0; i < table.rows[0].cells.length; i++) {
-                                    headers[i] = table.rows[0].cells[i].innerText
-                                }
-
-                                // go through cells
-                                for (var i = 1; i < table.rows.length; i++) {
-
-                                    var tableRow = table.rows[i];
-                                    var rowData = {};
-
-                                    for (var j = 0; j < tableRow.cells.length; j++) {
-
-                                        rowData[headers[j]] = tableRow.cells[j].innerText;
-
-                                    }
-
-                                    data.push(rowData);
-
-                                }
-                                document.getElementById("datostabla").value = JSON.stringify(data);
-                                return data;
-
-
-                            }
-                        </script>
-
-
-
-                        <div class="col-12">
-                            <div class="card">
-
-
-
-                                <div class="card-body">
-                                    <h5 class="card-title">Segundo formato</h5>
-                                    <form action="./controlador/leerexcel2.php" method="post"
-                                        enctype='multipart/form-data'>
-
-                                        <div class="container text-center ">
-                                            <input class="btn btn-success  col-5 p-3" accept="document/xlsx" type="file"
-                                                name="excelfile" id="">
-                                            <p></p>
-                                            <input class="btn btn-primary  col-5 p-3" value="Subir archivo seleccionado"
-                                                type="submit">
-
-                                        </div>
-                                    </form>
-                                </div>
-
-                            </div>
-                        </div>
-
-
-                        <div class="col-12">
-                            <div class="card recent-sales overflow-auto">
-
-
-
-                                <div class="card-body">
-                                    <h5 class="card-title">Preinscritos</span></h5>
-
-                                    <div id="contenedor">
-
-
-                                        <?php if (isset($_POST["tabla2"])) {
-                                            echo str_replace('^', '"', $_POST["tabla2"]);
-                                        } ?>
-                                    </div>
-
-
-
-                                </div>
-
-                            </div>
-
-                        </div>
-
-
-                        <div class="col-12">
-                            <div class="card">
-
-
-
-                                <div class="card-body">
-                                    <h5 class="card-title">Tercer formato</h5>
-                                    <form action="./controlador/leerexcel3.php" method="post"
-                                        enctype='multipart/form-data'>
-
-                                        <div class="container text-center ">
-                                            <input class="btn btn-success  col-5 p-3" accept="document/xlsx" type="file"
-                                                name="excelfile" id="">
-                                            <p></p>
-                                            <input id="subir" class="btn btn-primary col-5 p-3"
-                                                value="Subir archivo seleccionado" type="submit">
-                                            <input name="datostabla2" id="datostabla2" type="hidden" value=" ">
-                                        </div>
-                                    </form>
-                                </div>
-
-                            </div>
-                        </div>
-
-                        <div class="col-12">
-                            <div class="card recent-sales overflow-auto">
-
-
-
-                                <div class="card-body">
-                                    <h5 class="card-title">Inscritos</span></h5>
-
-                                    <div id="contenedor">
-
-
-                                        <?php if (isset($_POST["tabla3"])) {
-                                            echo str_replace('^', '"', $_POST["tabla3"]);
-                                        } ?>
-                                    </div>
-
-                                 
-                                </div>
-
-                            </div>
-
-                        </div>
-
-                        <script>
-                            document.getElementById("subir").addEventListener("click", () => {
-                                tableToJson2(document.getElementById("tabla2"))
-                            })
-                            tableToJson2(document.getElementById("tabla2"))
-
-                            function tableToJson2(table) {
-                                var data = [];
-                                console.log("A")
-
-                                // first row needs to be headers
-                                var headers = [];
-                                for (var i = 0; i < table.rows[0].cells.length; i++) {
-                                    headers[i] = table.rows[0].cells[i].innerText
-                                }
-
-                                // go through cells
-                                for (var i = 1; i < table.rows.length; i++) {
-
-                                    var tableRow = table.rows[i];
-                                    var rowData = {};
-
-                                    for (var j = 0; j < tableRow.cells.length; j++) {
-
-                                        rowData[headers[j]] = tableRow.cells[j].innerText;
-
-                                    }
-
-                                    data.push(rowData);
-
-                                }
-                                document.getElementById("datostabla2").value = JSON.stringify(data);
-                                return data;
-
-
-                            }
-                        </script>
                     </div>
+
+                    <script>
+                        tableToJson(document.getElementById("tabla"))
+
+                        function tableToJson(table) {
+
+                            var data = [];
+
+                            // first row needs to be headers
+                            var headers = [];
+                            for (var i = 0; i < table.rows[0].cells.length; i++) {
+                                headers[i] = table.rows[0].cells[i].innerText
+                            }
+
+                            // go through cells
+                            for (var i = 1; i < table.rows.length; i++) {
+
+                                var tableRow = table.rows[i];
+                                var rowData = {};
+
+                                for (var j = 0; j < tableRow.cells.length; j++) {
+
+                                    rowData[headers[j]] = tableRow.cells[j].innerText;
+
+                                }
+
+                                data.push(rowData);
+
+                            }
+                            document.getElementById("datostabla").value = JSON.stringify(data);
+                            return data;
+
+
+                        }
+                    </script>
+</div>
+
+<div id="pestaña2" class="tabcontent">
+
+                    <div class="col-12">
+                        <div class="card">
+
+
+
+                            <div class="card-body">
+                                <h5 class="card-title">Segundo formato</h5>
+                                <form action="./controlador/leerexcel2.php" method="post" enctype='multipart/form-data'>
+
+                                    <div class="container text-center ">
+                                        <input class="btn btn-success  col-5 p-3" accept="document/xlsx" type="file"
+                                            name="excelfile" id="">
+                                        <p></p>
+                                        <input class="btn btn-primary  col-5 p-3" value="Subir archivo seleccionado"
+                                            type="submit">
+
+                                    </div>
+                                </form>
+                            </div>
+
+                        </div>
+                    </div>
+
+
+                    <div class="col-12">
+                        <div class="card recent-sales overflow-auto">
+
+
+
+                            <div class="card-body">
+                                <h5 class="card-title">Preinscritos</span></h5>
+
+                                <div id="contenedor">
+
+
+                                    <?php if (isset($_POST["tabla2"])) {
+                                        echo str_replace('^', '"', $_POST["tabla2"]);
+                                    } ?>
+                                </div>
+
+
+
+                            </div>
+
+                        </div>
+
+
+                    </div>
+                    </div>
+
+                    <div id="pestaña3" class="tabcontent">
+                    <div class="col-12">
+                        <div class="card">
+
+
+
+                            <div class="card-body">
+                                <h5 class="card-title">Tercer formato</h5>
+                                <form action="./controlador/leerexcel3.php" method="post" enctype='multipart/form-data'>
+
+                                    <div class="container text-center ">
+                                        <input class="btn btn-success  col-5 p-3" accept="document/xlsx" type="file"
+                                            name="excelfile" id="">
+                                        <p></p>
+                                        <input id="subir" class="btn btn-primary col-5 p-3"
+                                            value="Subir archivo seleccionado" type="submit">
+                                        <input name="datostabla2" id="datostabla2" type="hidden" value=" ">
+                                    </div>
+                                </form>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="col-12">
+                        <div class="card recent-sales overflow-auto">
+
+
+
+                            <div class="card-body">
+                                <h5 class="card-title">Inscritos</span></h5>
+
+                                <div id="contenedor">
+
+
+                                    <?php if (isset($_POST["tabla3"])) {
+                                        echo str_replace('^', '"', $_POST["tabla3"]);
+                                    } ?>
+                                </div>
+
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    </div>
+
+
+                    <script>
+                        document.getElementById("subir").addEventListener("click", () => {
+                            tableToJson2(document.getElementById("tabla2"))
+                        })
+                        tableToJson2(document.getElementById("tabla2"))
+
+                        function tableToJson2(table) {
+                            var data = [];
+                            console.log("A")
+
+                            // first row needs to be headers
+                            var headers = [];
+                            for (var i = 0; i < table.rows[0].cells.length; i++) {
+                                headers[i] = table.rows[0].cells[i].innerText
+                            }
+
+                            // go through cells
+                            for (var i = 1; i < table.rows.length; i++) {
+
+                                var tableRow = table.rows[i];
+                                var rowData = {};
+
+                                for (var j = 0; j < tableRow.cells.length; j++) {
+
+                                    rowData[headers[j]] = tableRow.cells[j].innerText;
+
+                                }
+
+                                data.push(rowData);
+
+                            }
+                            document.getElementById("datostabla2").value = JSON.stringify(data);
+                            return data;
+
+
+                        }
+                    </script>
                 </div>
 
             </div>
@@ -459,7 +484,8 @@ if ($usuario->getLogin() == true) {
     <script src="assets/vendor/simple-datatables/simple-datatables.js"></script>
     <script src="assets/vendor/tinymce/tinymce.min.js"></script>
     <script src="assets/vendor/php-email-form/validate.js"></script>
-
+    <script src="assets/js/tabcontrol.js"></script>
+    <script> openTab(event, 'pestaña1')</script>
     <script>
         let documento;
         let btncancelar = document.getElementById("btncancelar")
