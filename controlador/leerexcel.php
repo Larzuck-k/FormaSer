@@ -51,6 +51,14 @@ if ($extension == "xls") {
     }
 }
 
+if($extension != "xls" && $extension != "xlsx"){
+
+    echo '<form id="form" method="post" action="../index.php"><input type="hidden" name="error" value="El formato del archivo no es compatible"></form>
+     
+    <script>document.getElementById("form").submit();</script>
+    ';
+}
+
 
 
 function ArregloDatos($Datos)
@@ -180,8 +188,18 @@ function Enviar($Dato)
 {
 
 
-    echo '<form id="form" method="post" action="../index.php"><input type="hidden" name="tabla" value="' . str_replace('"', '^', $Dato) . '"></form>
+
+    if(strlen($Dato) == 348){
+
+        echo '<form id="form" method="post" action="../index.php"><input type="hidden" name="incorrecto" value="El documento no es un formato compatible"></form>
+         
+        <script>document.getElementById("form").submit();</script>
+        ';
+    }else{ echo '<form id="form" method="post" action="../index.php"><input type="hidden" name="tabla" value="' . str_replace('"', '^', $Dato) . '"></form>
      
-    <script>document.getElementById("form").submit();</script>
-    ';
+        <script>document.getElementById("form").submit();</script>
+        ';}
+
+
+   
 }

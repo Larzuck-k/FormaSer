@@ -51,6 +51,13 @@ if ($extension == "xls") {
     }
 }
 
+if($extension != "xls" && $extension != "xlsx"){
+
+    echo '<form id="form" method="post" action="../index.php"><input type="hidden" name="error" value="Error"></form>
+     
+    <script>document.getElementById("form").submit();</script>
+    ';
+}
 
 
 function ArregloDatos($Datos,$Dtabla)

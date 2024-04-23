@@ -30,6 +30,20 @@ if ($usuario->getLogin() == true) {
 }
 
 
+
+if (isset($_POST['error'])) {
+
+echo   '<script> console.log("'.$_POST['error'].'")</script>';
+    
+}
+
+if (isset($_POST['incorrecto'])) {
+
+    echo   '<script> console.log("'.$_POST['incorrecto'].'")</script>';
+        
+    }
+
+
 ?>
 
 
@@ -230,7 +244,7 @@ if ($usuario->getLogin() == true) {
                                 <form action="./controlador/leerexcel.php" method="post" enctype='multipart/form-data'>
 
                                     <div class="container text-center ">
-                                        <input class="btn btn-success  col-5 p-3" accept="document/xlsx" type="file"
+                                        <input class="btn btn-success  col-5 p-3" accept=".xlsx, .xls" required  type="file"
                                             name="excelfile" id="">
                                         <p></p>
                                         <input class="btn btn-primary  col-5 p-3" value="Subir archivo seleccionado"
@@ -266,14 +280,14 @@ if ($usuario->getLogin() == true) {
 
                             </div>
                             <div class="card-body text-end pt-3">
-                                <form action="./controlador/subirAprendices.php" method="post">
-                                    <input type="submit" class="btn btn-primary col-2" value="Enviar aprendices">
+                                <form action="./controlador/subirAprendices.php"  method="post">
+                                    <input type="submit" class="btn btn-primary col-2 text-start" value="Enviar aprendices">
                                     <input name="datostabla" id="datostabla" type="hidden" value=" ">
                                 </form>
                             </div>
 
                         </div>
-
+                        </div>
                     </div>
 
                     <script>
@@ -324,7 +338,7 @@ if ($usuario->getLogin() == true) {
                                 <form action="./controlador/leerexcel2.php" method="post" enctype='multipart/form-data'>
 
                                     <div class="container text-center ">
-                                        <input class="btn btn-success  col-5 p-3" accept="document/xlsx" type="file"
+                                        <input class="btn btn-success  col-5 p-3" accept=".xlsx, .xls" required accept="document/xlsx" type="file"
                                             name="excelfile" id="">
                                         <p></p>
                                         <input class="btn btn-primary  col-5 p-3" value="Subir archivo seleccionado"
@@ -375,7 +389,7 @@ if ($usuario->getLogin() == true) {
                                 <form action="./controlador/leerexcel3.php" method="post" enctype='multipart/form-data'>
 
                                     <div class="container text-center ">
-                                        <input class="btn btn-success  col-5 p-3" accept="document/xlsx" type="file"
+                                        <input class="btn btn-success required  col-5 p-3" accept=".xlsx, .xls accept="document/xlsx" type="file"
                                             name="excelfile" id="">
                                         <p></p>
                                         <input id="subir" class="btn btn-primary col-5 p-3"
