@@ -90,7 +90,7 @@ if ($usuario->getLogin() == true) {
     <header id="header" class="header fixed-top d-flex align-items-center">
 
         <div class="d-flex align-items-center justify-content-between">
-            <a href="index.html" class="logo d-flex align-items-center">
+            <a href="#" class="logo d-flex align-items-center">
                 <img src="assets/img/logo-sena-verde-complementario-png-2022.png" alt="">
                 <span class="d-none d-lg-block">Forma</span><span class="text-color-green"
                     style="color: rgb(113, 200, 114);">Ser</span>
@@ -381,10 +381,7 @@ if ($usuario->getLogin() == true) {
                                         } ?>
                                     </div>
 
-                                    <div class="text-end">
-                                        <input class="btn align-item-end btn-primary col-2 mt-2"
-                                            value="Confirmar cambios">
-                                    </div>
+                                 
                                 </div>
 
                             </div>
