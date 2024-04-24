@@ -33,15 +33,13 @@ if ($usuario->getLogin() == true) {
 
 if (isset($_POST['error'])) {
 
-echo   '<script> console.log("'.$_POST['error'].'")</script>';
-    
+    echo   '<script> console.log("' . $_POST['error'] . '")</script>';
 }
 
 if (isset($_POST['incorrecto'])) {
 
-    echo   '<script> console.log("'.$_POST['incorrecto'].'")</script>';
-        
-    }
+    echo   '<script> console.log("' . $_POST['incorrecto'] . '")</script>';
+}
 
 
 ?>
@@ -73,9 +71,7 @@ if (isset($_POST['incorrecto'])) {
 
     <!-- Google Fonts -->
     <link href="https://fonts.gstatic.com" rel="preconnect">
-    <link
-        href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
 
     <!-- Vendor CSS Files -->
     <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -107,8 +103,7 @@ if (isset($_POST['incorrecto'])) {
         <div class="d-flex align-items-center justify-content-between">
             <a href="#" class="logo d-flex align-items-center">
                 <img src="assets/img/logo-sena-verde-complementario-png-2022.png" alt="">
-                <span class="d-none d-lg-block">Forma</span><span class="text-color-green"
-                    style="color: rgb(113, 200, 114);">Ser</span>
+                <span class="d-none d-lg-block">Forma</span><span class="text-color-green" style="color: rgb(113, 200, 114);">Ser</span>
             </a>
 
         </div><!-- End Logo -->
@@ -172,8 +167,7 @@ if (isset($_POST['incorrecto'])) {
 
 
 
-        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-            aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -197,17 +191,17 @@ if (isset($_POST['incorrecto'])) {
 
 
         <ul class="nav nav-tabs pt-5">
-  <li class="nav-item">
-    <a class="tablinks nav-link" onclick="openTab(event, 'pestaña1')">Formato 1</a>
-  </li>
-  <li class="nav-item">
-    <a class="tablinks nav-link" onclick="openTab(event, 'pestaña2')">Formato 2</a>
-  </li>
-  <li class="nav-item">
-    <a class="tablinks nav-link" onclick="openTab(event, 'pestaña3')">Formato 3</a>
-  </li>
+            <li class="nav-item">
+                <a class="tablinks nav-link" onclick="openTab(event, 'pestaña1')">Formato 1</a>
+            </li>
+            <li class="nav-item">
+                <a class="tablinks nav-link" onclick="openTab(event, 'pestaña2')">Formato 2</a>
+            </li>
+            <li class="nav-item">
+                <a class="tablinks nav-link" onclick="openTab(event, 'pestaña3')">Formato 3</a>
+            </li>
 
-</ul>
+        </ul>
 
 
 
@@ -230,63 +224,61 @@ if (isset($_POST['incorrecto'])) {
 
 
 
-                     <div id="pestaña1" class="tabcontent">
+                    <div id="pestaña1" class="tabcontent">
 
 
-                    <!-- Reports -->
-                    <div class="col-12">
-                        <div class="card">
-
-
-
-                            <div class="card-body">
-                                <h5 class="card-title">Primer formato</h5>
-                                <form action="./controlador/leerexcel.php" method="post" enctype='multipart/form-data'>
-
-                                    <div class="container text-center ">
-                                        <input class="btn btn-success  col-5 p-3" accept=".xlsx, .xls" required  type="file"
-                                            name="excelfile" id="">
-                                        <p></p>
-                                        <input class="btn btn-primary  col-5 p-3" value="Subir archivo seleccionado"
-                                            type="submit">
-
-                                    </div>
-                                </form>
-
-
-                            </div>
-
-
-                        </div>
-                    </div><!-- End Reports -->
-
-                    <!-- Recent Sales -->
-                    <div class="col-12">
-                        <div class="card recent-sales overflow-auto">
+                        <!-- Reports -->
+                        <div class="col-12">
+                            <div class="card">
 
 
 
-                            <div class="card-body">
-                                <h5 class="card-title">Aspirantes</span></h5>
+                                <div class="card-body">
+                                    <h5 class="card-title">Primer formato</h5>
+                                    <form action="./controlador/leerexcel.php" method="post" enctype='multipart/form-data'>
 
-                                <div id="contenedor">
+                                        <div class="container text-center ">
+                                            <input class="btn btn-success  col-5 p-3" accept=".xlsx, .xls" required type="file" name="excelfile" id="">
+                                            <p></p>
+                                            <input class="btn btn-primary  col-5 p-3" value="Subir archivo seleccionado" type="submit">
 
-                                    <?php if (isset($_POST["tabla"])) {
-                                        echo str_replace('^', '"', $_POST["tabla"]);
-                                    } ?>
+                                        </div>
+                                    </form>
+
+
                                 </div>
 
 
+                            </div>
+                        </div><!-- End Reports -->
+
+                        <!-- Recent Sales -->
+                        <div class="col-12">
+                            <div class="card recent-sales overflow-auto">
+
+
+
+                                <div class="card-body">
+                                    <h5 class="card-title">Aspirantes</span></h5>
+
+                                    <div id="contenedor">
+
+                                        <?php if (isset($_POST["tabla"])) {
+                                            echo str_replace('^', '"', $_POST["tabla"]);
+                                        } ?>
+                                    </div>
+
+
+
+                                </div>
+                                <div class="card-body text-end pt-3">
+                                    <form action="./controlador/subirAprendices.php" method="post">
+                                        <input type="submit" class="btn btn-primary text-start" value="Enviar aprendices">
+                                        <input name="datostabla" id="datostabla" type="hidden" value=" ">
+                                    </form>
+                                </div>
 
                             </div>
-                            <div class="card-body text-end pt-3">
-                                <form action="./controlador/subirAprendices.php"  method="post">
-                                    <input type="submit" class="btn btn-primary col-2 text-start" value="Enviar aprendices">
-                                    <input name="datostabla" id="datostabla" type="hidden" value=" ">
-                                </form>
-                            </div>
-
-                        </div>
                         </div>
                     </div>
 
@@ -324,9 +316,9 @@ if (isset($_POST['incorrecto'])) {
 
                         }
                     </script>
-</div>
+                </div>
 
-<div id="pestaña2" class="tabcontent">
+                <div id="pestaña2" class="tabcontent">
 
                     <div class="col-12">
                         <div class="card">
@@ -338,11 +330,9 @@ if (isset($_POST['incorrecto'])) {
                                 <form action="./controlador/leerexcel2.php" method="post" enctype='multipart/form-data'>
 
                                     <div class="container text-center ">
-                                        <input class="btn btn-success  col-5 p-3" accept=".xlsx, .xls" required accept="document/xlsx" type="file"
-                                            name="excelfile" id="">
+                                        <input class="btn btn-success  col-5 p-3" accept=".xlsx, .xls" required accept="document/xlsx" type="file" name="excelfile" id="">
                                         <p></p>
-                                        <input class="btn btn-primary  col-5 p-3" value="Subir archivo seleccionado"
-                                            type="submit">
+                                        <input class="btn btn-primary  col-5 p-3" value="Subir archivo seleccionado" type="submit">
 
                                     </div>
                                 </form>
@@ -376,9 +366,9 @@ if (isset($_POST['incorrecto'])) {
 
 
                     </div>
-                    </div>
+                </div>
 
-                    <div id="pestaña3" class="tabcontent">
+                <div id="pestaña3" class="tabcontent">
                     <div class="col-12">
                         <div class="card">
 
@@ -389,11 +379,9 @@ if (isset($_POST['incorrecto'])) {
                                 <form action="./controlador/leerexcel3.php" method="post" enctype='multipart/form-data'>
 
                                     <div class="container text-center ">
-                                        <input class="btn btn-success required  col-5 p-3" accept=".xlsx, .xls accept="document/xlsx" type="file"
-                                            name="excelfile" id="">
+                                        <input class="btn btn-success required  col-5 p-3" accept=".xlsx, .xls accept=" document/xlsx" type="file" name="excelfile" id="">
                                         <p></p>
-                                        <input id="subir" class="btn btn-primary col-5 p-3"
-                                            value="Subir archivo seleccionado" type="submit">
+                                        <input id="subir" class="btn btn-primary col-5 p-3" value="Subir archivo seleccionado" type="submit">
                                         <input name="datostabla2" id="datostabla2" type="hidden" value=" ">
                                     </div>
                                 </form>
@@ -425,47 +413,47 @@ if (isset($_POST['incorrecto'])) {
 
                     </div>
 
-                    </div>
+                </div>
 
 
-                    <script>
-                        document.getElementById("subir").addEventListener("click", () => {
-                            tableToJson2(document.getElementById("tabla2"))
-                        })
+                <script>
+                    document.getElementById("subir").addEventListener("click", () => {
                         tableToJson2(document.getElementById("tabla2"))
+                    })
+                    tableToJson2(document.getElementById("tabla2"))
 
-                        function tableToJson2(table) {
-                            var data = [];
-                            console.log("A")
+                    function tableToJson2(table) {
+                        var data = [];
+                        console.log("A")
 
-                            // first row needs to be headers
-                            var headers = [];
-                            for (var i = 0; i < table.rows[0].cells.length; i++) {
-                                headers[i] = table.rows[0].cells[i].innerText
-                            }
+                        // first row needs to be headers
+                        var headers = [];
+                        for (var i = 0; i < table.rows[0].cells.length; i++) {
+                            headers[i] = table.rows[0].cells[i].innerText
+                        }
 
-                            // go through cells
-                            for (var i = 1; i < table.rows.length; i++) {
+                        // go through cells
+                        for (var i = 1; i < table.rows.length; i++) {
 
-                                var tableRow = table.rows[i];
-                                var rowData = {};
+                            var tableRow = table.rows[i];
+                            var rowData = {};
 
-                                for (var j = 0; j < tableRow.cells.length; j++) {
+                            for (var j = 0; j < tableRow.cells.length; j++) {
 
-                                    rowData[headers[j]] = tableRow.cells[j].innerText;
-
-                                }
-
-                                data.push(rowData);
+                                rowData[headers[j]] = tableRow.cells[j].innerText;
 
                             }
-                            document.getElementById("datostabla2").value = JSON.stringify(data);
-                            return data;
 
+                            data.push(rowData);
 
                         }
-                    </script>
-                </div>
+                        document.getElementById("datostabla2").value = JSON.stringify(data);
+                        return data;
+
+
+                    }
+                </script>
+            </div>
 
             </div>
         </section>
@@ -486,8 +474,7 @@ if (isset($_POST['incorrecto'])) {
         </div>
     </footer><!-- End Footer -->
 
-    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
-            class="bi bi-arrow-up-short"></i></a>
+    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
     <!-- Vendor JS Files -->
     <script src="assets/vendor/apexcharts/apexcharts.min.js"></script>
@@ -499,7 +486,10 @@ if (isset($_POST['incorrecto'])) {
     <script src="assets/vendor/tinymce/tinymce.min.js"></script>
     <script src="assets/vendor/php-email-form/validate.js"></script>
     <script src="assets/js/tabcontrol.js"></script>
-    <script> openTab(event, 'pestaña1')</script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        openTab(event, 'pestaña1')
+    </script>
     <script>
         let documento;
         let btncancelar = document.getElementById("btncancelar")
@@ -525,3 +515,31 @@ if (isset($_POST['incorrecto'])) {
 </body>
 
 </html>
+
+
+
+<?php
+
+
+if (isset($_POST['error'])) {
+
+    echo   '<script> Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: " '. $_POST['error'] .'",
+     
+      });  </script>';
+}
+
+if (isset($_POST['incorrecto'])) {
+
+    echo   '<script> Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: " '. $_POST['incorrecto'] .'",
+     
+      });  </script>';
+}
+
+
+?>

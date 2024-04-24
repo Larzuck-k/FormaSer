@@ -53,7 +53,7 @@ if ($extension == "xls") {
 
 if($extension != "xls" && $extension != "xlsx"){
 
-    echo '<form id="form" method="post" action="../index.php"><input type="hidden" name="error" value="Error"></form>
+    echo '<form id="form" method="post" action="../index.php"><input type="hidden" name="error" value="El formato del archivo no es compatible"></form>
      
     <script>document.getElementById("form").submit();</script>
     ';
@@ -140,9 +140,15 @@ Enviar($tabla);
 function Enviar($Dato)
 {
 
+    if(strlen($Dato) == 916){
 
-    echo '<form id="form" method="post" action="../index.php"><input type="hidden" name="tabla2" value="' . str_replace('"', '^', $Dato) . '"></form>
-    <script>document.getElementById("form").submit();</script>
-   
-    ';
+        echo '<form id="form" method="post" action="../index.php"><input type="hidden" name="incorrecto" value="No se han encontrado resultados"></form>
+         
+        <script>document.getElementById("form").submit();</script>
+        ';
+    }else{ echo '<form id="form" method="post" action="../index.php"><input type="hidden" name="tabla2" value="' . str_replace('"', '^', $Dato) . '"></form>
+     
+        <script>document.getElementById("form").submit();</script>
+        ';}
+
 }
