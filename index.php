@@ -82,7 +82,7 @@ if (isset($_POST['incorrecto'])) {
     <link href="assets/vendor/quill/quill.bubble.css" rel="stylesheet">
     <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
     <link href="assets/vendor/simple-datatables/style.css" rel="stylesheet">
-    <link rel="assets/css/tabcontrol.css" href="style.css">
+    <link href="assets/css/tabcontrol.css" href="style.css">
 
     <!-- Template Main CSS File -->
     <link href="assets/css/style.css" rel="stylesheet">
@@ -152,6 +152,12 @@ if (isset($_POST['incorrecto'])) {
                                         Cerrar sesión</button>
                                 </a>
                             </form>
+
+
+                            <a class="d-flex justify-content-center pt-2 pb-3" data-bs-toggle="modal" data-bs-target="#modalPass">
+                                <button class="btn btn-primary" type="button"><i class="bi bi-pass"></i>
+                                    Cambiar Contraseña</button>
+                            </a>
                         </li>
 
                     </ul><!-- End Profile Dropdown Items -->
@@ -277,8 +283,8 @@ if (isset($_POST['incorrecto'])) {
                                 </div>
                                 <div class="card-body text-end pt-3">
                                     <form action="./controlador/subirAprendices.php" method="post">
-                                        
-                                        <input type="submit" class="btn btn-primary text-start" required value="Enviar aprendices">
+
+                                        <input type="submit" onclick="sincronizar()" class="btn btn-primary text-start" required value="Enviar aprendices">
                                         <input name="datostabla" id="datostabla" type="hidden" value=" ">
                                     </form>
                                 </div>
@@ -288,7 +294,9 @@ if (isset($_POST['incorrecto'])) {
                     </div>
 
                     <script>
-                        tableToJson(document.getElementById("tabla"))
+                        function sincronizar() {
+                            tableToJson(document.getElementById("tabla"))
+                        }
 
                         function tableToJson(table) {
 
@@ -335,7 +343,7 @@ if (isset($_POST['incorrecto'])) {
                                 <form action="./controlador/leerexcel2.php" method="post" enctype='multipart/form-data'>
 
                                     <div class="container text-center ">
-                                        <input class="btn btn-success  col-5 p-3" accept=".xlsx, .xls" required  type="file" name="excelfile" id="">
+                                        <input class="btn btn-success  col-5 p-3" accept=".xlsx, .xls" required type="file" name="excelfile" id="">
                                         <p></p>
                                         <input class="btn btn-primary  col-5 p-3" value="Subir archivo seleccionado" type="submit">
 
@@ -461,111 +469,108 @@ if (isset($_POST['incorrecto'])) {
 
 
                 <div id="pestaña4" class="tabcontent">
-  <div class="col-12">
-    <div class="card">
+
+
+                    <div class="col-12">
+
+                        <div class="card">
 
 
 
-      <div class="card-body ">
-       
-
-        <div class=" p-5">
-        <form action="index.php" method="POST">
-         
-         <div class="row text-center align-content-between">
-         <h5 class="card-title">Buscar fichas</h5>
-         <div class="col-10">
-           
-         <select class="form form-control" name="Ficha"  id="ficha">
-           <?php
-
-           $mysql = new MySQL();
-           $mysql->conectar();
-           // Realizar la consulta SQL para buscar la ficha
-           $consulta = $mysql->efectuarConsulta("SELECT  Ficha, nombre_curso from fichas ");
-
-           while ($fila = mysqli_fetch_array($consulta)) {
-               echo '  <option value="'.$fila[0].'">'.$fila[0].' - '.$fila[1].'</option>';
-
-           }
-           $mysql->desconectar();
-           ?>
-
-       </select>
-           </div>
-
-           <div class="col-2 ">
-         <input type="submit" value="Consultar ficha" class=" btn btn-primary">
-         <input type="hidden" name="tab4">
-         </div>
-         </div>
-       </form>
-       <br>
-          <div class="col-12">
+                            <div class="card-body ">
 
 
 
-            <?php
+                                <h5 class="card-title">Buscar fichas</h5>
 
 
+                                <form action="index.php" method="POST">
 
-            ?>
-            <table class="table table-striped datatable" id="datatable">
-              <thead class="text-center thead-dark">
-                <tr>
-                  <th>Ficha</th>
-                  
-                  <th>Nombre completo</th>
-                  <th>Fecha de ingreso</th>
-                  <th>Estado</th>
-                  <th>Tipo de documento</th>
-                  <th>Documento</th>
-
-                </tr>
-              </thead>
-              <tbody id="miTabla">
-                <?php
-                // Verificar si se han enviado parámetros de búsqueda
-                if (isset($_POST['Ficha'])) {
-                  // Obtener la ficha enviada por GET
-                  $ficha = $_POST['Ficha'];
-                  $mysql = new MySQL();
-                  $mysql->conectar();
-                  // Realizar la consulta SQL para buscar la ficha
-                  $consulta = $mysql->efectuarConsulta("SELECT * FROM  ingresados WHERE ficha = 2952573");
-$mysql->desconectar();
-
-                  // Iterar sobre los resultados de la consulta y mostrarlos en la tabla
-                  while ($fila = mysqli_fetch_array($consulta)) {
-                    echo "<tr>";
-                    echo "<td>{$fila[0]}</td>";
-                    echo "<td>{$fila[1]}</td>";
-                    echo "<td>{$fila[2]}</td>";
-                    echo "<td>{$fila[3]}</td>";
-                    echo "<td>{$fila[4]}</td>";
-                    echo "<td>{$fila[5]}</td>";
-            
-                    echo "</tr>";
-                  }
-                }
-              
-                ?>
-              </tbody>
-            </table>
-          </div>
+                                    <div class="row p-3 ">
 
 
 
 
-        </div>
+                                        <input placeholder="Ingrese la ficha" min="1" value="0" required type="number" name="Ficha" id="ficha" class=" form-control">
+                                        <p></p>
+                                        <input type="submit" value="Consultar ficha" class=" btn btn-primary">
+                                        <input type="hidden" name="tab4">
 
 
-      </div>
+                                </form>
 
-    </div>
+                            </div>
 
-  </div>
-</div>
+                            <div class="">
+
+
+                                <br>
+
+                                <table class="table table-striped datatable" id="tablai">
+                                    <thead class="text-center thead-dark">
+                                        <tr>
+                                            <th>ID</th>
+
+                                            <th>Nombre completo</th>
+                                            <th>Fecha de ingreso</th>
+                                            <th>Ficha</th>
+                                            <th>Estado</th>
+                                            <th>Documento</th>
+                                            <th>Tipo de documento</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="miTabla">
+                                        <?php
+                                        // Verificar si se han enviado parámetros de búsqueda
+                                        if (isset($_POST['Ficha'])) {
+
+                                            // Obtener la ficha enviada por GET
+                                            $ficha = $_POST['Ficha'];
+                                            $mysql = new MySQL();
+                                            $mysql->conectar();
+                                            // Realizar la consulta SQL para buscar la ficha
+                                            $consulta = $mysql->efectuarConsulta("SELECT * FROM  ingresados WHERE ficha =" . $ficha);
+                                            $mysql->desconectar();
+
+                                            // Iterar sobre los resultados de la consulta y mostrarlos en la tabla
+
+                                            if (isset($consulta)) {
+                                                echo '   <button onclick="tableToExcel(tablai,' . $ficha . ')" class="btn btn-success">Exportar este formato(xls)</button><br> <br>';
+
+                                                while ($fila = mysqli_fetch_array($consulta)) {
+                                                    echo "<tr>";
+                                                    echo "<td>{$fila[0]}</td>";
+                                                    echo "<td>{$fila[1]}</td>";
+                                                    echo "<td>{$fila[2]}</td>";
+                                                    echo "<td>{$fila[3]}</td>";
+                                                    echo "<td>{$fila[4]}</td>";
+                                                    echo "<td>{$fila[5]}</td>";
+                                                    echo "<td>{$fila[6]}</td>";
+                                                    echo "</tr>";
+                                                }
+                                            }
+                                        }
+
+                                        ?>
+
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <form form action="./controlador/exportartodos.php" method="post" enctype='multipart/form-data'>
+                                <input type="submit" class="btn btn-warning form-control" value="Imprimir formato de todas las fichas">
+                            </form>
+
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+            </div>
+            </div>
 
             </div>
 
@@ -573,6 +578,32 @@ $mysql->desconectar();
         </section>
 
     </main>
+
+    <div class="modal fade" id="modalPass" tabindex="-1" aria-labelledby="modalPass" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Ingrese Nueva contraseña</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="controlador/cambiarpass.php?id=<?php echo $id; ?>" method="post">
+
+                        <div class="mb-3">
+                            <label for="exampleInputPassword1" class="form-label">Contraseña nueva</label>
+                            <input type="password" required class="form-control" name="pass">
+
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                            <button type="submit" class="btn btn-danger">Cambiar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
 
     <footer id="" class="footer" style=" background-color: rgb(113, 200, 114);">
         <div class="copyright">
@@ -601,8 +632,9 @@ $mysql->desconectar();
     <script src="assets/vendor/php-email-form/validate.js"></script>
     <script src="assets/js/tabcontrol.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="assets/js/htmltoexcel.js"></script>
     <script>
-        openTab(event, 'pestaña1')
+
     </script>
     <script>
         let documento;
@@ -619,7 +651,7 @@ $mysql->desconectar();
 
         function escribir() {
             console.log(documento)
-            document.getElementById(documento.toString()).innerHTML = `<span class="badge bg-dark">Inscripción cancelada</span>`;
+            document.getElementById(documento.toString()).innerHTML = `<span class="badge bg-dark">Anulado</span>`;
 
         }
     </script>
@@ -670,7 +702,17 @@ if (isset($_POST['error'])) {
     echo   '<script> Swal.fire({
         icon: "error",
         title: "Oops...",
-        text: " '. $_POST['error'] .'",
+        text: " ' . $_POST['error'] . '",
+     
+      });  </script>';
+}
+
+if (isset($_POST['cambio'])) {
+
+    echo   '<script> Swal.fire({
+        icon: "success",
+        title: "Hecho",
+        text: "Se ha cambiado la contraseña correctamente",
      
       });  </script>';
 }
@@ -680,7 +722,7 @@ if (isset($_POST['incorrecto'])) {
     echo   '<script> Swal.fire({
         icon: "error",
         title: "Oops...",
-        text: " '. $_POST['incorrecto'] .'",
+        text: " ' . $_POST['incorrecto'] . '",
      
       });  </script>';
 }

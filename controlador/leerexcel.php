@@ -67,7 +67,7 @@ function ArregloDatos($Datos)
     $mysql = new MySQL();
     $mysql->conectar();
 
-    $tabla .= '<table id="tabla" class="table table-striped datatable">
+    $tabla .= '<table id="tabla" class="table table-striped ">
 <thead>
     <tr>
         <th scope="col">Número de documento</th>
@@ -79,6 +79,16 @@ function ArregloDatos($Datos)
     </tr>
 </thead>
 <tbody>';
+
+if(isset($Datos[0][0])){
+ 
+    if($Datos[0][0] != "FORMATO PARA LA INSCRIPCIÓN DE ASPIRANTES EN SOFIA PLUS v1.0" ){
+
+       echo '<form id="form" method="post" action="../index.php"><input type="hidden" name="tab1" value="true"><input type="hidden" name="error" value="El formato del archivo no es compatible"></form><script>document.getElementById("form").submit();</script>';
+    
+    }
+}
+
 
 
 $elementos = [0];
@@ -117,7 +127,7 @@ for ($i=0; $i < count($elementos); $i++) {
 
 
             
-            $tabla .= "<span class=^badge bg-warning^>Ya se ha inscrito antes</span>";
+            $tabla .= "<span class=^badge bg-success^>En el sistema</span>";
             $tabla .=  "<br>";
             $result = $mysql->efectuarConsulta("SELECT * FROM cursos_aprendiz where documento = " . $Datos[2 + $index][2]);
 
@@ -129,7 +139,7 @@ for ($i=0; $i < count($elementos); $i++) {
 
                 $tabla .= "<span class=^badge bg-success^>No está en otros cursos</span>";
             } elseif ($row_count2 >= 1) {
-                $tabla .= "<span class=^badge bg-warning^>Estan en otros cursos</span>";
+                $tabla .= "<span class=^badge bg-warning^>Ha cursado otros programas</span>";
 
 
          
@@ -208,18 +218,8 @@ for ($i=0; $i < count($elementos); $i++) {
 function Enviar($Dato)
 {
 
-
-
-    if(strlen($Dato) == 348){
-
-        echo '<form id="form" method="post" action="../index.php"><input type="hidden" name="incorrecto" value="El documento no es un formato compatible o no se han encontrado datos"> </form>
-         
-        <script>document.getElementById("form").submit();</script>
-        ';
-    }else{ echo '<form id="form" method="post" action="../index.php"><input type="hidden" name="tabla" value="' . str_replace('"', '^', $Dato) . '"> <input type="hidden" name="tab1" value="true"></form>
-     
-        <script>document.getElementById("form").submit();</script>
-        ';}
+       echo '<form id="form" method="post" action="../index.php"><input type="hidden" name="tabla" value="' . str_replace('"', '^', $Dato) . '"> <input type="hidden" name="tab1" value="true"></form><script>document.getElementById("form").submit();</script>';
+    
 
 
    

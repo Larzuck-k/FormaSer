@@ -51,7 +51,7 @@ if ($extension == "xls") {
     }
 }
 
-if($extension != "xls" && $extension != "xlsx"){
+if ($extension != "xls" && $extension != "xlsx") {
 
     echo '<form id="form" method="post" action="../index.php"><input type="hidden" name="error" value="El formato del archivo no es compatible"></form>
      
@@ -78,36 +78,33 @@ function ArregloDatos($Datos, $Dtabla)
 </thead>
 <tbody>';
     $JSON = json_decode($Dtabla, true);
-    
-    if(isset($Datos[2][0])){
-  
-        if($Datos[2][0] != "Código Ficha" && $Datos[3][0] !=  "Programa de Formación"){
-    
-           echo '<form id="form" method="post" action="../index.php"><input type="hidden" name="error" value="El formato del archivo no es compatible"></form><script>document.getElementById("form").submit();</script>';
-        
+
+    if (isset($Datos[2][0])) {
+
+        if ($Datos[2][0] != "Código Ficha" && $Datos[3][0] !=  "Programa de Formación") {
+
+            echo '<form id="form" method="post" action="../index.php"><input type="hidden" name="tab3" value="true"><input type="hidden" name="error" value="El formato del archivo no es compatible"></form><script>document.getElementById("form").submit();</script>';
         }
     }
-    
-    
-    if(isset($Datos[6][2])){
-      
-        if($Datos[6][2] != "Matriculado " && str_contains( $Datos[6][2],"Anulado") == false){
-    
-           echo '<form id="form" method="post" action="../index.php"><input type="hidden" name="error" value="El formato del archivo no es compatible"></form><script>document.getElementById("form").submit();</script>';
-        
+
+
+    if (isset($Datos[6][2])) {
+
+        if ($Datos[6][2] != "Matriculado " && str_contains($Datos[6][2], "Anulado") == false) {
+
+            echo '<form id="form" method="post" action="../index.php"><input type="hidden" name="tab3" value="true"><input type="hidden" name="error" value="El formato del archivo no es compatible"></form><script>document.getElementById("form").submit();</script>';
         }
     }
 
     $result = $mysql->efectuarConsulta("SELECT * FROM Fichas where ficha = " . $Datos[2][1]);
 
     $row_count = $result->num_rows;
- 
+
 
     if ($row_count <= 0) {
 
 
         $result = $mysql->efectuarConsulta('Insert Into Fichas values(' . $Datos[2][1] . ',"' . $Datos[3][1] . '","' . date("Y-m-d") . '")');
-
     }
 
     foreach ($Datos as $index => $v) {
@@ -123,55 +120,51 @@ function ArregloDatos($Datos, $Dtabla)
             $row_count = $result->num_rows;
 
             foreach ($array as $key => $value) {
-            
+
                 if (!empty($Datos[6 + $index][0]) && !empty($Datos[2][1])) {
 
-                if (preg_replace("/[^0-9\.]/", "", $Datos[6 + $index][0]) == $array[$key]["documento"] && $Datos[2][1] == $array[$key]["ficha"] && $Datos[6 + $index][2] == "Matriculado ") {
+                    if (preg_replace("/[^0-9\.]/", "", $Datos[6 + $index][0]) == $array[$key]["documento"] && $Datos[2][1] == $array[$key]["ficha"] && $Datos[6 + $index][2] == "Matriculado ") {
 
-                    $tabla .= ' 
+                        $tabla .= ' 
             <th scope="row"><a href="#">' . $Datos[6 + $index][0] . '</a></th>
             <td>' . $Datos[6 + $index][1] . '</td>
             <td><a href="#" class="text-primary">' . $Datos[2][1] . '</a></td>
             <td><span class=^badge bg-success^>Matriculado</span>';
-                    $result = $mysql->efectuarConsulta('UPDATE  ingresados set estado = "Matriculado",nombre_completo = "' . $Datos[6 + $index][1] . '"  where documento = ' . preg_replace("/[^0-9\.]/", "", $Datos[6 + $index][0]));
+                        $result = $mysql->efectuarConsulta('UPDATE  ingresados set estado = "Matriculado",nombre_completo = "' . $Datos[6 + $index][1] . '"  where documento = ' . preg_replace("/[^0-9\.]/", "", $Datos[6 + $index][0]));
 
 
-                    $result = $mysql->efectuarConsulta('SELECT * FROM cursos_aprendiz where documento = ' . preg_replace("/[^0-9\.]/", "", $Datos[6 + $index][0]) . ' and ficha =' . $Datos[2][1]);
+                        $result = $mysql->efectuarConsulta('SELECT * FROM cursos_aprendiz where documento = ' . preg_replace("/[^0-9\.]/", "", $Datos[6 + $index][0]) . ' and ficha =' . $Datos[2][1]);
 
-                    $row_count = $result->num_rows;
-                    if ($row_count == 0) {
-                        echo 'INSERT INTO `cursos_aprendiz`  VALUES (NULL, ' . preg_replace("/[^0-9\.]/", "", $Datos[6 + $index][0]) . ', "' . str_replace("/", "-", date("Y/m/d")) . '", ' . $Datos[2][1] . ') ';
-                        $result = $mysql->efectuarConsulta('INSERT INTO `cursos_aprendiz`  VALUES (NULL, ' . preg_replace("/[^0-9\.]/", "", $Datos[6 + $index][0]) . ', "' . str_replace("/", "-", date("Y/m/d")) . '", ' . $Datos[2][1] . ') ');
+                        $row_count = $result->num_rows;
+                        if ($row_count == 0) {
+                            echo 'INSERT INTO `cursos_aprendiz`  VALUES (NULL, ' . preg_replace("/[^0-9\.]/", "", $Datos[6 + $index][0]) . ', "' . str_replace("/", "-", date("Y/m/d")) . '", ' . $Datos[2][1] . ') ';
+                            $result = $mysql->efectuarConsulta('INSERT INTO `cursos_aprendiz`  VALUES (NULL, ' . preg_replace("/[^0-9\.]/", "", $Datos[6 + $index][0]) . ', "' . str_replace("/", "-", date("Y/m/d")) . '", ' . $Datos[2][1] . ') ');
+                        }
                     }
-                }
 
 
-                
-                if (preg_replace("/[^0-9\.]/", "", $Datos[6 + $index][0]) == $array[$key]["documento"] && $Datos[2][1] == $array[$key]["ficha"] && str_contains( $Datos[6 + $index][2],"Anulado")==true ) {
- 
-                   $result = $mysql->efectuarConsulta('UPDATE  ingresados set estado = "Anulado",nombre_completo = "' . $Datos[6 + $index][1] . '"  where documento = ' . preg_replace("/[^0-9\.]/", "", $Datos[6 + $index][0]));
-                   $tabla .= ' 
+
+                    if (preg_replace("/[^0-9\.]/", "", $Datos[6 + $index][0]) == $array[$key]["documento"] && $Datos[2][1] == $array[$key]["ficha"] && str_contains($Datos[6 + $index][2], "Anulado") == true) {
+
+                        $result = $mysql->efectuarConsulta('UPDATE  ingresados set estado = "Anulado",nombre_completo = "' . $Datos[6 + $index][1] . '"  where documento = ' . preg_replace("/[^0-9\.]/", "", $Datos[6 + $index][0]));
+                        $tabla .= ' 
                    <th scope="row"><a href="#">' . $Datos[6 + $index][0] . '</a></th>
                    <td>' . $Datos[6 + $index][1] . '</td>
                    <td><a href="#" class="text-primary">' . $Datos[2][1] . '</a></td>
                    <td><span class=^badge bg-dark^>Anulado</span>';
+                    }
                 }
-                
-            
-
-
-            }
 
 
 
 
 
 
-            $tabla .= '</td>
+                $tabla .= '</td>
             
             </tr>';
+            }
         }
-    }
     }
 
     $tabla .= ' </tbody>
@@ -189,8 +182,5 @@ function Enviar($Dato)
 
 
 
-       echo '<form id="form" method="post" action="../index.php"><input type="hidden" name="tabla3" value="' . str_replace('"', '^', $Dato) . '"><input type="hidden" name="tab3" value="true"></form><script>document.getElementById("form").submit();</script>';
-
-
+    echo '<form id="form" method="post" action="../index.php"><input type="hidden" name="tabla3" value="' . str_replace('"', '^', $Dato) . '"><input type="hidden" name="tab3" value="true"></form><script>document.getElementById("form").submit();</script>';
 }
-
