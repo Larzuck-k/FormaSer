@@ -79,15 +79,33 @@ function ArregloDatos($Datos,$Dtabla)
 <tbody>';
 $JSON = json_decode($Dtabla, true);
 
+if(isset($Datos[2][0])){
+  
+    if($Datos[2][0] != "Código Ficha" && $Datos[3][0] !=  "Programa de Formación"){
+
+       echo '<form id="form" method="post" action="../index.php"><input type="hidden" name="error" value="El formato del archivo no es compatible"></form><script>document.getElementById("form").submit();</script>';
+    
+    }
+}
+
+
+if(isset($Datos[6][2])){
+  
+    if($Datos[6][2] != "Preinscrito" ){
+
+       echo '<form id="form" method="post" action="../index.php"><input type="hidden" name="error" value="El formato del archivo no es compatible"></form><script>document.getElementById("form").submit();</script>';
+    
+    }
+}
+
 
 $result = $mysql->efectuarConsulta("SELECT * FROM Fichas where ficha = ".$Datos[2][1]);
 
 $row_count = $result->num_rows;
-echo $row_count;
 
 if( $row_count <= 0){
 
-    
+
 $result = $mysql->efectuarConsulta('Insert Into Fichas values('. $Datos[2][1].',"'. $Datos[3][1].'","'. date("Y-m-d").'")');
 
 }
@@ -140,15 +158,6 @@ Enviar($tabla);
 function Enviar($Dato)
 {
 
-    if(strlen($Dato) == 916){
-
-        echo '<form id="form" method="post" action="../index.php"><input type="hidden" name="incorrecto" value="No se han encontrado resultados"></form>
-         
-        <script>document.getElementById("form").submit();</script>
-        ';
-    }else{ echo '<form id="form" method="post" action="../index.php"><input type="hidden" name="tabla2" value="' . str_replace('"', '^', $Dato) . '"></form>
-     
-        <script>document.getElementById("form").submit();</script>
-        ';}
+    echo '<form id="form" method="post" action="../index.php"><input type="hidden" name="tabla2" value="' . str_replace('"', '^', $Dato) . '"><input type="hidden" name="tab2" value="true"></form><script>document.getElementById("form").submit();</script>';
 
 }

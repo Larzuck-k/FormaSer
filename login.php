@@ -56,11 +56,11 @@
             <form action="controlador/login.php" method="post">
               <div class="form-group first">
                 <label for="Identificación">Identificación</label>
-                <input type="number" class="form-control" name="doc" placeholder="C.C" id="username">
+                <input required type="number" class="form-control" name="doc" placeholder="C.C" id="username">
               </div>
               <div class="form-group last mb-3">
                 <label for="contrasena">Contraseña</label>
-                <input type="password" class="form-control" name="pass" placeholder="Ingresa contraseña" id="contrasena">
+                <input required type="password" class="form-control" name="pass" placeholder="Ingresa contraseña" id="contrasena">
               </div>
               
          <br>

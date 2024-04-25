@@ -3,6 +3,7 @@
 
 
 require_once 'Modelo/funcionarios.PHP';
+require_once 'Modelo/Mysql.PHP';
 
 session_start();
 
@@ -200,6 +201,9 @@ if (isset($_POST['incorrecto'])) {
             <li class="nav-item">
                 <a class="tablinks nav-link" onclick="openTab(event, 'pestaña3')">Formato 3</a>
             </li>
+            <li class="nav-item">
+                <a class="tablinks nav-link" onclick="openTab(event, 'pestaña4')">Consultar fichas</a>
+            </li>
 
         </ul>
 
@@ -273,7 +277,8 @@ if (isset($_POST['incorrecto'])) {
                                 </div>
                                 <div class="card-body text-end pt-3">
                                     <form action="./controlador/subirAprendices.php" method="post">
-                                        <input type="submit" class="btn btn-primary text-start" value="Enviar aprendices">
+                                        
+                                        <input type="submit" class="btn btn-primary text-start" required value="Enviar aprendices">
                                         <input name="datostabla" id="datostabla" type="hidden" value=" ">
                                     </form>
                                 </div>
@@ -330,7 +335,7 @@ if (isset($_POST['incorrecto'])) {
                                 <form action="./controlador/leerexcel2.php" method="post" enctype='multipart/form-data'>
 
                                     <div class="container text-center ">
-                                        <input class="btn btn-success  col-5 p-3" accept=".xlsx, .xls" required accept="document/xlsx" type="file" name="excelfile" id="">
+                                        <input class="btn btn-success  col-5 p-3" accept=".xlsx, .xls" required  type="file" name="excelfile" id="">
                                         <p></p>
                                         <input class="btn btn-primary  col-5 p-3" value="Subir archivo seleccionado" type="submit">
 
@@ -379,7 +384,7 @@ if (isset($_POST['incorrecto'])) {
                                 <form action="./controlador/leerexcel3.php" method="post" enctype='multipart/form-data'>
 
                                     <div class="container text-center ">
-                                        <input class="btn btn-success required  col-5 p-3" accept=".xlsx, .xls accept=" document/xlsx" type="file" name="excelfile" id="">
+                                        <input class="btn btn-success required  col-5 p-3" accept=".xlsx, .xls" type="file" name="excelfile" id="">
                                         <p></p>
                                         <input id="subir" class="btn btn-primary col-5 p-3" value="Subir archivo seleccionado" type="submit">
                                         <input name="datostabla2" id="datostabla2" type="hidden" value=" ">
@@ -453,6 +458,115 @@ if (isset($_POST['incorrecto'])) {
 
                     }
                 </script>
+
+
+                <div id="pestaña4" class="tabcontent">
+  <div class="col-12">
+    <div class="card">
+
+
+
+      <div class="card-body ">
+       
+
+        <div class=" p-5">
+        <form action="index.php" method="POST">
+         
+         <div class="row text-center align-content-between">
+         <h5 class="card-title">Buscar fichas</h5>
+         <div class="col-10">
+           
+         <select class="form form-control" name="Ficha"  id="ficha">
+           <?php
+
+           $mysql = new MySQL();
+           $mysql->conectar();
+           // Realizar la consulta SQL para buscar la ficha
+           $consulta = $mysql->efectuarConsulta("SELECT  Ficha, nombre_curso from fichas ");
+
+           while ($fila = mysqli_fetch_array($consulta)) {
+               echo '  <option value="'.$fila[0].'">'.$fila[0].' - '.$fila[1].'</option>';
+
+           }
+           $mysql->desconectar();
+           ?>
+
+       </select>
+           </div>
+
+           <div class="col-2 ">
+         <input type="submit" value="Consultar ficha" class=" btn btn-primary">
+         <input type="hidden" name="tab4">
+         </div>
+         </div>
+       </form>
+       <br>
+          <div class="col-12">
+
+
+
+            <?php
+
+
+
+            ?>
+            <table class="table table-striped datatable" id="datatable">
+              <thead class="text-center thead-dark">
+                <tr>
+                  <th>Ficha</th>
+                  
+                  <th>Nombre completo</th>
+                  <th>Fecha de ingreso</th>
+                  <th>Estado</th>
+                  <th>Tipo de documento</th>
+                  <th>Documento</th>
+
+                </tr>
+              </thead>
+              <tbody id="miTabla">
+                <?php
+                // Verificar si se han enviado parámetros de búsqueda
+                if (isset($_POST['Ficha'])) {
+                  // Obtener la ficha enviada por GET
+                  $ficha = $_POST['Ficha'];
+                  $mysql = new MySQL();
+                  $mysql->conectar();
+                  // Realizar la consulta SQL para buscar la ficha
+                  $consulta = $mysql->efectuarConsulta("SELECT * FROM  ingresados WHERE ficha = 2952573");
+$mysql->desconectar();
+
+                  // Iterar sobre los resultados de la consulta y mostrarlos en la tabla
+                  while ($fila = mysqli_fetch_array($consulta)) {
+                    echo "<tr>";
+                    echo "<td>{$fila[0]}</td>";
+                    echo "<td>{$fila[1]}</td>";
+                    echo "<td>{$fila[2]}</td>";
+                    echo "<td>{$fila[3]}</td>";
+                    echo "<td>{$fila[4]}</td>";
+                    echo "<td>{$fila[5]}</td>";
+            
+                    echo "</tr>";
+                  }
+                }
+              
+                ?>
+              </tbody>
+            </table>
+          </div>
+
+
+
+
+        </div>
+
+
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
             </div>
 
             </div>
@@ -519,6 +633,36 @@ if (isset($_POST['incorrecto'])) {
 
 
 <?php
+
+
+if (isset($_POST['tab1'])) {
+
+    echo '<script>
+    openTab(event, "pestaña1")
+    </script>';
+}
+
+if (isset($_POST['tab2'])) {
+
+    echo '<script>
+    openTab(event, "pestaña2")
+    </script>';
+}
+
+
+if (isset($_POST['tab3'])) {
+
+    echo '<script>
+    openTab(event, "pestaña3")
+    </script>';
+}
+
+if (isset($_POST['tab4'])) {
+
+    echo '<script>
+    openTab(event, "pestaña4")
+    </script>';
+}
 
 
 if (isset($_POST['error'])) {
