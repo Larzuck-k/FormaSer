@@ -630,9 +630,11 @@ if (isset($_POST['incorrecto'])) {
     <script src="assets/vendor/simple-datatables/simple-datatables.js"></script>
     <script src="assets/vendor/tinymce/tinymce.min.js"></script>
     <script src="assets/vendor/php-email-form/validate.js"></script>
+    
     <script src="assets/js/tabcontrol.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="assets/js/htmltoexcel.js"></script>
+    <script src="assets/js/cargartabla.js"></script>
     <script>
 
     </script>
@@ -729,3 +731,4 @@ if (isset($_POST['incorrecto'])) {
 
 
 ?>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>

@@ -1,13 +1,13 @@
-
 <?php
-echo '<script src="../assets/js/htmltoexcel.js"></script>';
-echo '    <link href="../assets/css/hide.css"   rel="stylesheet">';
-echo '     <link href="../assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">';
-echo '  <h1>Cargando...</h1>';
 
+require '../vendor/autoload.php';
 require_once '../modelo/MySQL.php';
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
+date_default_timezone_set('America/Bogota');
 
+//echo '<script src="../assets/js/htmltoexcel.js"></script>';
 
 
 
@@ -16,69 +16,76 @@ $mysql->conectar();
 
 $result = $mysql->efectuarConsulta("SELECT * FROM fichas");
 $mysql->desconectar();
-   
+
 $fichas = mysqli_fetch_all($result);
-$st="";
-for ($i=0; $i < count($fichas); $i++) { 
+$tabla = "";
+$nombres = [];
+$contador = 0;
 
-$st.=Creartabla($fichas[$i][0],$i);
+$spreadsheet = new Spreadsheet();
+
+// Set document properties
+$spreadsheet->getProperties()->setCreator('SENA APP')
+    ->setTitle('Formatos de los aprendices');
+
+for ($i = 0; $i < count($fichas); $i++) {
+
+    $GLOBALS["contador"] +=1;
+    $sheet = $spreadsheet->getActiveSheet();
+    foreach (range('A', $sheet->getHighestColumn()) as $col) {
+        $sheet->getColumnDimension($col)->setAutoSize(true);
+     }
+    // Add some data
+    $spreadsheet->setActiveSheetIndex($i)
+        ->setCellValue('A1', 'Nombre completo')
+        ->setCellValue('B1', 'Fecha de ingreso')
+        ->setCellValue('C1', 'Ficha')
+        ->setCellValue('D1', 'Estado')
+        ->setCellValue('E1', 'Documento')
+        ->setCellValue('F1', 'Tipo de documento');
+    // Suppose your HTML table data is in an array
 
 
-}
-$mysql->desconectar();
-
-
-
-
-
-function Creartabla($ficha,$time){
-
+    // Write data to Excel
+    $row = 2; // Start from second row, because first row is for column names
     $mysql = new MySQL();
     $mysql->conectar();
     // Realizar la consulta SQL para buscar la ficha
-    $consulta = $mysql->efectuarConsulta("SELECT * FROM  ingresados WHERE ficha =" .$ficha);
-    
+    $consulta = $mysql->efectuarConsulta("SELECT * FROM  ingresados WHERE ficha =" . $fichas[$i][0]);
+    $mysql->desconectar();
 
-    // Iterar sobre los resultados de la consulta y mostrarlos en la tabla
-    echo '<table class="hide" id="tabla'.$ficha.'">
-    <thead class="text-center thead-dark">
-        <tr>
-            <th>ID</th>
+    $data = mysqli_fetch_all($consulta);
 
-            <th>Nombre completo</th>
-            <th>Fecha de ingreso</th>
-            <th>Ficha</th>
-            <th>Estado</th>
-            <th>Documento</th>
-            <th>Tipo de documento</th>
-        </tr>
-    </thead>
-    <tbody id="miTabla">';
-    if (isset($consulta)) {
-   
-        while ($fila = mysqli_fetch_array($consulta)) {
-            echo "<tr>";
-            echo "<td>{$fila[0]}</td>";
-            echo "<td>{$fila[1]}</td>";
-            echo "<td>{$fila[2]}</td>";
-            echo "<td>{$fila[3]}</td>";
-            echo "<td>{$fila[4]}</td>";
-            echo "<td>{$fila[5]}</td>";
-            echo "<td>{$fila[6]}</td>";
-            echo "</tr>";
-        }
+    foreach ($data as $rowData) {
+
+        $spreadsheet->setActiveSheetIndex($i)
+
+            ->setCellValue('A' . $row, $rowData[1])
+            ->setCellValue('B' . $row, $rowData[2])
+            ->setCellValue('C' . $row, $rowData[3])
+            ->setCellValue('D' . $row, $rowData[4])
+            ->setCellValue('E' . $row, $rowData[5])
+            ->setCellValue('F' . $row, $rowData[6]);
+        $row++;
     }
-    echo '     </tbody>
-    </table>';
-    return ' setTimeout(() => {tableToExcel("tabla'.$ficha.'",'.$ficha.')}, "'.$time*2 .'");  ';
+
+    // Rename worksheet
+    $spreadsheet->getActiveSheet()->setTitle($fichas[$i][0]);
+    if($GLOBALS["contador"]> 1){
+        $spreadsheet->getActiveSheet()->getTabColor()->setARGB('07b107');
+        $GLOBALS["contador"] = 0;
+    }
+ 
+    if ($i < count($fichas) - 1) {
+        $spreadsheet->createSheet();
+    }
+
 }
 
-echo '<script>'. $st .'</script>';
+header('Content-Disposition: attachment;filename="'. date("Y-m-d H:i:s").'.xlsx"');
 
 
-
- echo '<form id="form" method="post" action="../index.php"> <input type="hidden" name="tab4" value="true"></form><script>setTimeout(() => {document.getElementById("form").submit();}, "'.$time*10+10 .'");</script>';
-
-
+$writer = new Xlsx($spreadsheet);
+$writer->save('php://output');
 
 ?>

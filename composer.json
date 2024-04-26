@@ -1,0 +1,19 @@
+{
+    "name": "sena/forma-ser",
+    "description": "SENA APP",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "Sena\\FormaSer\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Larz",
+            "email": "larzuck41@gmail.com"
+        }
+    ],
+    "require": {
+        "phpoffice/phpspreadsheet": "^2.0"
+    }
+}

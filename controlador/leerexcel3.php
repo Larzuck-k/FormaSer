@@ -66,7 +66,7 @@ function ArregloDatos($Datos, $Dtabla)
     $mysql = new MySQL();
     $mysql->conectar();
 
-    $tabla .= '<table id="tabla2"  class="table table-striped ">
+    $tabla .= '<table id="tabla2"  class="datatable table table-striped ">
 <thead>
     <tr>
         <th scope="col">Número de documento</th>
