@@ -81,9 +81,11 @@ if (isset($_POST['incorrecto'])) {
     <link href="assets/vendor/quill/quill.snow.css" rel="stylesheet">
     <link href="assets/vendor/quill/quill.bubble.css" rel="stylesheet">
     <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
-    <link href="assets/vendor/simple-datatables/style.css" rel="stylesheet">
-    <link href="assets/css/tabcontrol.css" href="style.css">
 
+    <link href="assets/css/tabcontrol.css" rel="stylesheet">
+    <link href="assets/css/datables.css" rel="stylesheet">
+    <link href="assets/css/responsive.css" rel="stylesheet">
+    <link href="assets/css/dtbuttons.css" rel="stylesheet">
     <!-- Template Main CSS File -->
     <link href="assets/css/style.css" rel="stylesheet">
 
@@ -241,20 +243,17 @@ if (isset($_POST['incorrecto'])) {
                         <div class="col-12">
                             <div class="card">
 
-
-
                                 <div class="card-body">
+
                                     <h5 class="card-title">Primer formato</h5>
-                                    <form action="./controlador/leerexcel.php" method="post" enctype='multipart/form-data'>
+                                    <form action="./controlador/leerexcel.php" class="form" method="post" enctype='multipart/form-data'>
 
-                                        <div class="container text-center ">
-                                            <input class="btn btn-success  col-5 p-3" accept=".xlsx, .xls" required type="file" name="excelfile" id="">
-                                            <p></p>
-                                            <input class="btn btn-primary  col-5 p-3" value="Subir archivo seleccionado" type="submit">
+                                        <input class="btn btn-success form-control " accept=".xlsx, .xls" required type="file" name="excelfile" id="">
+                                        <p></p>
+                                        <input class="btn btn-primary  form-control" value="Subir archivo seleccionado" type="submit">
 
-                                        </div>
+
                                     </form>
-
 
                                 </div>
 
@@ -340,14 +339,14 @@ if (isset($_POST['incorrecto'])) {
 
                             <div class="card-body">
                                 <h5 class="card-title">Segundo formato</h5>
-                                <form action="./controlador/leerexcel2.php" method="post" enctype='multipart/form-data'>
+                                <form action="./controlador/leerexcel2.php" class="form" method="post" enctype='multipart/form-data'>
 
-                                    <div class="container text-center ">
-                                        <input class="btn btn-success  col-5 p-3" accept=".xlsx, .xls" required type="file" name="excelfile" id="">
-                                        <p></p>
-                                        <input class="btn btn-primary  col-5 p-3" value="Subir archivo seleccionado" type="submit">
 
-                                    </div>
+                                    <input class="btn btn-success form-control" accept=".xlsx, .xls" required type="file" name="excelfile" id="">
+                                    <p></p>
+                                    <input class="btn btn-primary  form-control" value="Subir archivo seleccionado" type="submit">
+
+
                                 </form>
                             </div>
 
@@ -356,7 +355,7 @@ if (isset($_POST['incorrecto'])) {
 
 
                     <div class="col-12">
-                        <div class="card recent-sales overflow-auto">
+                        <div class="card ">
 
 
 
@@ -389,14 +388,14 @@ if (isset($_POST['incorrecto'])) {
 
                             <div class="card-body">
                                 <h5 class="card-title">Tercer formato</h5>
-                                <form action="./controlador/leerexcel3.php" method="post" enctype='multipart/form-data'>
+                                <form action="./controlador/leerexcel3.php" class="form" method="post" enctype='multipart/form-data'>
 
-                                    <div class="container text-center ">
-                                        <input class="btn btn-success required  col-5 p-3" accept=".xlsx, .xls" type="file" name="excelfile" id="">
-                                        <p></p>
-                                        <input id="subir" class="btn btn-primary col-5 p-3" value="Subir archivo seleccionado" type="submit">
-                                        <input name="datostabla2" id="datostabla2" type="hidden" value=" ">
-                                    </div>
+
+                                    <input class="btn btn-success required form-control" accept=".xlsx, .xls" type="file" name="excelfile" id="">
+                                    <p></p>
+                                    <input id="subir" class="btn btn-primary form-control" value="Subir archivo seleccionado" type="submit">
+                                    <input name="datostabla2" id="datostabla2" type="hidden" value=" ">
+
                                 </form>
                             </div>
 
@@ -506,7 +505,7 @@ if (isset($_POST['incorrecto'])) {
 
                                 <br>
 
-                                <table class="table table-striped datatable" id="tablai">
+                                <table class="datatable table table-striped" style="width:100%" id="tablai">
                                     <thead class="text-center thead-dark">
                                         <tr>
                                             <th>ID</th>
@@ -606,7 +605,7 @@ if (isset($_POST['incorrecto'])) {
     </div>
 
     <footer id="" class="footer" style=" background-color: rgb(113, 200, 114);">
-        <div class="copyright">
+        <div class="text-center text-white">
             &copy; Copyright <strong><span>Centro de Tecnologias Agroindustriales SENA </span></strong>- Todos los
             derechos reservados, 2024.
         </div>
@@ -615,7 +614,7 @@ if (isset($_POST['incorrecto'])) {
             <!-- You can delete the links only if you purchased the pro version. -->
             <!-- Licensing information: https://bootstrapmade.com/license/ -->
             <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/ -->
-            Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+              <!--  Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>-->
         </div>
     </footer><!-- End Footer -->
 
@@ -627,17 +626,32 @@ if (isset($_POST['incorrecto'])) {
     <script src="assets/vendor/chart.js/chart.umd.js"></script>
     <script src="assets/vendor/echarts/echarts.min.js"></script>
     <script src="assets/vendor/quill/quill.min.js"></script>
-    <script src="assets/vendor/simple-datatables/simple-datatables.js"></script>
+
     <script src="assets/vendor/tinymce/tinymce.min.js"></script>
     <script src="assets/vendor/php-email-form/validate.js"></script>
-    
+
     <script src="assets/js/tabcontrol.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="assets/js/htmltoexcel.js"></script>
     <script src="assets/js/cargartabla.js"></script>
-    <script>
 
-    </script>
+    <script src="assets/js/jquery.js"></script>
+
+    <script src="assets/js/datatables.js"></script>
+    <script src="assets/js/datatablebuttons.js"></script>
+    <script src="assets/js/dtbuttons.js"></script>
+    <script src="assets/js/dthtml5.js"></script>
+    <script src="assets/js/pdfmake.js"></script>
+    <script src="assets/js/pdffonts.js"></script>
+    <script src="assets/js/dtprint.js"></script>
+    <script src="assets/js/responsive.js"></script>
+    <script src="assets/js/responsibledt.js"></script>
+
+
+
+
+
+
     <script>
         let documento;
         let btncancelar = document.getElementById("btncancelar")
@@ -730,5 +744,7 @@ if (isset($_POST['incorrecto'])) {
 }
 
 
+
+
+
 ?>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>

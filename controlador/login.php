@@ -56,7 +56,9 @@ if (
         $rol  = $fila['rol_funcionario'];
     } else {
 
-        header("Location: ../login.php?Error=true&Mensaje=Verifique sus datos");
+        echo('<form id="form" method="post" action="../login.php"><input type="hidden" name="error-login" value="Contraseña o correo incorrectos, intente de nuevo."></form>
+     
+        <script>document.getElementById("form").submit();</script>');
     }
 
 
@@ -74,8 +76,10 @@ if (
 
     if ($rol == "Funcionario" || $rol == "2" || $rol == "3") {
         $_SESSION["funcionario"] = $usuario;
-        header("Location: ../index.php");
+       echo('<form id="form" method="post" action="../index.php"> <input type="hidden" name="tab1" value="true"></form><script>document.getElementById("form").submit();</script>');
     }
 } else {
-    header("Location: ../login.php?Error=true&Mensaje=No se ha encontrado  el usuario o contraseña");
+   echo('<form id="form" method="post" action="../login.php"><input type="hidden" name="error-login" value="Error al conectar con la base de datos, está conectado a internet?"></form>
+     
+   <script>document.getElementById("form").submit();</script>');
 }

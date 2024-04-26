@@ -77,17 +77,7 @@
   </div>
     
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script>
-        if (<?php if(isset($_GET['Error'])){ echo ($_GET['Error']); } else{echo "false";}?>  == true) {
-            Swal.fire({
-                icon: "error",
-                title: "Oops...",
-                text: "<?php if(isset($_GET['Mensaje'])){ echo ($_GET['Mensaje']); }?>",
-              
-            });
 
-        }
-    </script>
 
 
     <script src="assets/js/jquery-3.3.1.min.js"></script>
@@ -98,7 +88,7 @@
 </html>
 
   <div class="d-lg-flex half">
-    <div class="bg order-1 order-md-2" style="background-image: url('assets/img/Login.png');
+    <div class="bg order-1 order-md-2" style="background-image: url('assets/img/ctacartago.jpg');
     
     background-position-x: right;"></div>
     <div class="contents order-2 order-md-1">
@@ -145,3 +135,17 @@
     <script src="assets/js/mainLog.js"></script>
   </body>
 </html>
+
+<?php 
+
+if (isset($_POST['error-login'])) {
+
+  echo   '<script> Swal.fire({
+      icon: "error",
+      title: "Oops...",
+      text: " ' . $_POST['error-login'] . '",
+   
+    });  </script>';
+}
+
+?>

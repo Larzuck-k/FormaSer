@@ -28,13 +28,12 @@ $spreadsheet = new Spreadsheet();
 $spreadsheet->getProperties()->setCreator('SENA APP')
     ->setTitle('Formatos de los aprendices');
 
+    
 for ($i = 0; $i < count($fichas); $i++) {
 
     $GLOBALS["contador"] +=1;
-    $sheet = $spreadsheet->getActiveSheet();
-    foreach (range('A', $sheet->getHighestColumn()) as $col) {
-        $sheet->getColumnDimension($col)->setAutoSize(true);
-     }
+   
+ 
     // Add some data
     $spreadsheet->setActiveSheetIndex($i)
         ->setCellValue('A1', 'Nombre completo')
@@ -79,7 +78,10 @@ for ($i = 0; $i < count($fichas); $i++) {
     if ($i < count($fichas) - 1) {
         $spreadsheet->createSheet();
     }
-
+    $sheet = $spreadsheet->getActiveSheet();
+    foreach (range('A', $sheet->getHighestColumn()) as $col) {
+        $sheet->getColumnDimension($col)->setAutoSize(true);
+     }
 }
 
 header('Content-Disposition: attachment;filename="'. date("Y-m-d H:i:s").'.xlsx"');

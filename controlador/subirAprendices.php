@@ -42,7 +42,8 @@ function Enviar()
 {
 
 
- echo '<form id="form" method="post" action="../index.php"></form><script>document.getElementById("form").submit();</script>';
+  echo '<form id="form" method="post" action="../index.php"><input type="hidden" name="tab1" value="true"></form><script>document.getElementById("form").submit();</script>';
+    
 }
 
 ?>
