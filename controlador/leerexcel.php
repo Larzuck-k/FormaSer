@@ -70,7 +70,9 @@ function ArregloDatos($Datos)
     $tabla .= '<table id="tabla" class="datatable table table-striped " style="width:100%">
 <thead>
     <tr>
-        <th scope="col">Número de documento</th>
+    <th scope="col">#</th>
+         
+    <th scope="col">Número de documento</th>
         <th scope="col">Nombre completo</th>
         <th scope="col">ficha</th>
         <th scope="col">Tipo de documento</th>
@@ -104,10 +106,12 @@ for ($i=0; $i < count($elementos); $i++) {
         $elementos[$i] = $Datos[2 + $index][2];
       
          $tabla .= ' 
-        <th scope="row"><a href="#">' . $Datos[2 + $index][2] . '</a></th>
+      
+         <td>'.  $index+1 .'</td>
+         <td>' . $Datos[2 + $index][2] . '</td>
         <td>En espera...</td>
-        <td><a href="#" class="text-primary">' . $Datos[2 + $index][3] . '</a></td>
-        <td><a href="#" class="text-primary">' . $Datos[2 + $index][1] . '</a></td>
+        <td><a  class="text-primary">' . $Datos[2 + $index][3] . '</a></td>
+        <td><a class="text-primary">' . $Datos[2 + $index][1] . '</a></td>
         <td>';
        
 
@@ -152,14 +156,26 @@ for ($i=0; $i < count($elementos); $i++) {
                     $tabla .= "<br>";
                     $tabla .= "<span class=^badge bg-danger^>Ya ha hecho este curso (No es posible repetirlo)</span>";
                 } else{
-                    $result = $mysql->efectuarConsulta("SELECT * FROM cursos_aprendiz where documento = " . $Datos[2 + $index][2] . " and inscripcion between '" . date("Y") . "-01-01' and '" . date("Y") . "-12-31'");
+                    $result = $mysql->efectuarConsulta("SELECT * FROM  cursos_aprendiz INNER JOIN fichas ON cursos_aprendiz.ficha = fichas.ficha where documento = " . $Datos[2 + $index][2] . " and inscripcion between '" . date("Y") . "-01-01' and '" . date("Y") . "-12-31'");
 
                     $row_count3 = $result->num_rows;
 
                     
                 if ($row_count3 >= 1) {
+
+
+                    
+                    $array = mysqli_fetch_all($result, 1);
+                    $cursados = "";
+              foreach ($array as $index => $value) {
+          $cursados .=    $array[0]["nombre_curso"] . " ". $array[0]["ficha"] . " " .$array[0]["inscripcion"] . "  " . $array[0]["documento"] ;
+               
+//SELECT * FROM cursos_aprendiz  INNER JOIN ingresados ON cursos_aprendiz.documento = ingresados.documento   INNER JOIN fichas ON cursos_aprendiz.ficha = fichas.ficha    where cursos_aprendiz.documento = 1112765623  and inscripcion between '2024-01-01' and '2024-12-31'
+//2 fichas apartes
+              }
+                  
                     $tabla .= "<br>";
-                    $tabla .=  '  <span id="'.str_replace("CC - ","",$Datos[2 + $index][2] ).'"><button class=^badge btn btn-info^ onclick="leer('.str_replace("CC - ","",$Datos[2 + $index][2] ) .')" data-bs-toggle="modal" data-bs-target="#staticBackdrop"  >Conflicto: Se encuentra matriculado en el año vigente (Presione aqui)</button></span> ';
+                    $tabla .=  '  <span id="'.str_replace("CC - ","",$Datos[2 + $index][2] ).'"><button class=^badge btn btn-info^ onclick="leer('.str_replace("CC - ","",$Datos[2 + $index][2] ) .',~'.$cursados.'~)" data-bs-toggle="modal" data-bs-target="#staticBackdrop"  >Conflicto: Se encuentra matriculado en el año vigente (Presione aqui)</button></span> ';
 
                  
 
@@ -217,8 +233,8 @@ for ($i=0; $i < count($elementos); $i++) {
 
 function Enviar($Dato)
 {
-
-       echo '<form id="form" method="post" action="../index.php"><input type="hidden" name="tabla" value="' . str_replace('"', '^', $Dato) . '"> <input type="hidden" name="tab1" value="true"></form><script>document.getElementById("form").submit();</script>';
+$cadena =  str_replace('"', '^', $Dato);
+      echo '<form id="form" method="post" action="../index.php"><input type="hidden" name="tabla" value="' .str_replace( '~',chr(39),$cadena  ) . '"> <input type="hidden" name="tab1" value="true"></form><script>document.getElementById("form").submit();</script>';
     
 
 

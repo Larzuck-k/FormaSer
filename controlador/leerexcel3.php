@@ -126,7 +126,7 @@ function ArregloDatos($Datos, $Dtabla)
                     if (preg_replace("/[^0-9\.]/", "", $Datos[6 + $index][0]) == $array[$key]["documento"] && $Datos[2][1] == $array[$key]["ficha"] && $Datos[6 + $index][2] == "Matriculado ") {
 
                         $tabla .= ' 
-            <th scope="row"><a href="#">' . $Datos[6 + $index][0] . '</a></th>
+            <td scope="row"><a href="#">' . $Datos[6 + $index][0] . '</a></td>
             <td>' . $Datos[6 + $index][1] . '</td>
             <td><a href="#" class="text-primary">' . $Datos[2][1] . '</a></td>
             <td><span class=^badge bg-success^>Matriculado</span>';
@@ -148,7 +148,7 @@ function ArregloDatos($Datos, $Dtabla)
 
                         $result = $mysql->efectuarConsulta('UPDATE  ingresados set estado = "Anulado",nombre_completo = "' . $Datos[6 + $index][1] . '"  where documento = ' . preg_replace("/[^0-9\.]/", "", $Datos[6 + $index][0]));
                         $tabla .= ' 
-                   <th scope="row"><a href="#">' . $Datos[6 + $index][0] . '</a></th>
+                   <td scope="row"><a href="#">' . $Datos[6 + $index][0] . '</a></td>
                    <td>' . $Datos[6 + $index][1] . '</td>
                    <td><a href="#" class="text-primary">' . $Datos[2][1] . '</a></td>
                    <td><span class=^badge bg-dark^>Anulado</span>';

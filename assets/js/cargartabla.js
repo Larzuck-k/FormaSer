@@ -10,9 +10,9 @@ responsive: true,
     
         layout: {
     
-    
-          topStart: {
-                buttons: ['copy', 'csv', 'excel', 'pdf', 'print']
+          topEnd:{ buttons: ['copy', 'csv', 'excel', 'pdf', 'print','pageLength']},
+          bottomEnd: {
+            buttons: ['pageLength'],
             }
         }
     });

@@ -187,7 +187,10 @@ if (isset($_POST['incorrecto'])) {
                         Este aprendíz ya se ha matriculado antes en un curso en el año vigente, si desea matricularlo de
                         nuevo en este curso, no es necesario tomar acciones, de lo contrario presione el bóton para
                         cancelar la matrícula.
+<p></p>
+                        <span class="h5">Ficha anterior: </span><span class="h badge bg-warning" id="razones"></span>
                     </div>
+                   
                     <div class="modal-footer">
                         <button type="button" id="btncancelar" class="btn btn-danger" data-bs-dismiss="modal">Cancelar
                             matrícula</button>
@@ -633,7 +636,6 @@ if (isset($_POST['incorrecto'])) {
     <script src="assets/js/tabcontrol.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="assets/js/htmltoexcel.js"></script>
-    <script src="assets/js/cargartabla.js"></script>
 
     <script src="assets/js/jquery.js"></script>
 
@@ -646,6 +648,7 @@ if (isset($_POST['incorrecto'])) {
     <script src="assets/js/dtprint.js"></script>
     <script src="assets/js/responsive.js"></script>
     <script src="assets/js/responsibledt.js"></script>
+    <script src="assets/js/cargartabla.js"></script>
 
 
 
@@ -656,9 +659,10 @@ if (isset($_POST['incorrecto'])) {
         let documento;
         let btncancelar = document.getElementById("btncancelar")
 
-        function leer(doc) {
+        function leer(doc,razon) {
 
             document.getElementById("cancelar").value = doc
+            document.getElementById("razones").innerText = razon;
             documento = doc;
             target = document.getElementById("cancelar").value;
             btncancelar.addEventListener("click", escribir);
