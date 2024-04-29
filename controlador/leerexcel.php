@@ -170,7 +170,7 @@ function ArregloDatos($Datos)
                                         $cursados .= $array[0]["ficha"] . " - " . $array[0]["nombre_curso"] . " - " . $array[0]["inscripcion"];
 
                                         //SELECT fichas.ficha as "Ficha anterior",fichas.nombre_curso, ingresados.ficha as "Ficha a inscribir" FROM cursos_aprendiz  INNER JOIN ingresados ON cursos_aprendiz.documento = ingresados.documento   INNER JOIN fichas ON cursos_aprendiz.ficha = fichas.ficha    where cursos_aprendiz.documento = 1112765623  and inscripcion between '2024-01-01' and '2024-12-31'
-                                            //2 fichas apartes
+                                        //2 fichas apartes
                                     }
 
                                     $tabla .= "<br>";
