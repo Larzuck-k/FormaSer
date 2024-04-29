@@ -156,8 +156,7 @@ for ($i=0; $i < count($elementos); $i++) {
                     $tabla .= "<br>";
                     $tabla .= "<span class=^badge bg-danger^>Ya ha hecho este curso (No es posible repetirlo)</span>";
                 } else{
-                    $result = $mysql->efectuarConsulta("SELECT * FROM  cursos_aprendiz INNER JOIN fichas ON cursos_aprendiz.ficha = fichas.ficha where documento = " . $Datos[2 + $index][2] . " and inscripcion between '" . date("Y") . "-01-01' and '" . date("Y") . "-12-31'");
-
+                    $result = $mysql->efectuarConsulta('SELECT fichas.ficha,fichas.nombre_curso, cursos_aprendiz.inscripcion FROM cursos_aprendiz   INNER JOIN ingresados ON cursos_aprendiz.documento = ingresados.documento   INNER JOIN fichas ON cursos_aprendiz.ficha = fichas.ficha    where cursos_aprendiz.documento = '. $Datos[2 + $index][2]);
                     $row_count3 = $result->num_rows;
 
                     
@@ -168,14 +167,14 @@ for ($i=0; $i < count($elementos); $i++) {
                     $array = mysqli_fetch_all($result, 1);
                     $cursados = "";
               foreach ($array as $index => $value) {
-          $cursados .=    $array[0]["nombre_curso"] . " ". $array[0]["ficha"] . " " .$array[0]["inscripcion"] . "  " . $array[0]["documento"] ;
+          $cursados .=   $array[0]["ficha"] . " - ". $array[0]["nombre_curso"] . " - " .$array[0]["inscripcion"]  ;
                
 //SELECT fichas.ficha as "Ficha anterior",fichas.nombre_curso, ingresados.ficha as "Ficha a inscribir" FROM cursos_aprendiz  INNER JOIN ingresados ON cursos_aprendiz.documento = ingresados.documento   INNER JOIN fichas ON cursos_aprendiz.ficha = fichas.ficha    where cursos_aprendiz.documento = 1112765623  and inscripcion between '2024-01-01' and '2024-12-31'
 //2 fichas apartes
               }
                   
                     $tabla .= "<br>";
-                    $tabla .=  '  <span id="'.str_replace("CC - ","",$Datos[2 + $index][2] ).'"><button class=^badge btn btn-info^ onclick="leer('.str_replace("CC - ","",$Datos[2 + $index][2] ) .',~'.$cursados.'~)" data-bs-toggle="modal" data-bs-target="#staticBackdrop"  >Conflicto: Se encuentra matriculado en el año vigente (Presione aqui)</button></span> ';
+                    $tabla .=  '  <span id="'.str_replace("CC - ","",$Datos[2 + $index][2] ).'"><button class=^badge btn btn-info ^ onclick="leer('.str_replace("CC - ","",$Datos[2 + $index][2] ) .',~'.$cursados.'~)" data-bs-toggle="modal" data-bs-target="#staticBackdrop"  >Conflicto: Se encuentra matriculado en el año vigente (Presione aqui)</button></span> ';
 
                  
 

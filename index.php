@@ -188,7 +188,7 @@ if (isset($_POST['incorrecto'])) {
                         nuevo en este curso, no es necesario tomar acciones, de lo contrario presione el bóton para
                         cancelar la matrícula.
 <p></p>
-                        <span class="h5">Ficha anterior: </span><span class="h badge bg-warning" id="razones"></span>
+                        <span class="h5">Cursado anteriormente: </span><span class="h badge bg-warning text-dark" id="razones"></span>
                     </div>
                    
                     <div class="modal-footer">
