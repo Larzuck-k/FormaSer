@@ -648,6 +648,7 @@ if (isset($_POST['incorrecto'])) {
     <script src="assets/js/dtprint.js"></script>
     <script src="assets/js/responsive.js"></script>
     <script src="assets/js/responsibledt.js"></script>
+    
     <script src="assets/js/cargartabla.js"></script>
 
 
