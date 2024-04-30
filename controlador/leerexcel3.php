@@ -119,51 +119,72 @@ function ArregloDatos($Datos, $Dtabla)
 
             $row_count = $result->num_rows;
 
+
             foreach ($array as $key => $value) {
 
-                if (!empty($Datos[6 + $index][0]) && !empty($Datos[2][1])) {
-
-                    if (preg_replace("/[^0-9\.]/", "", $Datos[6 + $index][0]) == $array[$key]["documento"] && $Datos[2][1] == $array[$key]["ficha"] && $Datos[6 + $index][2] == "Matriculado ") {
-
-                        $tabla .= ' 
-            <td scope="row"><a href="#">' . $Datos[6 + $index][0] . '</a></td>
-            <td>' . $Datos[6 + $index][1] . '</td>
-            <td><a href="#" class="text-primary">' . $Datos[2][1] . '</a></td>
-            <td><span class=^badge bg-success^>Matriculado</span>';
-                        $result = $mysql->efectuarConsulta('UPDATE  ingresados set estado = "Matriculado",nombre_completo = "' . $Datos[6 + $index][1] . '"  where documento = ' . preg_replace("/[^0-9\.]/", "", $Datos[6 + $index][0]));
 
 
-                        $result = $mysql->efectuarConsulta('SELECT * FROM cursos_aprendiz where documento = ' . preg_replace("/[^0-9\.]/", "", $Datos[6 + $index][0]) . ' and ficha =' . $Datos[2][1]);
+                if (preg_replace("/[^0-9\.]/", "", $Datos[6 + $index][0]) == $array[$key]["documento"] && $Datos[2][1] == $array[$key]["ficha"] && str_contains($Datos[6 + $index][2], "Matriculado")) {
 
-                        $row_count = $result->num_rows;
-                        if ($row_count == 0) {
-                            echo 'INSERT INTO `cursos_aprendiz`  VALUES (NULL, ' . preg_replace("/[^0-9\.]/", "", $Datos[6 + $index][0]) . ', "' . str_replace("/", "-", date("Y/m/d")) . '", ' . $Datos[2][1] . ') ';
-                            $result = $mysql->efectuarConsulta('INSERT INTO `cursos_aprendiz`  VALUES (NULL, ' . preg_replace("/[^0-9\.]/", "", $Datos[6 + $index][0]) . ', "' . str_replace("/", "-", date("Y/m/d")) . '", ' . $Datos[2][1] . ') ');
-                        }
-                    }
+                    $tabla .= ' 
+                         <td scope="row"><a href="#">' . $Datos[6 + $index][0] . '</a></td>
+                        <td>' . $Datos[6 + $index][1] . '</td>
+                        <td><a href="#" class="text-primary">' . $Datos[2][1] . '</a></td>
+                        <td><span class=^badge bg-success^>Matriculado</span>';
+                    $result = $mysql->efectuarConsulta('UPDATE  ingresados set estado = "Matriculado",nombre_completo = "' . $Datos[6 + $index][1] . '"  where documento = ' . preg_replace("/[^0-9\.]/", "", $Datos[6 + $index][0]));
 
 
+                    $result = $mysql->efectuarConsulta('SELECT * FROM cursos_aprendiz where documento = ' . preg_replace("/[^0-9\.]/", "", $Datos[6 + $index][0]) . ' and ficha =' . $Datos[2][1]);
 
-                    if (preg_replace("/[^0-9\.]/", "", $Datos[6 + $index][0]) == $array[$key]["documento"] && $Datos[2][1] == $array[$key]["ficha"] && str_contains($Datos[6 + $index][2], "Anulado") == true) {
-
-                        $result = $mysql->efectuarConsulta('UPDATE  ingresados set estado = "Anulado",nombre_completo = "' . $Datos[6 + $index][1] . '"  where documento = ' . preg_replace("/[^0-9\.]/", "", $Datos[6 + $index][0]));
-                        $tabla .= ' 
-                   <td scope="row"><a href="#">' . $Datos[6 + $index][0] . '</a></td>
-                   <td>' . $Datos[6 + $index][1] . '</td>
-                   <td><a href="#" class="text-primary">' . $Datos[2][1] . '</a></td>
-                   <td><span class=^badge bg-dark^>Anulado</span>';
+                    $row_count = $result->num_rows;
+                    if ($row_count == 0) {
+                        echo 'INSERT INTO `cursos_aprendiz`  VALUES (NULL, ' . preg_replace("/[^0-9\.]/", "", $Datos[6 + $index][0]) . ', "' . str_replace("/", "-", date("Y/m/d")) . '", ' . $Datos[2][1] . ') ';
+                        $result = $mysql->efectuarConsulta('INSERT INTO `cursos_aprendiz`  VALUES (NULL, ' . preg_replace("/[^0-9\.]/", "", $Datos[6 + $index][0]) . ', "' . str_replace("/", "-", date("Y/m/d")) . '", ' . $Datos[2][1] . ') ');
                     }
                 }
 
 
 
+                if (preg_replace("/[^0-9\.]/", "", $Datos[6 + $index][0]) == $array[$key]["documento"] && $Datos[2][1] == $array[$key]["ficha"] && str_contains($Datos[6 + $index][2], "Anulado")) {
 
+                    $result = $mysql->efectuarConsulta('UPDATE  ingresados set estado = "Anulado",nombre_completo = "' . $Datos[6 + $index][1] . '"  where documento = ' . preg_replace("/[^0-9\.]/", "", $Datos[6 + $index][0]));
+                    $tabla .= ' 
+                   <td scope="row"><a href="#">' . $Datos[6 + $index][0] . '</a></td>
+                   <td>' . $Datos[6 + $index][1] . '</td>
+                   <td><a href="#" class="text-primary">' . $Datos[2][1] . '</a></td>
+                   <td><span class=^badge bg-dark^>Anulado</span>';
+                }
+ 
+ 
+                }
 
+ 
+                $result = $mysql->efectuarConsulta("SELECT * FROM ingresados where documento = ". preg_replace("/[^0-9\.]/", "", $Datos[6 + $index][0]));
+ $array = mysqli_fetch_all($result, 1);
+  $row_count = $result->num_rows;
+                if($row_count == 0){
 
+                    $tabla .= ' 
+                    <td scope="row"><a href="#">' . $Datos[6 + $index][0] . '</a></td>
+                    <td>' . $Datos[6 + $index][1] . '</td>
+                    <td><a href="#" class="text-primary">' . $Datos[2][1] . '</a></td>
+                    <td><span class=^badge bg-success^>Matriculado</span>';
+                
+                    $mysql ->efectuarConsulta('Insert into ingresados values(null,"' . $Datos[6 + $index][1] . '" ,"'.str_replace("/","-",date("Y/m/d")).'",'. $Datos[2][1] .' ,"Matriculado",'.preg_replace("/[^0-9\.]/", "", $Datos[6 + $index][0]).' ,"'.preg_replace("/[^A-Z\.]/", "", $Datos[6 + $index][0]).'")');
+                
+
+                    $result = $mysql->efectuarConsulta('SELECT * FROM cursos_aprendiz where documento = ' . preg_replace("/[^0-9\.]/", "", $Datos[6 + $index][0]) . ' and ficha =' . $Datos[2][1]);
+
+                    $row_count = $result->num_rows;
+                    if ($row_count == 0) {
+                        echo 'INSERT INTO `cursos_aprendiz`  VALUES (NULL, ' . preg_replace("/[^0-9\.]/", "", $Datos[6 + $index][0]) . ', "' . str_replace("/", "-", date("Y/m/d")) . '", ' . $Datos[2][1] . ') ';
+                        $result = $mysql->efectuarConsulta('INSERT INTO `cursos_aprendiz`  VALUES (NULL, ' . preg_replace("/[^0-9\.]/", "", $Datos[6 + $index][0]) . ', "' . str_replace("/", "-", date("Y/m/d")) . '", ' . $Datos[2][1] . ') ');
+                    }
+                }
                 $tabla .= '</td>
             
             </tr>';
-            }
+          
         }
     }
 
@@ -182,5 +203,5 @@ function Enviar($Dato)
 
 
 
-    echo '<form id="form" method="post" action="../index.php"><input type="hidden" name="tabla3" value="' . str_replace('"', '^', $Dato) . '"><input type="hidden" name="tab3" value="true"></form><script>document.getElementById("form").submit();</script>';
+     echo '<form id="form" method="post" action="../index.php"><input type="hidden" name="tabla3" value="' . str_replace('"', '^', $Dato) . '"><input type="hidden" name="tab3" value="true"></form><script>document.getElementById("form").submit();</script>';
 }
