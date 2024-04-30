@@ -637,18 +637,19 @@ if (isset($_POST['incorrecto'])) {
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="assets/js/htmltoexcel.js"></script>
 
-    <script src="assets/js/jquery.js"></script>
 
+    <script src="assets/js/jquery.js"></script>
     <script src="assets/js/datatables.js"></script>
     <script src="assets/js/datatablebuttons.js"></script>
     <script src="assets/js/dtbuttons.js"></script>
-    <script src="assets/js/dthtml5.js"></script>
-    <script src="assets/js/pdfmake.js"></script>
-    <script src="assets/js/pdffonts.js"></script>
-    <script src="assets/js/dtprint.js"></script>
-    <script src="assets/js/responsive.js"></script>
+   <script src="assets/js/responsive.js"></script>
+   <script src="assets/js/jszip.js"></script>
     <script src="assets/js/responsibledt.js"></script>
-    
+    <script src="assets/js/dtprint.js"></script>
+    <script src="assets/js/pdfmake.js"></script>
+    <script src="assets/js/dthtml5.js"></script>
+    <script src="assets/js/pdffonts.js"></script>
+ 
     <script src="assets/js/cargartabla.js"></script>
 
 
