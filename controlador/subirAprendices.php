@@ -6,12 +6,12 @@ $mysql = new MySQL();
 $Aprendices = json_decode($_POST["datostabla"],true);
 
 foreach ($Aprendices as $index2 => $j) {
-   echo $Aprendices[$index2]["estado"];
-   echo "<br>";
+  $fecha = date("Y-m-d", strtotime( $Aprendices[$index2]["Fecha de inicio"])) ;
+
    // print_r( $Aprendices);
   if(str_contains($Aprendices[$index2]["estado"],"No es posible repetirlo") == false ){
   
-
+ 
 
   $result = $mysql->efectuarConsulta("SELECT * FROM ingresados where documento = " . $Aprendices[$index2]["Número de documento"] .  " and ficha = " . $Aprendices[$index2]["ficha"]);
 
@@ -20,15 +20,20 @@ foreach ($Aprendices as $index2 => $j) {
 if ($row_count == 0) {
 
   if(str_contains($Aprendices[$index2]["estado"],"Anulado")){
-   $mysql ->efectuarConsulta('Insert into ingresados values(null,"En espera...","'.str_replace("/","-",date("Y/m/d")).'",'.$Aprendices[$index2]["ficha"].' ,"Anulado",'.$Aprendices[$index2]["Número de documento"].' ,"'.$Aprendices[$index2]["Tipo de documento"].'")');
+    $fecha = date("Y-m-d", strtotime( $Aprendices[$index2]["Fecha de inicio"])) ;
+   $mysql ->efectuarConsulta('Insert into ingresados values(null,"En espera...","'.   $fecha .'",'.$Aprendices[$index2]["ficha"].' ,"Anulado",'.$Aprendices[$index2]["Número de documento"].' ,"'.$Aprendices[$index2]["Tipo de documento"].'")');
 
   }
-
+if(isset($Aprendices[$index2]["Nombre completo"])){
   if(str_contains($Aprendices[$index2]["estado"],"Aspirante")){
-   $mysql ->efectuarConsulta('Insert into ingresados values(null,"En espera...","'.str_replace("/","-",date("Y/m/d")).'",'.$Aprendices[$index2]["ficha"].' ,"Aspirante",'.$Aprendices[$index2]["Número de documento"].' ,"'.$Aprendices[$index2]["Tipo de documento"].'")');
+   $mysql ->efectuarConsulta('Insert into ingresados values(null,"'.$Aprendices[$index2]["Nombre completo"].'","'.$fecha.'",'.$Aprendices[$index2]["ficha"].' ,"Aspirante",'.$Aprendices[$index2]["Número de documento"].' ,"'.$Aprendices[$index2]["Tipo de documento"].'")');
 
-  }
-
+  }else{
+ 
+    $mysql ->efectuarConsulta('Insert into ingresados values(null,"En espera...","'.$fecha.'",'.$Aprendices[$index2]["ficha"].' ,"Aspirante",'.$Aprendices[$index2]["Número de documento"].' ,"'.$Aprendices[$index2]["Tipo de documento"].'")');
+}
+  
+}
 }
 
 
@@ -42,7 +47,7 @@ function Enviar()
 {
 
 
-  //echo '<form id="form" method="post" action="../index.php"><input type="hidden" name="tab1" value="true"></form><script>document.getElementById("form").submit();</script>';
+ echo '<form id="form" method="post" action="../index.php"><input type="hidden" name="tab1" value="true"></form><script>document.getElementById("form").submit();</script>';
     
 }
 

@@ -11,7 +11,7 @@ responsive: true,
         layout: {
     
           topEnd:{ buttons: ['copy', 'excel', 'pdf', 'print']},
-          bottomEnd: {
+          topStart: {
             buttons: ['pageLength'],
             }
         }

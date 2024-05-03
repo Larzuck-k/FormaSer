@@ -286,8 +286,8 @@ if (isset($_POST['incorrecto'])) {
                                 <div class="card-body text-end pt-3">
                                     <form action="./controlador/subirAprendices.php" method="post">
 
-                                        <input type="submit" onclick="sincronizar()" class="btn btn-primary text-start" required value="Enviar aprendices">
-                                        <input name="datostabla" id="datostabla" type="hidden" value=" ">
+                                        <input type="submit" class="btn btn-primary text-start" required value="Enviar aprendices">
+                                        <input name="datostabla" id="datostabla" type="hidden" size="524288" value=" ">
                                     </form>
                                 </div>
 
@@ -296,9 +296,9 @@ if (isset($_POST['incorrecto'])) {
                     </div>
 
                     <script>
-                        function sincronizar() {
-                            tableToJson(document.getElementById("tabla"))
-                        }
+                        tableToJson(document.getElementById("tabla"))
+                         
+                        
 
                         function tableToJson(table) {
 

@@ -76,6 +76,8 @@ function ArregloDatos($Datos)
         <th scope="col">Nombre completo</th>
         <th scope="col">ficha</th>
         <th scope="col">Tipo de documento</th>
+          <th scope="col">Fecha de inicio</th>
+       
         <th scope="col">estado</th>
 
     </tr>
@@ -117,6 +119,7 @@ function ArregloDatos($Datos)
                     $GLOBALS['$DatosV2'][$index][3] = $DatoNuevo[$index][1];
                     $GLOBALS['$DatosV2'][$index][4] = $DatoNuevo[$index][3] . " " . $DatoNuevo[$index][4];
                     $GLOBALS['$DatosV2'][$index][1] = "CC";
+                    $GLOBALS['$DatosV2'][$index][5] = $DatoNuevo[$index][7];
                 }
                         $Datos = $GLOBALS['$DatosV2'];
                 foreach ( $Datos as $index => $v) {
@@ -136,6 +139,7 @@ function ArregloDatos($Datos)
             <td>' . $Datos[2 + $index][4] . '</td>
             <td><a  class="text-primary">' . $Datos[2 + $index][3] . '</a></td>
             <td><a class="text-primary">' . $Datos[2 + $index][1] . '</a></td>
+            <td>' . str_replace("/","-",$Datos[2 + $index][5]) . '</td>
             <td>';
 
 
@@ -272,6 +276,7 @@ function ArregloDatos($Datos)
         <td>En espera...</td>
         <td><a  class="text-primary">' . $Datos[2 + $index][3] . '</a></td>
         <td><a class="text-primary">' . $Datos[2 + $index][1] . '</a></td>
+        <td>' .date("Y-m-d"). '</td>
         <td>';
 
 
