@@ -188,7 +188,8 @@ if (isset($_POST['incorrecto'])) {
                         nuevo en este curso, no es necesario tomar acciones, de lo contrario presione el bóton para
                         cancelar la matrícula.
 <p></p>
-                        <span class="h5">Cursado anteriormente: </span><span class="h badge bg-warning text-dark" id="razones"></span>
+                        <div class="h5">Cursado anteriormente: </div>
+                        <div  id="razones" class="card bg-warning"></div>
                     </div>
                    
                     <div class="modal-footer">
@@ -560,9 +561,14 @@ if (isset($_POST['incorrecto'])) {
                             </div>
 
                             <form form action="./controlador/exportartodos.php" method="post" enctype='multipart/form-data'>
-                                <input type="submit" class="btn btn-warning form-control" value="Imprimir formato de todas las fichas">
+                                <input type="submit" class="btn btn-warning form-control" value="Imprimir formato (separado por fichas)">
+           
                             </form>
-
+                            <br>
+                            <form form action="./controlador/exportar.php" method="post" enctype='multipart/form-data'>
+                                <input type="submit" class="btn btn-warning form-control" value="Imprimir formato (todas las fichas)">
+           
+                            </form>
 
                         </div>
 
@@ -664,7 +670,7 @@ if (isset($_POST['incorrecto'])) {
         function leer(doc,razon) {
 
             document.getElementById("cancelar").value = doc
-            document.getElementById("razones").innerText = razon;
+            document.getElementById("razones").innerHTML =  `<span class="text-dark">${razon}</span>` ;
             documento = doc;
             target = document.getElementById("cancelar").value;
             btncancelar.addEventListener("click", escribir);
