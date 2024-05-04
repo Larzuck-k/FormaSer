@@ -14,7 +14,7 @@ date_default_timezone_set('America/Bogota');
 $mysql = new MySQL();
 $mysql->conectar();
 
-$result = $mysql->efectuarConsulta("SELECT * FROM fichas");
+$result = $mysql->efectuarConsulta("SELECT ficha FROM `ingresados` GROUP BY ficha;");
 $mysql->desconectar();
 
 $fichas = mysqli_fetch_all($result);
