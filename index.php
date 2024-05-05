@@ -187,11 +187,11 @@ if (isset($_POST['incorrecto'])) {
                         Este aprendíz ya se ha matriculado antes en un curso en el año vigente, si desea matricularlo de
                         nuevo en este curso, no es necesario tomar acciones, de lo contrario presione el bóton para
                         cancelar la matrícula.
-<p></p>
+                        <p></p>
                         <div class="h5">Cursado anteriormente: </div>
-                        <div  id="razones" class="card bg-warning"></div>
+                        <div id="razones" class="card bg-warning"></div>
                     </div>
-                   
+
                     <div class="modal-footer">
                         <button type="button" id="btncancelar" class="btn btn-danger" data-bs-dismiss="modal">Cancelar
                             matrícula</button>
@@ -216,7 +216,9 @@ if (isset($_POST['incorrecto'])) {
             <li class="nav-item">
                 <a class="tablinks nav-link" onclick="openTab(event, 'pestaña4')">Consultar fichas</a>
             </li>
-
+            <li class="nav-item">
+                <a class="tablinks nav-link" data-bs-toggle="modal" data-bs-target="#modalTuto">Tutorial</a>
+            </li>
         </ul>
 
 
@@ -287,7 +289,7 @@ if (isset($_POST['incorrecto'])) {
                                 <div class="card-body text-end pt-3">
                                     <form action="./controlador/subirAprendices.php" method="post">
 
-                                        <input type="submit" class="btn btn-primary text-start" required value="Enviar aprendices">
+                                        <input type="submit" class="btn btn-primary text-start" required value="Subir aprendices">
                                         <input name="datostabla" id="datostabla" type="hidden" size="524288" value=" ">
                                     </form>
                                 </div>
@@ -298,8 +300,8 @@ if (isset($_POST['incorrecto'])) {
 
                     <script>
                         tableToJson(document.getElementById("tabla"))
-                         
-                        
+
+
 
                         function tableToJson(table) {
 
@@ -494,7 +496,7 @@ if (isset($_POST['incorrecto'])) {
 
 
 
-                                        <input placeholder="Ingrese la ficha" min="1" value="0" required type="number" name="Ficha" id="ficha" class=" form-control">
+                                        <input placeholder="Ingrese la ficha" min="1" aria-placeholder="Ingresar ficha" required type="number" name="Ficha" id="ficha" class=" form-control">
                                         <p></p>
                                         <input type="submit" value="Consultar ficha" class=" btn btn-primary">
                                         <input type="hidden" name="tab4">
@@ -562,12 +564,12 @@ if (isset($_POST['incorrecto'])) {
 
                             <form form action="./controlador/exportartodos.php" method="post" enctype='multipart/form-data'>
                                 <input type="submit" class="btn btn-warning form-control" value="Imprimir formato (separado por fichas)">
-           
+
                             </form>
                             <br>
                             <form form action="./controlador/exportar.php" method="post" enctype='multipart/form-data'>
                                 <input type="submit" class="btn btn-warning form-control" value="Imprimir formato (todas las fichas)">
-           
+
                             </form>
 
                         </div>
@@ -587,12 +589,158 @@ if (isset($_POST['incorrecto'])) {
 
     </main>
 
+
+    <div class="modal fade" id="modalTuto" tabindex="-1" aria-labelledby="modalTuto" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title " id="exampleModalLabel">Tutorial</h1>
+
+                </div>
+                <div class="modal-body letrap m-4">
+
+                    <h1>Bienvenid@ a la interfaz, <?php echo $user; ?></h1>
+
+                    <br>
+
+                    <div class="bg-info-subtle text-black rounded-1">
+                        El aplicativo se encuentra divido en 4 pestañas funcionales.</div>
+                    <br>
+                    <img src="assets/img/tuto1.png" class="rounded-3 bg-body-tertiary p-1 img img-fluid">
+                    <br>
+                    <br>
+
+
+                    <div class="bg-info-subtle text-black rounded-1">
+                        Las 3 pestañas de formato mantienen la misma estructura pero el primero tiene una ligera diferencia.</div>
+                    <br>
+                    <img src="assets/img/tuto5.png" class="rounded-3 bg-body-tertiary p-1 img img-fluid">
+                    <br>
+                    <br>
+                    <div class="bg-info-subtle text-black rounded-1">
+                        En la primer pestaña que pertenece al primer formato debe ingresar el formato correspondiente, ejemplo:
+                    </div>
+                    <br>
+                    <img src="assets/img/tuto2.png" class="rounded-3 bg-body-tertiary p-1 img img-fluid">
+
+                    <br>
+                    <br>
+                    <div class="bg-warning-subtle text-black rounded-1">
+                        El sistema requiere el primer formato y luego de subirlo, debe recordar revisar los conflictos (Si se han presentado), para luego enviar los aprendices a la base de datos.
+                    </div>
+                    <br>
+                    <img src="assets/img/tuto10.png" class="rounded-3 bg-body-tertiary p-1 img img-fluid">
+
+                    <br>
+                    <br>
+                    <div class="bg-warning-subtle text-black rounded-1">
+                Estados:   
+                    </div>
+                    <br>
+                    
+                    <div class="grid text-center p-4 rounded-3 bg-dark-subtle" style="--bs-gap: .25rem 1rem;">  
+                    <img src="assets/img/tuto6.png" class="rounded-3 bg-body-tertiary p-1 img img-fluid">
+                    <br>
+                    <br>
+                    <img src="assets/img/tuto7.png" class="rounded-3 bg-body-tertiary p-1 img img-fluid">
+                    <br>
+                    <br>
+                    <img src="assets/img/tuto8.png" class="rounded-3 bg-body-tertiary p-1 img img-fluid">
+                    <br>
+                    <br>
+                    <img src="assets/img/tuto9.png" class="rounded-3 bg-body-tertiary p-1 img img-fluid">
+                   </div>
+                  <br>
+                    <br>
+
+                    <div class="bg-info-subtle text-black rounded-1">
+                       Si se han encontrado conflictos, deberá presionar el botón azul que se encuentra en el estado del aprendíz, el cual mostrará una ventana pidiendo su confirmación.
+                    </div>
+
+                    <br>
+                    <br>
+                    <img src="assets/img/tuto11.png" class="rounded-3 bg-body-tertiary p-1 img img-fluid">
+           
+                    <br>
+                    <br>
+                    <div class="bg-info-subtle text-black rounded-1">
+                        En la segunda pestaña que pertenece al segundo formato debe ingresar el formato correspondiente, ejemplo:
+                    </div>
+                    <br>
+                    <div class="bg-warning-subtle text-black rounded-1">
+                        Validaciones: El sistema debe encontrar en el documeto: "Preinscrito", de lo contrario, retornará error.
+                    </div>
+                    <br>
+                    <img src="assets/img/tuto3.png" class="rounded-3 bg-body-tertiary p-1 img img-fluid">
+                    <br>
+                    <br>
+
+                    <br>
+                    <div class="bg-info-subtle text-black rounded-1">
+                        En la tercer pestaña que pertenece al tercer formato debe ingresar el formato correspondiente, ejemplo:
+                    </div>
+                    <br>
+                    <div class="bg-warning-subtle text-black rounded-1">
+                        Validaciones: El sistema debe encontrar en el documeto: "Anulado Matricula" o "Matriculado", de lo contrario, retornará error.
+                    </div>
+                    <br>
+                    <img src="assets/img/tuto4.png" class="rounded-3 bg-body-tertiary p-1 img img-fluid">
+                    <br>
+                   
+                    <br>
+
+                    <div class="bg-danger-subtle text-black rounded-1">
+                        Nota 1: recordar que el formato 2 y 3 tienen la misma estructura, el sistema lo valida y en caso de que no cumpla, retornará error, deberá retificar que no se confunda con el formato 3.
+                    </div>
+                    <br>
+                    <div class="bg-danger-subtle text-black rounded-1">
+                        Nota 2: El formato 1 requiere la confirmación para subir los aprendices presionando el botón de "subir aprendices", en el formato 2 y 3 al subir el archivo, los cambios en la base de datos se realizan automaticamente.
+                    </div>
+                    <br>
+                    <br>
+                    <div class="bg-info-subtle text-black rounded-1">
+                        En la pestaña de consultar fichas podrá generar todos los informes como un archivo descargable y tambien puede consultar unicamente por ficha.
+                    </div>
+                    <br>
+                    <img src="assets/img/tuto12.png" class="rounded-3 bg-body-tertiary p-1 img img-fluid">
+                    <br>
+                    <br>
+
+                    <div class="bg-danger-subtle text-black rounded-1">
+                        Cuando inicie sesión por primera véz, lo hará con una contraseña pre-establecida, le recomendamos cambiarla inmediatamente aqué:</div>
+                    <br>
+                
+                  
+                    <br>
+                    <img src="assets/img/tuto13.png" class="rounded-3 bg-body-tertiary p-1 img img-fluid">
+                    <br>
+                    <br>
+                    
+                    <div class="bg-info h2 text-white p-2 rounded-1">
+                     Muchas gracias.</div>
+                    <br>
+
+                    <p></p>
+
+                    <form action="controlador/cambiarpass.php?id=<?php echo $id; ?>" method="post">
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
     <div class="modal fade" id="modalPass" tabindex="-1" aria-labelledby="modalPass" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <h1 class="modal-title fs-5" id="exampleModalLabel">Ingrese Nueva contraseña</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <form action="controlador/cambiarpass.php?id=<?php echo $id; ?>" method="post">
@@ -606,12 +754,18 @@ if (isset($_POST['incorrecto'])) {
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                             <button type="submit" class="btn btn-danger">Cambiar</button>
+                        </div>
                     </form>
+
                 </div>
             </div>
         </div>
     </div>
-    </div>
+
+
+
+
+
 
     <footer id="" class="footer" style=" background-color: rgb(113, 200, 114);">
         <div class="text-center text-white">
@@ -623,7 +777,7 @@ if (isset($_POST['incorrecto'])) {
             <!-- You can delete the links only if you purchased the pro version. -->
             <!-- Licensing information: https://bootstrapmade.com/license/ -->
             <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/ -->
-              <!--  Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>-->
+            <!--  Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>-->
         </div>
     </footer><!-- End Footer -->
 
@@ -648,14 +802,14 @@ if (isset($_POST['incorrecto'])) {
     <script src="assets/js/datatables.js"></script>
     <script src="assets/js/datatablebuttons.js"></script>
     <script src="assets/js/dtbuttons.js"></script>
-   <script src="assets/js/responsive.js"></script>
-   <script src="assets/js/jszip.js"></script>
+    <script src="assets/js/responsive.js"></script>
+    <script src="assets/js/jszip.js"></script>
     <script src="assets/js/responsibledt.js"></script>
     <script src="assets/js/dtprint.js"></script>
     <script src="assets/js/pdfmake.js"></script>
     <script src="assets/js/dthtml5.js"></script>
     <script src="assets/js/pdffonts.js"></script>
- 
+
     <script src="assets/js/cargartabla.js"></script>
 
 
@@ -667,10 +821,10 @@ if (isset($_POST['incorrecto'])) {
         let documento;
         let btncancelar = document.getElementById("btncancelar")
 
-        function leer(doc,razon) {
+        function leer(doc, razon) {
 
             document.getElementById("cancelar").value = doc
-            document.getElementById("razones").innerHTML =  `<span class="text-dark">${razon}</span>` ;
+            document.getElementById("razones").innerHTML = `<span class="text-dark">${razon}</span>`;
             documento = doc;
             target = document.getElementById("cancelar").value;
             btncancelar.addEventListener("click", escribir);

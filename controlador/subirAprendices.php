@@ -6,7 +6,7 @@ $mysql = new MySQL();
 $Aprendices = json_decode($_POST["datostabla"],true);
 
 foreach ($Aprendices as $index2 => $j) {
-  $fecha = date("Y-m-d", strtotime( $Aprendices[$index2]["Fecha de inicio"])) ;
+
 
    // print_r( $Aprendices);
   if(str_contains($Aprendices[$index2]["estado"],"No es posible repetirlo") == false ){
@@ -21,16 +21,16 @@ if ($row_count == 0) {
 
   if(str_contains($Aprendices[$index2]["estado"],"Anulado")){
     $fecha = date("Y-m-d", strtotime( $Aprendices[$index2]["Fecha de inicio"])) ;
-   $mysql ->efectuarConsulta('Insert into ingresados values(null,"En espera...","'.   $fecha .'",'.$Aprendices[$index2]["ficha"].' ,"Anulado",'.$Aprendices[$index2]["Número de documento"].' ,"'.$Aprendices[$index2]["Tipo de documento"].'")');
+   $mysql ->efectuarConsulta('Insert into ingresados values(null,"En espera...","'.date("Y-m-d") .'",'.$Aprendices[$index2]["ficha"].' ,"Anulado",'.$Aprendices[$index2]["Número de documento"].' ,"'.$Aprendices[$index2]["Tipo de documento"].'")');
 
   }
 if(isset($Aprendices[$index2]["Nombre completo"])){
   if(str_contains($Aprendices[$index2]["estado"],"Aspirante")){
-   $mysql ->efectuarConsulta('Insert into ingresados values(null,"'.$Aprendices[$index2]["Nombre completo"].'","'.$fecha.'",'.$Aprendices[$index2]["ficha"].' ,"Aspirante",'.$Aprendices[$index2]["Número de documento"].' ,"'.$Aprendices[$index2]["Tipo de documento"].'")');
+   $mysql ->efectuarConsulta('Insert into ingresados values(null,"'.$Aprendices[$index2]["Nombre completo"].'","'.date("Y-m-d").'",'.$Aprendices[$index2]["ficha"].' ,"Aspirante",'.$Aprendices[$index2]["Número de documento"].' ,"'.$Aprendices[$index2]["Tipo de documento"].'")');
 
   }else{
  
-    $mysql ->efectuarConsulta('Insert into ingresados values(null,"En espera...","'.$fecha.'",'.$Aprendices[$index2]["ficha"].' ,"Aspirante",'.$Aprendices[$index2]["Número de documento"].' ,"'.$Aprendices[$index2]["Tipo de documento"].'")');
+    $mysql ->efectuarConsulta('Insert into ingresados values(null,"En espera...","'.date("Y-m-d").'",'.$Aprendices[$index2]["ficha"].' ,"Aspirante",'.$Aprendices[$index2]["Número de documento"].' ,"'.$Aprendices[$index2]["Tipo de documento"].'")');
 }
   
 }

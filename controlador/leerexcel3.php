@@ -27,7 +27,7 @@ $guardar_excel = "../controlador" . "/excel/$nombre";
 
 $arregloformato = explode('.', $guardar_excel);
 //obtinene la extensió del archivo
-date_default_timezone_set("America/Bogota");
+
 $extension = end($arregloformato);
 
 //si es un archivo xls lo abre con SimpleXLS
@@ -110,7 +110,7 @@ function ArregloDatos($Datos)
                     echo SimpleXLSX::parseError();
                 }
             }
-
+            date_default_timezone_set("America/Bogota");
 
             if ($DatoNuevo[0][0] == "CC" && $DatoNuevo[0][1] == "FICHA") {
 
@@ -246,14 +246,13 @@ function ArregloDatos($Datos)
 
                     foreach ($array as $key => $value) {
 
-
-
+     
                         if (preg_replace("/[^0-9\.]/", "", $Datos[6 + $index][0]) == $array[$key]["documento"] && $Datos[2][1] == $array[$key]["ficha"] && str_contains($Datos[6 + $index][2], "Matriculado")) {
 
                             $tabla .= ' 
                                  <td scope="row"><a href="#">' . $Datos[6 + $index][0] . '</a></td>
                                 <td>' . $Datos[6 + $index][1] . '</td>
-                                <td>' . $array[6 + $index]["fecha_ingreso"] . '</td>
+                                <td>' .  date("Y-m-d"). '</td>
                                 <td><a href="#" class="text-primary">' . $Datos[2][1] . '</a></td>
                                 <td><span class=^badge bg-success^>Matriculado</span>';
                             $result = $mysql->efectuarConsulta('UPDATE  ingresados set estado = "Matriculado",nombre_completo = "' . $Datos[6 + $index][1] . '"  where documento = ' . preg_replace("/[^0-9\.]/", "", $Datos[6 + $index][0]));
@@ -263,7 +262,7 @@ function ArregloDatos($Datos)
 
                             $row_count = $result->num_rows;
                             if ($row_count == 0) {
-                                $result = $mysql->efectuarConsulta('INSERT INTO `cursos_aprendiz`  VALUES (NULL, ' . preg_replace("/[^0-9\.]/", "", $Datos[6 + $index][0]) . ', "' . str_replace("/", "-", date("Y/m/d")) . '", ' . $Datos[2][1] . ') ');
+                                $result = $mysql->efectuarConsulta('INSERT INTO `cursos_aprendiz`  VALUES (NULL, ' . preg_replace("/[^0-9\.]/", "", $Datos[6 + $index][0]) . ', "' . date("Y-m-d") . '", ' . $Datos[2][1] . ') ');
                             }
                         }
 
@@ -275,7 +274,7 @@ function ArregloDatos($Datos)
                             $tabla .= ' 
                            <td scope="row"><a href="#">' . $Datos[6 + $index][0] . '</a></td>
                            <td>' . $Datos[6 + $index][1] . '</td>
-                           <td>' .  $array[6 + $index]["fecha_ingreso"] . '</td>
+                           <td>' .  date("Y-m-d"). '</td>
                            <td><a href="#" class="text-primary">' . $Datos[2][1] . '</a></td>
                            <td><span class=^badge bg-dark^>Anulado</span>';
                         }
@@ -290,18 +289,18 @@ function ArregloDatos($Datos)
                         $tabla .= ' 
                             <td scope="row"><a href="#">' . $Datos[6 + $index][0] . '</a></td>
                             <td>' . $Datos[6 + $index][1] . '</td>
-                            <td>' . $array[6 + $index]["fecha_ingreso"] . '</td>
+                            <td>' .    date("Y-m-d")  . '</td>
                             <td><a href="#" class="text-primary">' . $Datos[2][1] . '</a></td>
                             <td><span class=^badge bg-success^>Matriculado</span>';
 
-                        $mysql->efectuarConsulta('Insert into ingresados values(null,"' . $Datos[6 + $index][1] . '" ,"' . str_replace("/", "-", date("Y/m/d")) . '",' . $Datos[2][1] . ' ,"Matriculado",' . preg_replace("/[^0-9\.]/", "", $Datos[6 + $index][0]) . ' ,"' . preg_replace("/[^A-Z\.]/", "", $Datos[6 + $index][0]) . '")');
+                        $mysql->efectuarConsulta('Insert into ingresados values(null,"' . $Datos[6 + $index][1] . '" ,"' . date("Y-m-d"). '",' . $Datos[2][1] . ' ,"Matriculado",' . preg_replace("/[^0-9\.]/", "", $Datos[6 + $index][0]) . ' ,"' . preg_replace("/[^A-Z\.]/", "", $Datos[6 + $index][0]) . '")');
 
 
                         $result = $mysql->efectuarConsulta('SELECT * FROM cursos_aprendiz where documento = ' . preg_replace("/[^0-9\.]/", "", $Datos[6 + $index][0]) . ' and ficha =' . $Datos[2][1]);
 
                         $row_count = $result->num_rows;
                         if ($row_count == 0) {
-                            $result = $mysql->efectuarConsulta('INSERT INTO `cursos_aprendiz`  VALUES (NULL, ' . preg_replace("/[^0-9\.]/", "", $Datos[6 + $index][0]) . ', "' . str_replace("/", "-", date("Y/m/d")) . '", ' . $Datos[2][1] . ') ');
+                            $result = $mysql->efectuarConsulta('INSERT INTO `cursos_aprendiz`  VALUES (NULL, ' . preg_replace("/[^0-9\.]/", "", $Datos[6 + $index][0]) . ', "' . date("Y-m-d") . '", ' . $Datos[2][1] . ') ');
                         }
                     }
                     $tabla .= '</td>
