@@ -5,7 +5,8 @@ use Shuchkin\SimpleXLSX;
 
 $excel_file = $_FILES['excelfile'];
 $nombre = $excel_file['name'];
-require_once '../modelo/MySQL.php';
+require_once '../modelo/Mysql.php';
+
 
 use Shuchkin\SimpleXLS;
 
@@ -97,14 +98,14 @@ function ArregloDatos($Datos, $Dtabla)
     }
 
 
-    $result = $mysql->efectuarConsulta("SELECT * FROM Fichas where ficha = " . $Datos[2][1]);
+    $result = $mysql->efectuarConsulta("SELECT * FROM fichas where ficha = " . $Datos[2][1]);
 
     $row_count = $result->num_rows;
 
     if ($row_count <= 0) {
 
 
-        $result = $mysql->efectuarConsulta('Insert Into Fichas values(' . $Datos[2][1] . ',"' . $Datos[3][1] . '","' . date("Y-m-d") . '")');
+        $result = $mysql->efectuarConsulta('Insert Into fichas values(' . $Datos[2][1] . ',"' . $Datos[3][1] . '","' . date("Y-m-d") . '")');
     }
 
 

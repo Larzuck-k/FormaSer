@@ -3,12 +3,12 @@
 
 
 
+session_start();
+
 //Comprobar datos
-require_once '../modelo/MySQL.php';
+require_once '../modelo/Mysql.php';
 
 require_once '../modelo/funcionarios.php';
-
-session_start();
 
 if (
     (isset($_POST['doc']) && !empty($_POST['doc'])) &&
@@ -47,13 +47,13 @@ if (
 
 
 
-        $usuario->setLogin(true);
-        $usuario->setUser($fila['nombre_funcionario'] . " " . $fila['apellido_funcionario']);
-        $usuario->setId($fila['id']);
-        $usuario->setRol($fila['rol_funcionario']);
+       $_SESSION['sesion'] = true;
+         $_SESSION['nombre'] =$fila['nombre_funcionario'] . " " . $fila['apellido_funcionario'];
+        $_SESSION['id'] =$fila['id'];
+         $_SESSION['rol'] = $fila['rol_funcionario'];
 
 
-        $rol  = $fila['rol_funcionario'];
+      
     } else {
 
         echo('<form id="form" method="post" action="../login.php"><input type="hidden" name="error-login" value="Contraseña o correo incorrectos, intente de nuevo."></form>
@@ -74,8 +74,8 @@ if (
     //validar si se encuentran resultados
 
 
-    if ($rol == "Funcionario" || $rol == "2" || $rol == "3") {
-        $_SESSION["funcionario"] = $usuario;
+    if ($_SESSION['rol'] == "Funcionario"|| $rol == "2" || $rol == "3") {
+
        echo('<form id="form" method="post" action="../index.php"> <input type="hidden" name="tab1" value="true"></form><script>document.getElementById("form").submit();</script>');
     }
 } else {

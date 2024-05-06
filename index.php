@@ -1,34 +1,26 @@
 <?php
 
 
-
-require_once 'Modelo/funcionarios.PHP';
-require_once 'Modelo/Mysql.PHP';
-
 session_start();
 
-
-$usuario = new funcionarios();
-
-if (isset($_SESSION['funcionario'])) {
-    $usuario = $_SESSION['funcionario'];
-} else {
-    header("Location: ./login.php");
-}
+require 'modelo/funcionarios.php';
+require 'modelo/Mysql.php';
 
 
 
 
-if ($usuario->getLogin() == true) {
+
+if ($_SESSION['sesion']== true) {
 
 
-    $user = $usuario->getUser();
-    $id = $usuario->getId();
-    $rol = $usuario->getrol();
+    $user = $_SESSION['nombre'];
+    $id = $_SESSION['id'];
+    $rol = $_SESSION['rol'];
 } else {
     header("Location: ./login.php");
     exit();
 }
+
 
 
 
@@ -76,11 +68,7 @@ if (isset($_POST['incorrecto'])) {
 
     <!-- Vendor CSS Files -->
     <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-    <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
-    <link href="assets/vendor/quill/quill.snow.css" rel="stylesheet">
-    <link href="assets/vendor/quill/quill.bubble.css" rel="stylesheet">
-    <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+    
 
     <link href="assets/css/tabcontrol.css" rel="stylesheet">
     <link href="assets/css/datables.css" rel="stylesheet">
@@ -606,7 +594,7 @@ if (isset($_POST['incorrecto'])) {
                     <div class="bg-info-subtle text-black rounded-1">
                         El aplicativo se encuentra divido en 4 pestañas funcionales.</div>
                     <br>
-                    <img src="assets/img/tuto1.png" class="rounded-3 bg-body-tertiary p-1 img img-fluid">
+                    <img src="assets/img/tuto1.PNG" class="rounded-3 bg-body-tertiary p-1 img img-fluid">
                     <br>
                     <br>
 
@@ -614,14 +602,14 @@ if (isset($_POST['incorrecto'])) {
                     <div class="bg-info-subtle text-black rounded-1">
                         Las 3 pestañas de formato mantienen la misma estructura pero el primero tiene una ligera diferencia.</div>
                     <br>
-                    <img src="assets/img/tuto5.png" class="rounded-3 bg-body-tertiary p-1 img img-fluid">
+                    <img src="assets/img/tuto5.PNG" class="rounded-3 bg-body-tertiary p-1 img img-fluid">
                     <br>
                     <br>
                     <div class="bg-info-subtle text-black rounded-1">
                         En la primer pestaña que pertenece al primer formato debe ingresar el formato correspondiente, ejemplo:
                     </div>
                     <br>
-                    <img src="assets/img/tuto2.png" class="rounded-3 bg-body-tertiary p-1 img img-fluid">
+                    <img src="assets/img/tuto2.PNG" class="rounded-3 bg-body-tertiary p-1 img img-fluid">
 
                     <br>
                     <br>
@@ -629,7 +617,7 @@ if (isset($_POST['incorrecto'])) {
                         El sistema requiere el primer formato y luego de subirlo, debe recordar revisar los conflictos (Si se han presentado), para luego enviar los aprendices a la base de datos.
                     </div>
                     <br>
-                    <img src="assets/img/tuto10.png" class="rounded-3 bg-body-tertiary p-1 img img-fluid">
+                    <img src="assets/img/tuto10.PNG" class="rounded-3 bg-body-tertiary p-1 img img-fluid">
 
                     <br>
                     <br>
@@ -639,16 +627,16 @@ if (isset($_POST['incorrecto'])) {
                     <br>
                     
                     <div class="grid text-center p-4 rounded-3 bg-dark-subtle" style="--bs-gap: .25rem 1rem;">  
-                    <img src="assets/img/tuto6.png" class="rounded-3 bg-body-tertiary p-1 img img-fluid">
+                    <img src="assets/img/tuto6.PNG" class="rounded-3 bg-body-tertiary p-1 img img-fluid">
                     <br>
                     <br>
-                    <img src="assets/img/tuto7.png" class="rounded-3 bg-body-tertiary p-1 img img-fluid">
+                    <img src="assets/img/tuto7.PNG" class="rounded-3 bg-body-tertiary p-1 img img-fluid">
                     <br>
                     <br>
-                    <img src="assets/img/tuto8.png" class="rounded-3 bg-body-tertiary p-1 img img-fluid">
+                    <img src="assets/img/tuto8.PNG" class="rounded-3 bg-body-tertiary p-1 img img-fluid">
                     <br>
                     <br>
-                    <img src="assets/img/tuto9.png" class="rounded-3 bg-body-tertiary p-1 img img-fluid">
+                    <img src="assets/img/tuto9.PNG" class="rounded-3 bg-body-tertiary p-1 img img-fluid">
                    </div>
                   <br>
                     <br>
@@ -659,7 +647,7 @@ if (isset($_POST['incorrecto'])) {
 
                     <br>
                     <br>
-                    <img src="assets/img/tuto11.png" class="rounded-3 bg-body-tertiary p-1 img img-fluid">
+                    <img src="assets/img/tuto11.PNG" class="rounded-3 bg-body-tertiary p-1 img img-fluid">
            
                     <br>
                     <br>
@@ -671,7 +659,7 @@ if (isset($_POST['incorrecto'])) {
                         Validaciones: El sistema debe encontrar en el documeto: "Preinscrito", de lo contrario, retornará error.
                     </div>
                     <br>
-                    <img src="assets/img/tuto3.png" class="rounded-3 bg-body-tertiary p-1 img img-fluid">
+                    <img src="assets/img/tuto3.PNG" class="rounded-3 bg-body-tertiary p-1 img img-fluid">
                     <br>
                     <br>
 
@@ -679,12 +667,23 @@ if (isset($_POST['incorrecto'])) {
                     <div class="bg-info-subtle text-black rounded-1">
                         En la tercer pestaña que pertenece al tercer formato debe ingresar el formato correspondiente, ejemplo:
                     </div>
+                 
+                   
                     <br>
                     <div class="bg-warning-subtle text-black rounded-1">
                         Validaciones: El sistema debe encontrar en el documeto: "Anulado Matricula" o "Matriculado", de lo contrario, retornará error.
                     </div>
                     <br>
-                    <img src="assets/img/tuto4.png" class="rounded-3 bg-body-tertiary p-1 img img-fluid">
+                    <img src="assets/img/tuto4.PNG" class="rounded-3 bg-body-tertiary p-1 img img-fluid">
+                    <br>
+                    
+                        <br>
+                    <div class="bg-warning-subtle text-black rounded-1">
+                        El formato que contiene todos los aprendices matriculados tambien puede ser utilizado en la pestaña 3, ejemplo:
+                    </div>
+                    <br>
+                 
+                    <img src="assets/img/tuto14.PNG" class="rounded-3 bg-body-tertiary p-1 img img-fluid">
                     <br>
                    
                     <br>
@@ -702,7 +701,7 @@ if (isset($_POST['incorrecto'])) {
                         En la pestaña de consultar fichas podrá generar todos los informes como un archivo descargable y tambien puede consultar unicamente por ficha.
                     </div>
                     <br>
-                    <img src="assets/img/tuto12.png" class="rounded-3 bg-body-tertiary p-1 img img-fluid">
+                    <img src="assets/img/tuto12.PNG" class="rounded-3 bg-body-tertiary p-1 img img-fluid">
                     <br>
                     <br>
 
@@ -712,7 +711,7 @@ if (isset($_POST['incorrecto'])) {
                 
                   
                     <br>
-                    <img src="assets/img/tuto13.png" class="rounded-3 bg-body-tertiary p-1 img img-fluid">
+                    <img src="assets/img/tuto13.PNG" class="rounded-3 bg-body-tertiary p-1 img img-fluid">
                     <br>
                     <br>
                     
@@ -784,15 +783,9 @@ if (isset($_POST['incorrecto'])) {
     <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
     <!-- Vendor JS Files -->
-    <script src="assets/vendor/apexcharts/apexcharts.min.js"></script>
+ 
     <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="assets/vendor/chart.js/chart.umd.js"></script>
-    <script src="assets/vendor/echarts/echarts.min.js"></script>
-    <script src="assets/vendor/quill/quill.min.js"></script>
-
-    <script src="assets/vendor/tinymce/tinymce.min.js"></script>
-    <script src="assets/vendor/php-email-form/validate.js"></script>
-
+   
     <script src="assets/js/tabcontrol.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="assets/js/htmltoexcel.js"></script>

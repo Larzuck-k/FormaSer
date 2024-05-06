@@ -5,7 +5,7 @@ use Shuchkin\SimpleXLSX;
 
 $excel_file = $_FILES['excelfile'];
 $nombre = $excel_file['name'];
-require_once '../modelo/MySQL.php';
+require_once '../modelo/Mysql.php';
 
 use Shuchkin\SimpleXLS;
 

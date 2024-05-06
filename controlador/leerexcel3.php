@@ -238,7 +238,7 @@ function ArregloDatos($Datos)
 
 
 
-                    $result = $mysql->efectuarConsulta("SELECT * FROM ingresados");
+                    $result = $mysql->efectuarConsulta("SELECT * FROM ingresados where documento = ".preg_replace("/[^0-9\.]/", "", $Datos[6 + $index][0]));
                     $array = mysqli_fetch_all($result, 1);
 
                     $row_count = $result->num_rows;
