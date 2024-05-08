@@ -161,7 +161,7 @@ foreach ($Datos as $key => $value) {
             <td>' . $Datos[2][1] . '</td>
             <td><a href="#" class="text-primary">' . $Datos[3][1] . '</a></td>
             <td>' . date("Y-m-d") . '</td>
-            <td><span class="badge bg-'.$clase.'-subtle">'. $estdo  .'</span>';
+            <td><span class="badge bg-'.$clase.'">'. $estdo  .'</span>';
             
             $mysql->efectuarConsulta('UPDATE ingresados SET nombre_completo="' . $Datos[$key][1] . '",fecha_ingreso="' . date("Y-m-d").  '",ficha=' .  $Datos[2][1] . ',estado="Matriculado",documento=' . preg_replace("/[^0-9\.]/", "", $Datos[$key][0]) . ',tipo_documento="CC" where documento=' . preg_replace("/[^0-9\.]/", "", $Datos[$key][0]) . ' and ficha = ' .  $Datos[2][1]);
 
@@ -341,7 +341,7 @@ foreach ($Datos as $key => $value) {
             <td>' . $Datos[$key][1] . '</td>
             <td><a href="#" class="text-primary">' . $Datos[$key][2] . '</a></td>
             <td>' . $Datos[$key][7] . '</td>
-            <td><span class="badge bg-success-subtle">Matriculado</span>';
+            <td><span class="badge bg-success">Matriculado</span>';
             
             $fecha = date("Y-m-d", strtotime(str_replace("/","-",$Datos[$key][7])));
 

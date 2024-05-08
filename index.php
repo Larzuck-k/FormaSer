@@ -10,7 +10,7 @@ require 'modelo/Mysql.php';
 
 
 
-if ($_SESSION['sesion']== true) {
+if ($_SESSION['sesion'] == true) {
 
 
     $user = $_SESSION['nombre'];
@@ -68,7 +68,7 @@ if (isset($_POST['incorrecto'])) {
 
     <!-- Vendor CSS Files -->
     <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    
+
 
     <link href="assets/css/tabcontrol.css" rel="stylesheet">
     <link href="assets/css/datables.css" rel="stylesheet">
@@ -622,33 +622,42 @@ if (isset($_POST['incorrecto'])) {
                     <br>
                     <br>
                     <div class="bg-warning-subtle text-black rounded-1">
-                Estados:   
+                        Estados:
                     </div>
                     <br>
-                    
-                    <div class="grid text-center p-4 rounded-3 bg-dark-subtle" style="--bs-gap: .25rem 1rem;">  
-                    <img src="assets/img/tuto6.PNG" class="rounded-3 bg-body-tertiary p-1 img img-fluid">
+
+                    <div class="grid text-center p-4 rounded-3 bg-dark-subtle" style="--bs-gap: .25rem 1rem;">
+                    <span class="fs-4 badge bg-primary">Primera inscripción</span>
+                        <br>
+                        <br>
+                        <span class="fs-4 badge bg-success">En el sistema</span>
+                        <br>
+                        <br>
+                        <span class="fs-4 badge bg-success">Aspirante</span> 
+                        <br>
+                        <br>
+                        <span class="fs-4 badge bg-warning">Ha hecho otros cursos</span> 
+                        <br>
+                        <br>
+                        <span class="fs-4 badge bg-warning">Ya ha hecho otros cursos pero ya pasó un año</span>
+                        <br>
+                        <br>
+                        <span><button class="fs-4 badge btn btn-info">Conflicto: Se encuentra matriculado en el año vigente</button></span>
+                        <br>
+                        <br>
+                        <span class="fs-4 badge bg-danger">Ya ha hecho este curso (No es posible repetir)</span>
+                    </div>
                     <br>
-                    <br>
-                    <img src="assets/img/tuto7.PNG" class="rounded-3 bg-body-tertiary p-1 img img-fluid">
-                    <br>
-                    <br>
-                    <img src="assets/img/tuto8.PNG" class="rounded-3 bg-body-tertiary p-1 img img-fluid">
-                    <br>
-                    <br>
-                    <img src="assets/img/tuto9.PNG" class="rounded-3 bg-body-tertiary p-1 img img-fluid">
-                   </div>
-                  <br>
                     <br>
 
                     <div class="bg-info-subtle text-black rounded-1">
-                       Si se han encontrado conflictos, deberá presionar el botón azul que se encuentra en el estado del aprendíz, el cual mostrará una ventana pidiendo su confirmación.
+                        Si se han encontrado conflictos, deberá presionar el botón azul que se encuentra en el estado del aprendíz, el cual mostrará una ventana pidiendo su confirmación.
                     </div>
 
                     <br>
                     <br>
                     <img src="assets/img/tuto11.PNG" class="rounded-3 bg-body-tertiary p-1 img img-fluid">
-           
+
                     <br>
                     <br>
                     <div class="bg-info-subtle text-black rounded-1">
@@ -667,8 +676,8 @@ if (isset($_POST['incorrecto'])) {
                     <div class="bg-info-subtle text-black rounded-1">
                         En la tercer pestaña que pertenece al tercer formato debe ingresar el formato correspondiente, ejemplo:
                     </div>
-                 
-                   
+
+
                     <br>
                     <div class="bg-warning-subtle text-black rounded-1">
                         Validaciones: El sistema debe encontrar en el documeto: "Anulado Matricula" o "Matriculado", de lo contrario, retornará error.
@@ -676,16 +685,16 @@ if (isset($_POST['incorrecto'])) {
                     <br>
                     <img src="assets/img/tuto4.PNG" class="rounded-3 bg-body-tertiary p-1 img img-fluid">
                     <br>
-                    
-                        <br>
+
+                    <br>
                     <div class="bg-warning-subtle text-black rounded-1">
                         El formato que contiene todos los aprendices matriculados tambien puede ser utilizado en la pestaña 3, ejemplo:
                     </div>
                     <br>
-                 
+
                     <img src="assets/img/tuto14.PNG" class="rounded-3 bg-body-tertiary p-1 img img-fluid">
                     <br>
-                   
+
                     <br>
 
                     <div class="bg-danger-subtle text-black rounded-1">
@@ -708,15 +717,15 @@ if (isset($_POST['incorrecto'])) {
                     <div class="bg-danger-subtle text-black rounded-1">
                         Cuando inicie sesión por primera véz, lo hará con una contraseña pre-establecida, le recomendamos cambiarla inmediatamente aqué:</div>
                     <br>
-                
-                  
+
+
                     <br>
                     <img src="assets/img/tuto13.PNG" class="rounded-3 bg-body-tertiary p-1 img img-fluid">
                     <br>
                     <br>
-                    
+
                     <div class="bg-info h2 text-white p-2 rounded-1">
-                     Muchas gracias.</div>
+                        Muchas gracias.</div>
                     <br>
 
                     <p></p>
@@ -783,9 +792,9 @@ if (isset($_POST['incorrecto'])) {
     <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
     <!-- Vendor JS Files -->
- 
+
     <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-   
+
     <script src="assets/js/tabcontrol.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="assets/js/htmltoexcel.js"></script>
