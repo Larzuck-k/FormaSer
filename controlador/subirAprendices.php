@@ -20,8 +20,8 @@ foreach ($Aprendices as $index2 => $j) {
 if ($row_count == 0) {
 
   if(str_contains($Aprendices[$index2]["estado"],"Anulado")){
-    $fecha = date("Y-m-d", strtotime( $Aprendices[$index2]["Fecha de inicio"])) ;
-   $mysql ->efectuarConsulta('Insert into ingresados values(null,"En espera...","'.date("Y-m-d") .'",'.$Aprendices[$index2]["ficha"].' ,"Anulado",'.$Aprendices[$index2]["Número de documento"].' ,"'.$Aprendices[$index2]["Tipo de documento"].'")');
+
+   $mysql ->efectuarConsulta('Insert into ingresados values(null,"En espera...","'.$Aprendices[$index2]["fecha"] .'",'.$Aprendices[$index2]["ficha"].' ,"Anulado",'.$Aprendices[$index2]["Número de documento"].' ,"'.$Aprendices[$index2]["Tipo de documento"].'")');
 
   }
 if(isset($Aprendices[$index2]["Nombre completo"])){
@@ -30,7 +30,7 @@ if(isset($Aprendices[$index2]["Nombre completo"])){
 
   }else{
  
-    $mysql ->efectuarConsulta('Insert into ingresados values(null,"En espera...","'.date("Y-m-d").'",'.$Aprendices[$index2]["ficha"].' ,"Aspirante",'.$Aprendices[$index2]["Número de documento"].' ,"'.$Aprendices[$index2]["Tipo de documento"].'")');
+    $mysql ->efectuarConsulta('Insert into ingresados values(null,"En espera...","'.$Aprendices[$index2]["fecha"].'",'.$Aprendices[$index2]["ficha"].' ,"Aspirante",'.$Aprendices[$index2]["Número de documento"].' ,"'.$Aprendices[$index2]["Tipo de documento"].'")');
 }
   
 }

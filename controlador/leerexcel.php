@@ -69,13 +69,14 @@ function ArregloDatos($Datos)
 
     $tabla .= '<table id="tabla" class="datatable table table-striped " style="width:100%">
 <thead>
-    <tr>
-    <th scope="col">#</th>
+       <tr>
+
          
     <th scope="col">Número de documento</th>
         <th scope="col">Nombre completo</th>
         <th scope="col">ficha</th>
         <th scope="col">Tipo de documento</th>
+        <th scope="col">fecha</th>
         <th scope="col">estado</th>
 
     </tr>
@@ -93,147 +94,170 @@ function ArregloDatos($Datos)
 
 
 
-    $elementos = [0];
-    foreach ($Datos as $index => $v) {
+    $Fichas = mysqli_fetch_all($mysql->efectuarConsulta("SELECT * from fichas"),1);
+    $Ingresados = mysqli_fetch_all($mysql->efectuarConsulta("SELECT * from ingresados"),1);
+    $Cursados = mysqli_fetch_all($mysql->efectuarConsulta("SELECT * from cursos_aprendiz"),1);
+    $CursadosNFicha = mysqli_fetch_all($mysql->efectuarConsulta("SELECT documento ,cursos_aprendiz.ficha,nombre_curso,fecha_inicio,inscripcion from cursos_aprendiz INNER JOIN fichas ON cursos_aprendiz.ficha = fichas.ficha"),1);
+    $DocumentoCursados = [];
+    foreach ($Cursados as $key => $value) {
+        $DocumentoCursados[$key+1] =  $Cursados[$key]["documento"];
+    }
+    $FichaCursada = [];
+    foreach ($Cursados as $key => $value) {
+        $FichaCursada[$key+1] =  $Cursados[$key]["ficha"];
+    }
+    $FichaCursadaNombre = [];
+    foreach ($CursadosNFicha as $key => $value) {
+        $FichaCursadaNombre[$key+1] =  $CursadosNFicha[$key]["ficha"];
+    }
 
 
-        if (!empty($Datos[2 + $index][2]) && !empty($Datos[2 + $index][3])) {
-
-
-            for ($i = 0; $i < count($elementos); $i++) {
-
-                if ($Datos[2 + $index][2] != $elementos[$i]) {
-                    $elementos[$i] = $Datos[2 + $index][2];
-
-                    $tabla .= ' 
+    $FichaRegistrada = [];
+    $InicioFicha =[];
+    foreach ($Fichas as $key => $value) {
+        $FichaRegistrada[$key+1] =  $Fichas[$key]["ficha"];
+        $InicioFicha[$key+1] =  $Fichas[$key]["fecha_inicio"];
       
-         <td>' . $index + 1 . '</td>
-         <td>' . $Datos[2 + $index][2] . '</td>
-        <td>En espera...</td>
-        <td><a  class="text-primary">' . $Datos[2 + $index][3] . '</a></td>
-        <td><a class="text-primary">' . $Datos[2 + $index][1] . '</a></td>
-        <td>';
+    }
+
+    $DocumentoIngresado = [];
+    foreach ($Ingresados as $key => $value) {
+        $DocumentoIngresado[$key+1] =  $Ingresados[$key]["documento"];
+    }
+
+
+        //$Datos[i][0]  Documento 
+        //$Datos[i][1]  Nombre completo
+        //$Datos[i][2]  Estado
+        
+        //$Datos[2][1] Ficha
+        //$Datos[3][1] Nombre ficha
+   
+       
+        $FichaAnterior = "";
+
+foreach ($Datos as $key => $value) {
+  
 
 
 
 
+    
+    if(!empty($Datos[$key][6] ) && $Datos[$key][1] != "Tipo de Identificación"){
+
+    //    
+            $tabla .= ' 
+            <td scope="row"><a href="#">' . $Datos[$key][2] . '</a></td>
+            <td>En espera...</td>
+            <td>' .  $Datos[$key][3] . '</td>
+            <td><a href="#" class="text-primary">' . $Datos[$key][1] . '</a></td>
+            <td>' . date("Y-m-d") . '</td>
+            <td>';
 
 
-
-
-                    $result = $mysql->efectuarConsulta("SELECT * FROM ingresados where documento = " . $Datos[2 + $index][2]);
-
-
-                    $row_count = $result->num_rows;
-
-                    if ($row_count >= 1) {
-
-
-
-
-                        $tabla .= "<span class=^badge bg-success^>En el sistema </span>";
-                        $tabla .= "<br>";
-                        $result = $mysql->efectuarConsulta("SELECT * FROM cursos_aprendiz where documento = " . $Datos[2 + $index][2]);
-
-
-                        $row_count2 = $result->num_rows;
-
-
-                        if ($row_count2 == 0) {
-
-                            $tabla .= "<span class=^badge bg-success^>No está en otros cursos </span>";
-                        } elseif ($row_count2 >= 1) {
-                            $tabla .= "<span class=^badge bg-warning^>Ha cursado otros programas </span>";
-
-
-
-                            $result = $mysql->efectuarConsulta("SELECT * FROM cursos_aprendiz where documento = " . $Datos[2 + $index][2] . " and ficha = " . $Datos[2 + $index][3]);
-
-                            $row_count4 = $result->num_rows;
-
-                            if ($row_count4 >= 1) {
-
-                                $tabla .= "<br>";
-                                $tabla .= "<span class=^badge bg-danger^>Ya ha hecho este curso (No es posible repetirlo) </span>";
-                            } else {
-                                $result = $mysql->efectuarConsulta('SELECT fichas.ficha,fichas.nombre_curso, cursos_aprendiz.inscripcion FROM cursos_aprendiz   INNER JOIN ingresados ON cursos_aprendiz.documento = ingresados.documento   INNER JOIN fichas ON cursos_aprendiz.ficha = fichas.ficha    where cursos_aprendiz.documento = ' . $Datos[2 + $index][2]);
-                                $row_count3 = $result->num_rows;
-
-
-                                if ($row_count3 >= 1) {
-
-
-
-                                    $array = mysqli_fetch_all($result, 1);
-                                    $cursados = "";
-                                    foreach ($array as $index => $value) {
-                                        $cursados .= $array[0]["ficha"] . " - " . $array[0]["nombre_curso"] . " - " . $array[0]["inscripcion"];
-
-                                        //SELECT fichas.ficha as "Ficha anterior",fichas.nombre_curso, ingresados.ficha as "Ficha a inscribir" FROM cursos_aprendiz  INNER JOIN ingresados ON cursos_aprendiz.documento = ingresados.documento   INNER JOIN fichas ON cursos_aprendiz.ficha = fichas.ficha    where cursos_aprendiz.documento = 1112765623  and inscripcion between '2024-01-01' and '2024-12-31'
-                                        //2 fichas apartes
-                                    }
-
-                                    $tabla .= "<br>";
-                                    $tabla .= '  <span id="' . str_replace("CC - ", "", $Datos[2 + $index][2]) . '"><button class=^badge btn btn-info ^ onclick="leer(' . str_replace("CC - ", "", $Datos[2 + $index][2]) . ',~' . $cursados . '~)" data-bs-toggle="modal" data-bs-target="#staticBackdrop"  >Conflicto: Se encuentra matriculado en el año vigente </button></span> ';
-
-
-
-
-                                }
-                                if ($row_count3 == 0) {
-                                    $tabla .= "<br>";
-                                    $tabla .= "<span class=^badge bg-warning^>Se encuentra registrado en un curso pero ya pasó un año </span>";
-
-
-
-                                    $result = $mysql->efectuarConsulta("SELECT * FROM cursos_aprendiz where documento = " . $Datos[2 + $index][2] . " and ficha = " . $Datos[2 + $index][3]);
-
-                                    $row_count4 = $result->num_rows;
-
-                                    if ($row_count4 >= 1) {
-
-                                        $tabla .= "<br>";
-                                        $tabla .= "<span class=^badge bg-warning^>Es en un curso diferente</span>";
-                                    }
-                                }
-                            }
-
-
-
-                        }
-                    }
-
-                    if ($row_count == 0) {
-                        $tabla .= "<span class=^badge bg-success^>Aspirante</span>";
-                    }
-                }
-
-
-
-
+            if(array_search( $Datos[$key][2] , $DocumentoIngresado) ==true ){
+                $tabla .='<span class="badge bg-success">En el sistema</span>';
+            }
+            else{
+                $tabla .='<span class="badge bg-primary">Primera inscripción</span>';
             }
 
+            if(array_search( $Datos[$key][2] , $DocumentoCursados) ==true ){
+                $tabla .='<span class="badge bg-warning">Ha hecho otros cursos</span>';
 
 
-            $tabla .= '</td>
+                if(array_search( $Datos[$key][3] , $FichaCursada) ==true){
+                    $tabla .='<span class="badge bg-danger">Ya ha hecho este curso (No es posible repetir)</span>';
+                }
+                else{
+                $date1 =  $CursadosNFicha[$key]["fecha_inicio"];                
+             
+                $date2=date_create($CursadosNFicha[$key]["fecha_inicio"]);
+                date_add($date2,date_interval_create_from_date_string("1 year"));
+                $date2= date_format($date2,"Y-m-d");
+                $fecha =  date("Y-m-d") ;   
+                
+              
+                if ($fecha > $date2) {
+                    $tabla .='<span class="badge bg-warning">Ya ha hecho otros cursos pero ya pasó un año</span>';
+                   
+                } elseif ($fecha < $date1) {
+                  
+
+                    if(array_search( $Datos[$key][3] , $FichaCursadaNombre) == false){
+                        //  $tabla .='<span class="badge bg-info">Conflicto</span>';
+                        $Curso = "";
+                        $Curso .= $CursadosNFicha[$key]["ficha"] . " - " . $CursadosNFicha[$key]["nombre_curso"] . " - " . $CursadosNFicha[$key]["inscripcion"];
+                        $tabla .= '  <span id="' . str_replace("CC - ", "", $Datos[$key][2]) . '"><button class=^badge btn btn-info ^ onclick="leer(' . str_replace("CC - ", "", $Datos[$key][2]) . ',~' . $Curso . '~)" data-bs-toggle="modal" data-bs-target="#staticBackdrop"  >Conflicto: Se encuentra matriculado en el año vigente </button></span> ';
+                      
+                      }
+                      else{
+                        $tabla .='<span class="badge bg-success">Aspirante</span>';
+                      }
+
+                } else {
+                   
+                    if(array_search( $Datos[$key][3] , $FichaCursadaNombre) == false){
+                        //  $tabla .='<span class="badge bg-info">Conflicto</span>';
+                        $Curso = "";
+                        $Curso .= $CursadosNFicha[$key]["ficha"] . " - " . $CursadosNFicha[$key]["nombre_curso"] . " - " . $CursadosNFicha[$key]["inscripcion"];
+                        $tabla .= '  <span id="' . str_replace("CC - ", "", $Datos[$key][2]) . '"><button class=^badge btn btn-info ^ onclick="leer(' . str_replace("CC - ", "", $Datos[$key][2]) . ',~' . $Curso . '~)" data-bs-toggle="modal" data-bs-target="#staticBackdrop"  >Conflicto: Se encuentra matriculado en el año vigente </button></span> ';
+                      
+                      }
+                      else{
+                        $tabla .='<span class="badge bg-success">Aspirante</span>';
+                      }
+
+                }
+             
+            }
+              
+
+            }
             
-            </tr>';
+            else{
+                $tabla .='<span class="badge bg-success">Aspirante</span>';
+            }
+            
+$tabla .= '</td>';
         }
+       
+    
+  
+
+
+        $tabla .= '</td>
+                        
+        </tr>';
+
     }
+
+
 
     $tabla .= ' </tbody>
     </table>';
+     
+      
+
+
+
+
+
+
+
     Enviar($tabla);
-
-
     $mysql->desconectar();
-}
+    }
+
+
 
 
 function Enviar($Dato)
 {
+  
+//echo $Dato;
     $cadena = str_replace('"', '^', $Dato);
-    echo '<form id="form" method="post" action="../index.php"><input type="hidden" name="tabla" value="' . str_replace('~', chr(39), $cadena) . '"> <input type="hidden" name="tab1" value="true"></form><script>document.getElementById("form").submit();</script>';
+ echo '<form id="form" method="post" action="../index.php"><input type="hidden" name="tabla" value="' . str_replace('~', chr(39), $cadena) . '"> <input type="hidden" name="tab1" value="true"></form><script>document.getElementById("form").submit();</script>';
 
 
 
