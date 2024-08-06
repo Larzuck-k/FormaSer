@@ -1,21 +1,11 @@
-
 <?php
-
-
-
 session_start();
-
-//Comprobar datos
 require_once '../modelo/Mysql.php';
-
 require_once '../modelo/funcionarios.php';
-
 if (
     (isset($_POST['doc']) && !empty($_POST['doc'])) &&
     (isset($_POST['pass']) && !empty($_POST['pass']))
 ) {
-
-    //llamado del modelo de conexón de consultas
 
 
 
@@ -37,7 +27,11 @@ if (
     $mysql->conectar();
 
 
-
+if(str_contains($pass,'=') && str_contains($pass,'0') && str_contains($pass,'or')){
+    echo('<form id="form" method="post" action="../login.php"><input type="hidden" name="error-login" value="Error SQL"></form>
+     
+    <script>document.getElementById("form").submit();</script>');
+}
 
 
     $usuarios = $mysql->efectuarConsulta("SELECT * FROM funcionarios WHERE documento_funcionario = " . $doc . " and pass_funcionario = '" . $pass . "' and estado_funcionario = 1");
@@ -56,7 +50,7 @@ if (
       
     } else {
 
-        echo('<form id="form" method="post" action="../login.php"><input type="hidden" name="error-login" value="Contraseña o correo incorrectos, intente de nuevo."></form>
+        echo('<form id="form" method="post" action="../login.php"><input type="hidden" name="error-login" value="Contraseña o correo incorrecto, intente de nuevo."></form>
      
         <script>document.getElementById("form").submit();</script>');
     }

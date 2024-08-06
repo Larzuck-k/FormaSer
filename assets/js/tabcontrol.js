@@ -1,4 +1,4 @@
-function openTab(evt, cityName) {
+function openTab(id, cityName) {
     // Declare all variables
     var i, tabcontent, tablinks;
   
@@ -7,11 +7,24 @@ function openTab(evt, cityName) {
     for (i = 0; i < tabcontent.length; i++) {
       tabcontent[i].style.display = "none";
     }
+    
   
     // Get all elements with class="tablinks" and remove the class "active"
     tablinks = document.getElementsByClassName("tablinks");
     for (i = 0; i < tablinks.length; i++) {
       tablinks[i].className = tablinks[i].className.replace(" active", "");
+    }
+ 
+    for (i = 0; i < tablinks.length; i++) {
+    
+
+  if(tablinks[i].id == id){
+tablinks[i].className = "tablinks nav-link bg-primary text-white"
+   
+  }else{
+    tablinks[i].className = "tablinks nav-link "
+   
+  }
     }
   
     // Show the current tab, and add an "active" class to the button that opened the tab

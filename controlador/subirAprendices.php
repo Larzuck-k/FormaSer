@@ -1,5 +1,7 @@
 <?php 
+
 require_once '../modelo/MySQL.php';
+error_reporting(0);
 $mysql = new MySQL();
     $mysql->conectar();
 

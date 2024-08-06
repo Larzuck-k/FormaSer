@@ -2,9 +2,9 @@
 
 class MYSQL
 {
-    private $ipServidor = "localhost:3306";
+    private $ipServidor = "db";
     private $usuarioBase = 'root';
-    private $contrasena = '';
+    private $contrasena = '12345';
     private $nombreBaseDatos = 'bd_formaser';
     private $conexion; // Definimos la propiedad $conexion
     

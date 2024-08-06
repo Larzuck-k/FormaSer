@@ -3,7 +3,7 @@ require_once '../modelo/SimpleXLSXE.php';
 
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat\Wizard\Number;
 use Shuchkin\SimpleXLSX;
-
+error_reporting(0);
 $excel_file = $_FILES['excelfile'];
 $nombre = $excel_file['name'];
 require_once '../modelo/MySQL.php';

@@ -1,18 +1,9 @@
 <?php
-
-
 session_start();
-
 require 'modelo/funcionarios.php';
 require 'modelo/Mysql.php';
 
-
-
-
-
-if ($_SESSION['sesion'] == true) {
-
-
+if (isset($_SESSION['sesion'])) {
     $user = $_SESSION['nombre'];
     $id = $_SESSION['id'];
     $rol = $_SESSION['rol'];
@@ -54,7 +45,7 @@ if (isset($_POST['incorrecto'])) {
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-    <title>FormaSer Sena</title>
+    <title>FormaSer - Menú</title>
     <meta content="" name="description">
     <meta content="" name="keywords">
 
@@ -110,9 +101,8 @@ if (isset($_POST['incorrecto'])) {
                 <li class="nav-item dropdown pe-3">
 
                     <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-                        <img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle">
                         <span class="d-none d-md-block dropdown-toggle ps-2"><?php echo $user; ?></span>
-                    </a><!-- End Profile Iamge Icon -->
+                    </a>
 
                     <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
                         <li class="dropdown-header">
@@ -122,17 +112,6 @@ if (isset($_POST['incorrecto'])) {
                         <li>
                             <hr class="dropdown-divider">
                         </li>
-                        <!--
-            <li>
-              <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
-                <i class="bi bi-person"></i>
-                <span>My Profile</span>
-              </a>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
--->
 
 
                         <li>
@@ -193,19 +172,19 @@ if (isset($_POST['incorrecto'])) {
 
         <ul class="nav nav-tabs pt-5">
             <li class="nav-item">
-                <a class="tablinks nav-link" onclick="openTab(event, 'pestaña1')">Formato 1</a>
+                <a class="tablinks nav-link" id="tab1" onclick="openTab('tab1', 'pestaña1')">Formato 1</a>
             </li>
             <li class="nav-item">
-                <a class="tablinks nav-link" onclick="openTab(event, 'pestaña2')">Formato 2</a>
+                <a class="tablinks nav-link" id="tab2" onclick="openTab('tab2', 'pestaña2')">Formato 2</a>
             </li>
             <li class="nav-item">
-                <a class="tablinks nav-link" onclick="openTab(event, 'pestaña3')">Formato 3</a>
+                <a class="tablinks nav-link" id="tab3" onclick="openTab('tab3', 'pestaña3')">Formato 3</a>
             </li>
             <li class="nav-item">
-                <a class="tablinks nav-link" onclick="openTab(event, 'pestaña4')">Consultar fichas</a>
+                <a class="tablinks nav-link" id="tab4" onclick="openTab('tab4', 'pestaña4')">Consultar fichas</a>
             </li>
             <li class="nav-item">
-                <a class="tablinks nav-link" data-bs-toggle="modal" data-bs-target="#modalTuto">Tutorial</a>
+                <a class=" nav-link bg-success text-white" data-bs-toggle="modal" data-bs-target="#modalTuto">Tutorial</a>
             </li>
         </ul>
 
@@ -242,7 +221,7 @@ if (isset($_POST['incorrecto'])) {
                                     <h5 class="card-title">Primer formato</h5>
                                     <form action="./controlador/leerexcel.php" class="form" method="post" enctype='multipart/form-data'>
 
-                                        <input class="btn btn-success form-control " accept=".xlsx, .xls" required type="file" name="excelfile" id="">
+                                        <input class="btn btn-success form-control " accept=".xlsx, .xls" required type="file" name="excelfile">
                                         <p></p>
                                         <input class="btn btn-primary  form-control" value="Subir archivo seleccionado" type="submit">
 
@@ -287,38 +266,42 @@ if (isset($_POST['incorrecto'])) {
                     </div>
 
                     <script>
-                        tableToJson(document.getElementById("tabla"))
+                        if (document.getElementById("tab1").className.includes("bg-primary")) {
+
+                            tableToJson(document.getElementById("tabla"))
 
 
 
-                        function tableToJson(table) {
+                            function tableToJson(table) {
 
-                            var data = [];
+                                var data = [];
 
-                            // first row needs to be headers
-                            var headers = [];
-                            for (var i = 0; i < table.rows[0].cells.length; i++) {
-                                headers[i] = table.rows[0].cells[i].innerText
-                            }
-
-                            // go through cells
-                            for (var i = 1; i < table.rows.length; i++) {
-
-                                var tableRow = table.rows[i];
-                                var rowData = {};
-
-                                for (var j = 0; j < tableRow.cells.length; j++) {
-
-                                    rowData[headers[j]] = tableRow.cells[j].innerText;
-
+                                // first row needs to be headers
+                                var headers = [];
+                                for (var i = 0; i < table.rows[0].cells.length; i++) {
+                                    headers[i] = table.rows[0].cells[i].innerText
                                 }
 
-                                data.push(rowData);
+                                // go through cells
+                                for (var i = 1; i < table.rows.length; i++) {
+
+                                    var tableRow = table.rows[i];
+                                    var rowData = {};
+
+                                    for (var j = 0; j < tableRow.cells.length; j++) {
+
+                                        rowData[headers[j]] = tableRow.cells[j].innerText;
+
+                                    }
+
+                                    data.push(rowData);
+
+                                }
+                                document.getElementById("datostabla").value = JSON.stringify(data);
+                                return data;
+
 
                             }
-                            document.getElementById("datostabla").value = JSON.stringify(data);
-                            return data;
-
 
                         }
                     </script>
@@ -336,7 +319,7 @@ if (isset($_POST['incorrecto'])) {
                                 <form action="./controlador/leerexcel2.php" class="form" method="post" enctype='multipart/form-data'>
 
 
-                                    <input class="btn btn-success form-control" accept=".xlsx, .xls" required type="file" name="excelfile" id="">
+                                    <input class="btn btn-success form-control" accept=".xlsx, .xls" required type="file" name="excelfile">
                                     <p></p>
                                     <input class="btn btn-primary  form-control" value="Subir archivo seleccionado" type="submit">
 
@@ -385,7 +368,7 @@ if (isset($_POST['incorrecto'])) {
                                 <form action="./controlador/leerexcel3.php" class="form" method="post" enctype='multipart/form-data'>
 
 
-                                    <input class="btn btn-success required form-control" accept=".xlsx, .xls" type="file" name="excelfile" id="">
+                                    <input class="btn btn-success  form-control" required accept=".xlsx, .xls" type="file" name="excelfile">
                                     <p></p>
                                     <input id="subir" class="btn btn-primary form-control" value="Subir archivo seleccionado" type="submit">
                                     <input name="datostabla2" id="datostabla2" type="hidden" value=" ">
@@ -423,6 +406,10 @@ if (isset($_POST['incorrecto'])) {
 
 
                 <script>
+                         if (document.getElementById("tab2").className.includes("bg-primary")) {
+
+
+
                     document.getElementById("subir").addEventListener("click", () => {
                         tableToJson2(document.getElementById("tabla2"))
                     })
@@ -430,7 +417,7 @@ if (isset($_POST['incorrecto'])) {
 
                     function tableToJson2(table) {
                         var data = [];
-                        console.log("A")
+
 
                         // first row needs to be headers
                         var headers = [];
@@ -458,6 +445,7 @@ if (isset($_POST['incorrecto'])) {
 
 
                     }
+                }
                 </script>
 
 
@@ -526,8 +514,8 @@ if (isset($_POST['incorrecto'])) {
                                             $mysql->desconectar();
 
                                             // Iterar sobre los resultados de la consulta y mostrarlos en la tabla
-
-                                            if (isset($consulta)) {
+                                            $count = mysqli_num_rows($consulta);
+                                            if ( $count>0) {
                                                 echo '   <button onclick="tableToExcel(tablai,' . $ficha . ')" class="btn btn-success">Exportar este formato(xls)</button><br> <br>';
 
                                                 while ($fila = mysqli_fetch_array($consulta)) {
@@ -627,16 +615,16 @@ if (isset($_POST['incorrecto'])) {
                     <br>
 
                     <div class="grid text-center p-4 rounded-3 bg-dark-subtle" style="--bs-gap: .25rem 1rem;">
-                    <span class="fs-4 badge bg-primary">Primera inscripción</span>
+                        <span class="fs-4 badge bg-primary">Primera inscripción</span>
                         <br>
                         <br>
                         <span class="fs-4 badge bg-success">En el sistema</span>
                         <br>
                         <br>
-                        <span class="fs-4 badge bg-success">Aspirante</span> 
+                        <span class="fs-4 badge bg-success">Aspirante</span>
                         <br>
                         <br>
-                        <span class="fs-4 badge bg-warning">Ha hecho otros cursos</span> 
+                        <span class="fs-4 badge bg-warning">Ha hecho otros cursos</span>
                         <br>
                         <br>
                         <span class="fs-4 badge bg-warning">Ya ha hecho otros cursos pero ya pasó un año</span>
@@ -779,19 +767,16 @@ if (isset($_POST['incorrecto'])) {
         <div class="text-center text-white">
             &copy; Copyright <strong><span>Centro de Tecnologias Agroindustriales SENA </span></strong>- Todos los
             derechos reservados, 2024.
+
+
         </div>
         <div class="credits">
-            <!-- All the links in the footer should remain intact. -->
-            <!-- You can delete the links only if you purchased the pro version. -->
-            <!-- Licensing information: https://bootstrapmade.com/license/ -->
-            <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/ -->
-            <!--  Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>-->
         </div>
-    </footer><!-- End Footer -->
+    </footer>
 
-    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+    <a href="#" class="back-to-top d-flex align-items-center justify-content-center text-white">▲</a>
 
-    <!-- Vendor JS Files -->
+
 
     <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
@@ -854,14 +839,15 @@ if (isset($_POST['incorrecto'])) {
 if (isset($_POST['tab1'])) {
 
     echo '<script>
-    openTab(event, "pestaña1")
+    openTab("tab1", "pestaña1")
+    
     </script>';
 }
 
 if (isset($_POST['tab2'])) {
 
     echo '<script>
-    openTab(event, "pestaña2")
+    openTab("tab2", "pestaña2")
     </script>';
 }
 
@@ -869,14 +855,14 @@ if (isset($_POST['tab2'])) {
 if (isset($_POST['tab3'])) {
 
     echo '<script>
-    openTab(event, "pestaña3")
+    openTab("tab3", "pestaña3")
     </script>';
 }
 
 if (isset($_POST['tab4'])) {
 
     echo '<script>
-    openTab(event, "pestaña4")
+    openTab("tab4", "pestaña4")
     </script>';
 }
 

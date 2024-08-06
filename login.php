@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <!-- Required meta tags -->
+
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap" rel="stylesheet">
@@ -10,13 +10,13 @@
 
     <link rel="stylesheet" href="assets/css/owl.carousel.min.css">
 
-    <!-- Bootstrap CSS -->
+   
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">
-    
-    <!-- Style -->
+    <link href="assets/img/logo-sena-verde-complementario-png-2022.png" rel="icon">
+
     <link rel="stylesheet" href="assets/css/styleLog.css">
 
-    <title>Login #2</title>
+    <title>FormaSer - Ingreso</title>
   </head>
   <body>
   <!doctype html>
